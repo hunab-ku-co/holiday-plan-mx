@@ -15,6 +15,7 @@ import {
 import { decodePlan, defaultState, encodePlan } from './share.js'
 import Stays from './Stays.jsx'
 import OaxacaTravel from './OaxacaTravel.jsx'
+import Maps from './Maps.jsx'
 
 const STORAGE_KEY = 'mx-trip-plan-26-27'
 const WHO_KEY = 'mx-trip-who'
@@ -239,6 +240,8 @@ export default function App() {
             </article>
           ))}
         </section>
+
+        <Maps days={days} />
 
         <section className="must">
           <h2>Must-do, not maybe</h2>
