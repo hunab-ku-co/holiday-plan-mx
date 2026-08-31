@@ -16,6 +16,8 @@ import { decodePlan, defaultState, encodePlan } from './share.js'
 import Stays from './Stays.jsx'
 import OaxacaTravel from './OaxacaTravel.jsx'
 import Maps from './Maps.jsx'
+import Decisions from './Decisions.jsx'
+import { asapDates } from './data/decisions.js'
 
 const STORAGE_KEY = 'mx-trip-plan-26-27'
 const WHO_KEY = 'mx-trip-who'
@@ -98,6 +100,7 @@ export default function App() {
 
   const days = useMemo(() => daysFor(state), [state.scenario, state.order, state.includePuebla])
   const warnings = useMemo(() => warningsFor(days, state.scenario), [days, state.scenario])
+  const asap = useMemo(() => asapDates(days, state.done), [days, state.done])
 
   function setNote(date, notes) {
     patch({ notes: { ...state.notes, [date]: notes } })
@@ -108,6 +111,12 @@ export default function App() {
   function setPick(date, field, value) {
     const prev = state.picks[date] || {}
     patch({ picks: { ...state.picks, [date]: { ...prev, [field]: value } } })
+  }
+  function setDone(id, value) {
+    const done = { ...(state.done || {}) }
+    if (value) done[id] = true
+    else delete done[id]
+    patch({ done })
   }
 
   const comments = Array.isArray(state.comments) ? state.comments : []
@@ -241,6 +250,8 @@ export default function App() {
           ))}
         </section>
 
+        <Decisions days={days} done={state.done || {}} onDone={setDone} onTab={setTab} />
+
         <Maps days={days} />
 
         <section className="must">
@@ -328,7 +339,7 @@ export default function App() {
               const tourId = picks.tour || d.tour
               const open = openDate === d.date
               return (
-                <li key={d.date} className={`day theme-${d.theme} st-${status}`}>
+                <li key={d.date} className={`day theme-${d.theme} st-${status}${asap.has(d.date) ? ' asap' : ''}`}>
                   <button type="button" className="day-toggle" onClick={() => setOpenDate(open ? null : d.date)} aria-expanded={open}>
                     <div className="when">
                       <span className="dow">{d.dow}</span>
@@ -466,7 +477,7 @@ export default function App() {
 
         <footer className="colophon">
           <p>
-            Share links encode the active scenario, chapter order, notes, comments, statuses, and picks in the URL hash. Nothing is stored on a server. Copy the share link after you write feedback so the other person sees it. Anyone with the link can read comments — do not put passport numbers, ticket codes, or phone numbers in them.
+            Share links encode the active scenario, chapter order, notes, comments, statuses, picks, and checked decisions in the URL hash. Nothing is stored on a server. Copy the share link after you write feedback so the other person sees it. Anyone with the link can read comments — do not put passport numbers, ticket codes, or phone numbers in them.
           </p>
           <p>
             Live at{' '}

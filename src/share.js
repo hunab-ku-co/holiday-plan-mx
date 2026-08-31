@@ -41,6 +41,25 @@ function expandComments(list) {
     .filter((c) => c.text)
 }
 
+function compactDone(done) {
+  if (!done || typeof done !== 'object') return []
+  return Object.keys(done).filter((id) => done[id])
+}
+
+function expandDone(raw) {
+  const out = {}
+  if (Array.isArray(raw)) {
+    for (const id of raw) {
+      if (id) out[String(id)] = true
+    }
+  } else if (raw && typeof raw === 'object') {
+    for (const [id, v] of Object.entries(raw)) {
+      if (v) out[id] = true
+    }
+  }
+  return out
+}
+
 export function encodePlan(state) {
   const compact = {
     v: 1,
@@ -52,6 +71,8 @@ export function encodePlan(state) {
     k: state.picks,
     f: compactComments(state.comments),
   }
+  const doneIds = compactDone(state.done)
+  if (doneIds.length) compact.e = doneIds
   const json = JSON.stringify(compact)
   const bytes = new TextEncoder().encode(json)
   return PREFIX + toB64url(bytes)
@@ -74,6 +95,7 @@ export function decodePlan(hash) {
       status: c.t && typeof c.t === 'object' ? c.t : {},
       picks: c.k && typeof c.k === 'object' ? c.k : {},
       comments: expandComments(c.f),
+      done: expandDone(c.e),
     }
   } catch {
     return null
@@ -89,5 +111,6 @@ export function defaultState() {
     status: {},
     picks: {},
     comments: [],
+    done: {},
   }
 }

@@ -11,6 +11,7 @@
   --cream: #faf3e6;
   --night: #2a1710;
   --alert: #9b1d1d;
+  --asap: #e11d2e;
   --warn: #9a5b12;
   --ok: #2f5d46;
   --shadow: 0 18px 50px rgba(36, 22, 15, 0.12);
@@ -175,7 +176,7 @@ body {
 .alt-p { font-weight: 600; margin: 2px 0 6px; }
 .alt-band p { margin: 0; font-size: 0.9rem; color: rgba(250, 243, 230, 0.8); }
 
-.must, .maps, .puebla-slots, .play, .warns, .timeline, .catalog, .colophon, .panel {
+.must, .maps, .decide, .puebla-slots, .play, .warns, .timeline, .catalog, .colophon, .panel {
   padding: 26px 22px 8px;
 }
 h2 {
@@ -195,7 +196,7 @@ h2 {
   color: var(--terracotta-deep);
   margin: 0 0 8px;
 }
-.must ul, .days, .items, .blocks, .catalog ul, .puebla-slots ol { margin: 0; padding: 0; list-style: none; }
+.must ul, .days, .items, .blocks, .decisions, .catalog ul, .puebla-slots ol { margin: 0; padding: 0; list-style: none; }
 .must li, .puebla-slots li, .catalog li {
   padding: 8px 0;
   border-bottom: 1px solid rgba(36, 22, 15, 0.08);
@@ -249,6 +250,45 @@ h2 {
 .nudge button:disabled { opacity: 0.35; }
 .check { display: flex; gap: 8px; align-items: center; font-size: 0.95rem; }
 
+
+.decide { padding-bottom: 18px; }
+.decisions { display: grid; gap: 8px; margin: 12px 0 8px; }
+.decision {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--cream);
+  border: 1px solid rgba(36, 22, 15, 0.08);
+  border-left: 4px solid var(--paper-2);
+  border-radius: 10px;
+}
+.decision.now { border-left-color: var(--asap); }
+.decision.soon[data-kind="stay"] { border-left-color: var(--gold); }
+.decision.soon[data-kind="eat"] { border-left-color: var(--terracotta); }
+.decision.soon[data-kind="see"] { border-left-color: var(--agave); }
+.decision.soon[data-kind="move"],
+.decision.soon[data-kind="fly"] { border-left-color: var(--night); }
+.decision.done {
+  opacity: 0.55;
+  border-left-color: #b9aea3;
+}
+.decision-check {
+  display: flex;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.decision input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--pine);
+  cursor: pointer;
+}
+.decision-body { display: grid; gap: 2px; min-width: 0; }
+.decision-body strong { font-weight: 600; font-size: 0.92rem; }
+.decision-body span { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.45; }
+.decision-body .tab-jump { justify-self: start; margin-top: 4px; }
+
 .warns { display: grid; gap: 8px; padding-top: 8px; }
 .warns p {
   margin: 0;
@@ -283,6 +323,7 @@ h2 {
 .day.theme-oaxaca { border-left: 4px solid var(--agave); }
 .day.theme-puebla { border-left: 4px solid #7a4e2d; }
 .day.theme-frida { border-left: 4px solid #a43d4a; }
+.day.asap { border-left-color: var(--asap); }
 .day.st-booked { background: #eef5ef; }
 .day.st-skip { opacity: 0.62; }
 
@@ -414,7 +455,7 @@ h2 {
 
 @media (min-width: 720px) {
   .page { padding: 28px 20px 80px; }
-  .masthead, .must, .maps, .puebla-slots, .play, .warns, .timeline, .feedback, .catalog, .panel { padding-left: 36px; padding-right: 36px; }
+  .masthead, .must, .maps, .decide, .puebla-slots, .play, .warns, .timeline, .feedback, .catalog, .panel { padding-left: 36px; padding-right: 36px; }
   .masthead { padding-top: 40px; }
   .alt-band { grid-template-columns: repeat(3, 1fr); }
   .alt-band article { border-top: 0; border-right: 1px solid rgba(250, 243, 230, 0.08); }
