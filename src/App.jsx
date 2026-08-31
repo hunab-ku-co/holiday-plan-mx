@@ -1,0 +1,431 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  ALL_BLOCKS,
+  DEFAULT_ORDER,
+  STATUSES,
+  authoredA,
+  authoredB,
+  generateFromOrder,
+  lookup,
+  longDate,
+  normalizeOrder,
+  trip,
+  warningsFor,
+} from './engine.js'
+import { decodePlan, defaultState, encodePlan } from './share.js'
+
+const STORAGE_KEY = 'mx-trip-plan-26-27'
+
+function loadInitial() {
+  const fromHash = decodePlan(window.location.hash)
+  if (fromHash) return { ...defaultState(), ...fromHash }
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) return { ...defaultState(), ...JSON.parse(raw) }
+  } catch {
+    /* ignore */
+  }
+  return defaultState()
+}
+
+function usePlan() {
+  const [state, setState] = useState(loadInitial)
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    const encoded = encodePlan(state)
+    const next = '#' + encoded
+    if (window.location.hash !== next) {
+      history.replaceState(null, '', next)
+    }
+  }, [state])
+
+  const patch = useCallback((partial) => {
+    setState((s) => ({ ...s, ...partial }))
+  }, [])
+
+  return [state, patch, setState]
+}
+
+function daysFor(state) {
+  if (state.scenario === 'A' && !state.includePuebla) return authoredA()
+  if (state.scenario === 'B' && !state.includePuebla) return authoredB()
+  return generateFromOrder(state.order, state.includePuebla)
+}
+
+export default function App() {
+  const [state, patch] = usePlan()
+  const [copied, setCopied] = useState(false)
+  const [openDate, setOpenDate] = useState(null)
+  const [showPlay, setShowPlay] = useState(false)
+
+  const days = useMemo(() => daysFor(state), [state.scenario, state.order, state.includePuebla])
+  const warnings = useMemo(() => warningsFor(days, state.scenario), [days, state.scenario])
+
+  function setNote(date, notes) {
+    patch({ notes: { ...state.notes, [date]: notes } })
+  }
+  function setStatus(date, status) {
+    patch({ status: { ...state.status, [date]: status } })
+  }
+  function setPick(date, field, value) {
+    const prev = state.picks[date] || {}
+    patch({ picks: { ...state.picks, [date]: { ...prev, [field]: value } } })
+  }
+
+  async function copyShare() {
+    const url = `${window.location.origin}${window.location.pathname}${window.location.hash}`
+    try {
+      await navigator.clipboard.writeText(url)
+    } catch {
+      const ta = document.createElement('textarea')
+      ta.value = url
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      document.body.removeChild(ta)
+    }
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1800)
+  }
+
+  function moveBlock(id, dir) {
+    const order = normalizeOrder(state.order, state.includePuebla)
+    const i = order.indexOf(id)
+    const j = i + dir
+    if (i < 0 || j < 0 || j >= order.length) return
+    const next = order.slice()
+    ;[next[i], next[j]] = [next[j], next[i]]
+    patch({ scenario: 'C', order: next })
+  }
+
+  function togglePuebla() {
+    const include = !state.includePuebla
+    patch({
+      includePuebla: include,
+      scenario: 'C',
+      order: normalizeOrder(state.order, include),
+    })
+  }
+
+  const hotelsByCity = (city) => trip.hotels.filter((h) => h.city === city || (city === 'CDMX' && h.city === 'MEX'))
+  const restByCity = (city) => trip.restaurants.filter((r) => r.city === city)
+  const toursByCity = (city) => trip.tours.filter((t) => t.city === city)
+
+  return (
+    <div className="page">
+      <div className="paper">
+        <header className="masthead">
+          <div className="folio">Travel dossier · winter 26–27</div>
+          <h1>
+            <span className="title-kicker">{trip.meta.short}</span>
+            {trip.meta.title}
+          </h1>
+          <p className="lede">{trip.meta.blurb}</p>
+          <div className="meta-row">
+            <span>24 Dec 2026 → 8 Jan 2027</span>
+            <span className="dot" />
+            <span>S lands MEX ~midnight 24 Dec</span>
+            <span className="dot" />
+            <span>In-browser editable</span>
+          </div>
+          <div className="toolbar">
+            <div className="seg" role="tablist" aria-label="Scenario">
+              <button className={state.scenario === 'A' ? 'on' : ''} onClick={() => patch({ scenario: 'A', includePuebla: false, order: DEFAULT_ORDER })}>
+                A · Baseline
+              </button>
+              <button className={state.scenario === 'B' ? 'on' : ''} onClick={() => patch({ scenario: 'B', includePuebla: false, order: ['oaxaca', 'cdmx-xmas', 'cdmx-museums', 'frida'] })}>
+                B · Altitude
+              </button>
+              <button className={state.scenario === 'C' ? 'on' : ''} onClick={() => patch({ scenario: 'C' })}>
+                Playground
+              </button>
+            </div>
+            <button className="share" onClick={copyShare}>
+              {copied ? 'Link copied' : 'Copy share link'}
+            </button>
+          </div>
+          <p className="scenario-lede">
+            {state.scenario === 'A' && trip.scenarioA.lede}
+            {state.scenario === 'B' && trip.scenarioB.lede}
+            {state.scenario === 'C' && 'Dates regenerate from the chapter order below. Warnings fire for closures, stacked travel, Frida, 8 Jan, NYE, and Cholula Mon/Tue.'}
+          </p>
+        </header>
+
+        <section className="alt-band" aria-label="Altitude">
+          {trip.altitudes.map((a) => (
+            <article key={a.place}>
+              <div className="alt-m">{a.m.toLocaleString('en-US')} m</div>
+              <div className="alt-p">{a.place}</div>
+              <p>{a.note}</p>
+            </article>
+          ))}
+        </section>
+
+        <section className="must">
+          <h2>Must-do, not maybe</h2>
+          <div className="must-grid">
+            <Must city="CDMX" items={trip.mustDos.cdmx} />
+            <Must city="Oaxaca" items={trip.mustDos.oaxaca} />
+            <Must city="Puebla" items={trip.mustDos.puebla} extra="Not placed in A or B. Ranked slots below." />
+          </div>
+        </section>
+
+        <section className="puebla-slots">
+          <h2>Puebla · ranked slots</h2>
+          <ol>
+            {trip.pueblaSlots.map((s) => (
+              <li key={s.rank}>
+                <strong>{s.title}</strong>
+                <span>{s.why}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section className="play">
+          <div className="play-head">
+            <h2>Chapter playground</h2>
+            <button className="textish" onClick={() => setShowPlay((v) => !v)}>
+              {showPlay ? 'Hide' : 'Reorder chapters'}
+            </button>
+          </div>
+          {(showPlay || state.scenario === 'C') && (
+            <>
+              <p className="hint">
+                Arrival 24 Dec and the 8 Jan homebound day stay locked. Oaxaca stretches to fill leftover days. Puebla is a one-day trip with no extra hotel.
+              </p>
+              <ul className="blocks">
+                {normalizeOrder(state.order, state.includePuebla).map((id, i, arr) => {
+                  const meta = trip.playgroundBlocks.find((b) => b.id === id)
+                  return (
+                    <li key={id} className="block-chip">
+                      <div>
+                        <strong>{meta?.label || id}</strong>
+                        <small>{meta?.hint}</small>
+                      </div>
+                      <span className="nudge">
+                        <button type="button" disabled={i === 0} onClick={() => moveBlock(id, -1)} aria-label="Move earlier">
+                          ↑
+                        </button>
+                        <button type="button" disabled={i === arr.length - 1} onClick={() => moveBlock(id, 1)} aria-label="Move later">
+                          ↓
+                        </button>
+                      </span>
+                    </li>
+                  )
+                })}
+              </ul>
+              <label className="check">
+                <input type="checkbox" checked={state.includePuebla} onChange={togglePuebla} />
+                Place Puebla / Cholula as a one-day chapter
+              </label>
+            </>
+          )}
+        </section>
+
+        {warnings.length > 0 && (
+          <section className="warns" aria-label="Warnings">
+            {warnings.map((w, i) => (
+              <p key={i} className={w.level}>
+                <span>{w.level === 'alert' ? 'Alert' : w.level === 'warn' ? 'Watch' : 'Note'}</span>
+                {w.text}
+              </p>
+            ))}
+          </section>
+        )}
+
+        <section className="timeline">
+          <h2>The days</h2>
+          <ol className="days">
+            {days.map((d) => {
+              const status = state.status[d.date] || 'idea'
+              const note = state.notes[d.date] || ''
+              const picks = state.picks[d.date] || {}
+              const hotelId = picks.hotel || d.hotel
+              const restId = picks.restaurant || d.restaurant
+              const tourId = picks.tour || d.tour
+              const open = openDate === d.date
+              return (
+                <li key={d.date} className={`day theme-${d.theme} st-${status}`}>
+                  <button type="button" className="day-toggle" onClick={() => setOpenDate(open ? null : d.date)} aria-expanded={open}>
+                    <div className="when">
+                      <span className="dow">{d.dow}</span>
+                      <span className="num">{d.date.slice(8)}</span>
+                      <span className="mon">{d.date.slice(5, 7) === '12' ? 'Dec' : 'Jan'}</span>
+                    </div>
+                    <div className="day-main">
+                      <h3>{d.title}</h3>
+                      <p className="place">
+                        {d.place}
+                        <span className="alt-badge">{d.altitude.toLocaleString('en-US')} m</span>
+                        <StatusPill status={status} />
+                      </p>
+                    </div>
+                  </button>
+                  <p className="summary">{d.summary}</p>
+                  <ul className="items">
+                    {d.items.map((it, idx) => (
+                      <li key={idx} data-kind={it.kind}>
+                        <em>{it.title}</em>
+                        <span>{it.detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {d.research?.length > 0 && (
+                    <div className="research">
+                      {d.research.map((r) => (
+                        <div key={r.label} className="clip">
+                          <strong>{r.label}</strong>
+                          <span>{r.state}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {open && (
+                    <div className="editor">
+                      <div className="status-row">
+                        {STATUSES.map((s) => (
+                          <button key={s.id} className={status === s.id ? 'on' : ''} type="button" onClick={() => setStatus(d.date, s.id)}>
+                            {s.label}
+                          </button>
+                        ))}
+                      </div>
+                      <label>
+                        Hotel
+                        <select value={hotelId || ''} onChange={(e) => setPick(d.date, 'hotel', e.target.value)}>
+                          <option value="">—</option>
+                          {hotelsByCity(d.city).map((h) => (
+                            <option key={h.id} value={h.id}>
+                              {h.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <PickHint item={lookup(trip.hotels, hotelId)} />
+                      <label>
+                        Restaurant
+                        <select value={restId || ''} onChange={(e) => setPick(d.date, 'restaurant', e.target.value)}>
+                          <option value="">—</option>
+                          {restByCity(d.city).map((r) => (
+                            <option key={r.id} value={r.id}>
+                              {r.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <PickHint item={lookup(trip.restaurants, restId)} />
+                      <label>
+                        Tour / ticket
+                        <select value={tourId || ''} onChange={(e) => setPick(d.date, 'tour', e.target.value)}>
+                          <option value="">—</option>
+                          {toursByCity(d.city).map((t) => (
+                            <option key={t.id} value={t.id}>
+                              {t.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <PickHint item={lookup(trip.tours, tourId)} />
+                      <label>
+                        Notes
+                        <textarea
+                          rows={4}
+                          value={note}
+                          placeholder="Private to this share link — still public if you send the URL."
+                          onChange={(e) => setNote(d.date, e.target.value)}
+                        />
+                      </label>
+                    </div>
+                  )}
+                  {!open && (hotelId || restId || note) && (
+                    <p className="picked">
+                      {hotelId && <span>{lookup(trip.hotels, hotelId)?.name}</span>}
+                      {restId && <span>{lookup(trip.restaurants, restId)?.name}</span>}
+                      {note && <span className="note-preview">{note}</span>}
+                    </p>
+                  )}
+                </li>
+              )
+            })}
+          </ol>
+        </section>
+
+        <section className="catalog">
+          <h2>The lists</h2>
+          <p className="hint">Research slots stay typeset even when the 2026–27 circular has not landed. No invented hours. No flight numbers.</p>
+          <Catalog title="Hotels" items={trip.hotels} />
+          <Catalog title="Tables" items={trip.restaurants} />
+          <Catalog title="Tickets & days out" items={trip.tours} />
+        </section>
+
+        <footer className="colophon">
+          <p>
+            Share links encode the active scenario, chapter order, notes, statuses, and picks in the URL hash. Nothing is stored on a server. localStorage keeps a copy on this browser. Anyone with the link can read the notes — do not put passport numbers, ticket codes, or phone numbers in them.
+          </p>
+          <p>
+            Live at{' '}
+            <a href="https://hunab-ku-co.github.io/holiday-plan-mx/">hunab-ku-co.github.io/holiday-plan-mx</a>
+            . Source on GitHub. Travelers referred to as S and V only.
+          </p>
+        </footer>
+      </div>
+    </div>
+  )
+}
+
+function Must({ city, items, extra }) {
+  return (
+    <article>
+      <h3>{city}</h3>
+      {extra && <p className="extra">{extra}</p>}
+      <ul>
+        {items.map((x) => (
+          <li key={x}>{x}</li>
+        ))}
+      </ul>
+    </article>
+  )
+}
+
+function StatusPill({ status }) {
+  const s = STATUSES.find((x) => x.id === status)
+  return <span className={`pill p-${status}`}>{s?.label || status}</span>
+}
+
+function PickHint({ item }) {
+  if (!item) return null
+  return (
+    <p className="pick-hint">
+      {item.note}
+      {item.url && (
+        <>
+          {' '}
+          <a href={item.url} target="_blank" rel="noreferrer">
+            Link
+          </a>
+        </>
+      )}
+    </p>
+  )
+}
+
+function Catalog({ title, items }) {
+  return (
+    <div className="cat-block">
+      <h3>{title}</h3>
+      <ul>
+        {items.map((it) => (
+          <li key={it.id}>
+            <strong>{it.name}</strong>
+            <em>{it.city}</em>
+            <span>{it.note}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+void longDate
+void ALL_BLOCKS
