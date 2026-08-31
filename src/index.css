@@ -938,6 +938,44 @@ h2 {
   font-weight: 600;
 }
 
+.map-zoom {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--cream);
+  border: 1px solid var(--pine);
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(36, 22, 15, 0.16);
+}
+.map-zoom button {
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--cream);
+  color: var(--pine);
+  font-family: Fraunces, "Iowan Old Style", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+.map-zoom button + button {
+  border-top: 1px solid var(--pine);
+}
+.map-zoom button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.map-zoom button:not(:disabled):hover {
+  background: var(--paper);
+}
+
 .map-attrib {
   position: absolute;
   right: 6px;

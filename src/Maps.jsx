@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { AREAS, PINS } from './data/maps.js'
 
 const XMAS = '2026-12-25'
@@ -14,6 +14,15 @@ function lonToX(lon, z) {
 function latToY(lat, z) {
   const s = Math.sin((lat * Math.PI) / 180)
   return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * 2 ** z
+}
+
+function xToLon(x, z) {
+  return (x / 2 ** z) * 360 - 180
+}
+
+function yToLat(y, z) {
+  const n = Math.PI - (2 * Math.PI * y) / 2 ** z
+  return (180 / Math.PI) * Math.atan(Math.sinh(n))
 }
 
 function numOf(days, d) {
@@ -194,85 +203,221 @@ function clamp(n, a, b) {
 }
 
 function AreaMap({ area, pins }) {
-  const { west, south, east, north, zoom } = area
+  const { west, south, east, north, zoom: z0 } = area
+  const minZ = z0 - 1
+  const maxZ = 18
   const stageRef = useRef(null)
   const drag = useRef(null)
-  const [pan, setPan] = useState({ x: 0, y: 0 })
+  const pts = useRef(new Map())
+  const pinch = useRef(null)
+  const lastTap = useRef(null)
+  const lastWheel = useRef(0)
+  const viewRef = useRef(null)
+  const zoomAtRef = useRef(() => {})
+
+  const [view, setView] = useState(() => {
+    const cx = (west + east) / 2
+    const midY = (latToY(north, z0) + latToY(south, z0)) / 2
+    return { z: z0, cx, cy: yToLat(midY, z0) }
+  })
+  viewRef.current = view
 
   const model = useMemo(() => {
-    const vx0 = lonToX(west, zoom)
-    const vx1 = lonToX(east, zoom)
-    const vy0 = latToY(north, zoom)
-    const vy1 = latToY(south, zoom)
-    const vw = vx1 - vx0
-    const vh = vy1 - vy0
-    // One extra tile around the pocket so a light pan stays at this zoom.
-    const tx0 = Math.floor(vx0) - 1
-    const tx1 = Math.ceil(vx1)
-    const ty0 = Math.floor(vy0) - 1
-    const ty1 = Math.ceil(vy1)
+    const { z, cx, cy } = view
+    // Tile-span of the original bbox, scaled so one Carto zoom step is 2× geography.
+    const spanX = (lonToX(east, z) - lonToX(west, z)) * 2 ** (z0 - z)
+    const spanY = (latToY(south, z) - latToY(north, z)) * 2 ** (z0 - z)
+    const ox = lonToX(cx, z) - spanX / 2
+    const oy = latToY(cy, z) - spanY / 2
+    const nTiles = 2 ** z
+    const tx0 = Math.floor(ox) - 1
+    const tx1 = Math.ceil(ox + spanX)
+    const ty0 = Math.floor(oy) - 1
+    const ty1 = Math.ceil(oy + spanY)
     const tiles = []
     for (let ty = ty0; ty <= ty1; ty++) {
       for (let tx = tx0; tx <= tx1; tx++) {
-        if (tx < 0 || ty < 0) continue
+        if (tx < 0 || ty < 0 || tx >= nTiles || ty >= nTiles) continue
         const sub = SUBS[(tx + ty) & 3]
         tiles.push({
-          key: `${zoom}/${tx}/${ty}`,
-          src: `https://${sub}.basemaps.cartocdn.com/rastertiles/voyager/${zoom}/${tx}/${ty}@2x.png`,
-          left: ((tx - vx0) / vw) * 100,
-          top: ((ty - vy0) / vh) * 100,
-          width: (1 / vw) * 100,
-          height: (1 / vh) * 100,
+          key: `${z}/${tx}/${ty}`,
+          src: `https://${sub}.basemaps.cartocdn.com/rastertiles/voyager/${z}/${tx}/${ty}@2x.png`,
+          left: ((tx - ox) / spanX) * 100,
+          top: ((ty - oy) / spanY) * 100,
+          width: (1 / spanX) * 100,
+          height: (1 / spanY) * 100,
         })
       }
     }
-    const maxX = Math.max(0, (vx0 - tx0) / vw)
-    const maxY = Math.max(0, (vy0 - ty0) / vh)
-    const minX = Math.min(0, (vx1 - (tx1 + 1)) / vw)
-    const minY = Math.min(0, (vy1 - (ty1 + 1)) / vh)
     const laidPins = (pins || []).map((p) => {
-      const x = ((lonToX(p.lon, zoom) - vx0) / vw) * 100
-      const y = ((latToY(p.lat, zoom) - vy0) / vh) * 100
+      const x = ((lonToX(p.lon, z) - ox) / spanX) * 100
+      const y = ((latToY(p.lat, z) - oy) / spanY) * 100
       const ax = x > 62 ? 'w' : x < 38 ? 'e' : 'c'
       const ay = y < 34 ? 's' : 'n'
       return { ...p, x, y, anchor: `${ay}${ax}` }
     })
     return {
-      aspect: `${vw} / ${vh}`,
+      aspect: `${spanX} / ${spanY}`,
       tiles,
       pins: laidPins,
-      panMin: { x: minX, y: minY },
-      panMax: { x: maxX, y: maxY },
     }
-  }, [west, south, east, north, zoom, pins])
+  }, [west, south, east, north, z0, view, pins])
+
+  function clampView(z, cx, cy) {
+    return {
+      z: clamp(z, minZ, maxZ),
+      cx: clamp(cx, west, east),
+      cy: clamp(cy, south, north),
+    }
+  }
+
+  function spans(z) {
+    return {
+      spanX: (lonToX(east, z) - lonToX(west, z)) * 2 ** (z0 - z),
+      spanY: (latToY(south, z) - latToY(north, z)) * 2 ** (z0 - z),
+    }
+  }
+
+  function zoomAt(nextZ, clientX, clientY) {
+    const cur = viewRef.current
+    nextZ = clamp(Math.round(nextZ), minZ, maxZ)
+    if (nextZ === cur.z) return
+    const el = stageRef.current
+    let px = 0.5
+    let py = 0.5
+    if (el && clientX != null && clientY != null) {
+      const r = el.getBoundingClientRect()
+      const w = r.width || 1
+      const h = r.height || 1
+      px = clamp((clientX - r.left) / w, 0, 1)
+      py = clamp((clientY - r.top) / h, 0, 1)
+    }
+    const { z, cx, cy } = cur
+    const { spanX, spanY } = spans(z)
+    const ox = lonToX(cx, z) - spanX / 2
+    const oy = latToY(cy, z) - spanY / 2
+    const focusLon = xToLon(ox + px * spanX, z)
+    const focusLat = yToLat(oy + py * spanY, z)
+    const { spanX: spanX2, spanY: spanY2 } = spans(nextZ)
+    const ox2 = lonToX(focusLon, nextZ) - px * spanX2
+    const oy2 = latToY(focusLat, nextZ) - py * spanY2
+    setView(clampView(nextZ, xToLon(ox2 + spanX2 / 2, nextZ), yToLat(oy2 + spanY2 / 2, nextZ)))
+  }
+  zoomAtRef.current = zoomAt
+
+  useEffect(() => {
+    const el = stageRef.current
+    if (!el) return
+    function onWheel(e) {
+      e.preventDefault()
+      if (!e.deltaY) return
+      const now = performance.now()
+      if (now - lastWheel.current < 90) return
+      lastWheel.current = now
+      const dir = e.deltaY < 0 ? 1 : -1
+      zoomAtRef.current(viewRef.current.z + dir, e.clientX, e.clientY)
+    }
+    el.addEventListener('wheel', onWheel, { passive: false })
+    return () => el.removeEventListener('wheel', onWheel)
+  }, [])
 
   function onPointerDown(e) {
     if (e.button != null && e.button !== 0) return
     const el = stageRef.current
     if (!el) return
     el.setPointerCapture(e.pointerId)
+    pts.current.set(e.pointerId, { x: e.clientX, y: e.clientY })
+    if (pts.current.size >= 2) {
+      drag.current = null
+      const [a, b] = [...pts.current.values()]
+      pinch.current = {
+        dist: Math.hypot(a.x - b.x, a.y - b.y) || 1,
+        z: viewRef.current.z,
+        dirty: false,
+      }
+      return
+    }
+    pinch.current = null
+    const cur = viewRef.current
     drag.current = {
       x: e.clientX,
       y: e.clientY,
-      px: pan.x,
-      py: pan.y,
+      cx: cur.cx,
+      cy: cur.cy,
+      z: cur.z,
       w: el.clientWidth,
       h: el.clientHeight,
+      moved: false,
     }
   }
 
   function onPointerMove(e) {
+    if (pts.current.has(e.pointerId)) {
+      pts.current.set(e.pointerId, { x: e.clientX, y: e.clientY })
+    }
+    if (pinch.current && pts.current.size >= 2) {
+      const [a, b] = [...pts.current.values()]
+      const dist = Math.hypot(a.x - b.x, a.y - b.y) || 1
+      const ratio = dist / pinch.current.dist
+      if (ratio >= 1.35 || ratio <= 1 / 1.35) {
+        const dir = ratio >= 1.35 ? 1 : -1
+        zoomAt(pinch.current.z + dir, (a.x + b.x) / 2, (a.y + b.y) / 2)
+        pinch.current = {
+          dist,
+          z: clamp(pinch.current.z + dir, minZ, maxZ),
+          dirty: true,
+        }
+      }
+      return
+    }
     if (!drag.current) return
-    const dx = (e.clientX - drag.current.x) / drag.current.w
-    const dy = (e.clientY - drag.current.y) / drag.current.h
-    setPan({
-      x: clamp(drag.current.px + dx, model.panMin.x, model.panMax.x),
-      y: clamp(drag.current.py + dy, model.panMin.y, model.panMax.y),
-    })
+    const dxPx = e.clientX - drag.current.x
+    const dyPx = e.clientY - drag.current.y
+    if (Math.hypot(dxPx, dyPx) > 8) drag.current.moved = true
+    const z = drag.current.z
+    const { spanX, spanY } = spans(z)
+    const dx = dxPx / drag.current.w
+    const dy = dyPx / drag.current.h
+    const nx = xToLon(lonToX(drag.current.cx, z) - dx * spanX, z)
+    const ny = yToLat(latToY(drag.current.cy, z) - dy * spanY, z)
+    setView(clampView(z, nx, ny))
   }
 
-  function onPointerUp() {
-    drag.current = null
+  function onPointerUp(e) {
+    pts.current.delete(e.pointerId)
+    try {
+      stageRef.current?.releasePointerCapture(e.pointerId)
+    } catch {
+      /* already released */
+    }
+    if (pts.current.size < 2) {
+      const wasPinch = pinch.current
+      pinch.current = null
+      if (wasPinch?.dirty) {
+        drag.current = null
+        lastTap.current = null
+        return
+      }
+    }
+    const d = drag.current
+    if (pts.current.size === 0) drag.current = null
+    if (!d || d.moved || pts.current.size > 0) return
+    const now = performance.now()
+    const prev = lastTap.current
+    if (prev && now - prev.t < 400 && Math.hypot(e.clientX - prev.x, e.clientY - prev.y) < 28) {
+      lastTap.current = null
+      zoomAt(viewRef.current.z + 1, e.clientX, e.clientY)
+      return
+    }
+    lastTap.current = { t: now, x: e.clientX, y: e.clientY }
+  }
+
+  function onDoubleClick(e) {
+    e.preventDefault()
+  }
+
+  function stopPan(e) {
+    e.stopPropagation()
   }
 
   return (
@@ -284,11 +429,9 @@ function AreaMap({ area, pins }) {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onDoubleClick={onDoubleClick}
       >
-        <div
-          className="area-world"
-          style={{ transform: `translate(${pan.x * 100}%, ${pan.y * 100}%)` }}
-        >
+        <div className="area-world">
           {model.tiles.map((t) => (
             <img
               key={t.key}
@@ -325,6 +468,26 @@ function AreaMap({ area, pins }) {
           ))}
         </div>
       </div>
+      <div className="map-zoom">
+        <button
+          type="button"
+          aria-label="Zoom in"
+          disabled={view.z >= maxZ}
+          onPointerDown={stopPan}
+          onClick={() => zoomAt(view.z + 1)}
+        >
+          +
+        </button>
+        <button
+          type="button"
+          aria-label="Zoom out"
+          disabled={view.z <= minZ}
+          onPointerDown={stopPan}
+          onClick={() => zoomAt(view.z - 1)}
+        >
+          −
+        </button>
+      </div>
       <p className="map-attrib">
         <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
           © OpenStreetMap
@@ -345,8 +508,9 @@ export default function Maps({ days }) {
     <section className="maps" aria-label="Neighborhood maps">
       <h2>Where, not everywhere</h2>
       <p className="hint">
-        Cropped to the blocks you actually use. Pins follow the timeline of the active scenario (A / B / C). Christmas
-        Day / New Year’s Day mark where S &amp; V are those days, not every restaurant.
+        Cropped to the blocks you use; zoom in for streets, not out to the whole city. Pins follow the timeline of the
+        active scenario (A / B / C). Christmas Day / New Year’s Day mark where S &amp; V are those days, not every
+        restaurant.
       </p>
       <div className="maps-grid">
         {maps.map((m) => (
