@@ -404,41 +404,39 @@ export default function App() {
                       </div>
                     ) : (
                       <div className="day-face day-back">
-                        <div className="day-back-head">
+                        <button type="button" className="day-toggle" onClick={() => flipDay(d.date)} aria-expanded={true}>
                           <DayWhen d={d} />
                           <div className="day-main">
-                            <div className="day-back-title">
-                              <h3>{d.title}</h3>
-                              <button type="button" className="flip-back" onClick={() => flipDay(d.date)} aria-expanded={true}>
-                                Flip back
-                              </button>
-                            </div>
+                            <h3>{d.title}</h3>
                             <p className="place">
                               {d.place}
                               <span className="alt-badge">{d.altitude.toLocaleString('en-US')} m</span>
                               <StatusPill status={status} />
                             </p>
+                            <p className="flip-hint">Tap to hide</p>
                           </div>
-                        </div>
-                        <p className="summary">{d.summary}</p>
-                        <ul className="items">
-                          {d.items.map((it, idx) => (
-                            <li key={idx} data-kind={it.kind}>
-                              <em>{it.title}</em>
-                              <span>{it.detail}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        {d.research?.length > 0 && (
-                          <div className="research">
-                            {d.research.map((r) => (
-                              <div key={r.label} className="clip">
-                                <strong>{r.label}</strong>
-                                <span>{r.state}</span>
-                              </div>
+                        </button>
+                        <button type="button" className="day-toggle-back" onClick={() => flipDay(d.date)}>
+                          <p className="summary">{d.summary}</p>
+                          <ul className="items">
+                            {d.items.map((it, idx) => (
+                              <li key={idx} data-kind={it.kind}>
+                                <em>{it.title}</em>
+                                <span>{it.detail}</span>
+                              </li>
                             ))}
-                          </div>
-                        )}
+                          </ul>
+                          {d.research?.length > 0 && (
+                            <div className="research">
+                              {d.research.map((r) => (
+                                <div key={r.label} className="clip">
+                                  <strong>{r.label}</strong>
+                                  <span>{r.state}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </button>
                         <div className="editor">
                           <div className="status-row">
                             {STATUSES.map((s) => (

@@ -339,6 +339,17 @@ h2 {
   color: inherit;
   cursor: pointer;
 }
+.day-toggle-back {
+  width: 100%;
+  display: block;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
 .when {
   display: flex;
   flex-direction: column;
@@ -1029,32 +1040,6 @@ h2 {
   opacity: 0.8;
 }
 .day-front .picked { margin: 10px 0 0; }
-.day-back-head {
-  display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 12px;
-  align-items: start;
-}
-.day-back-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8px;
-}
-.day-back-title h3 { margin: 4px 0 6px; }
-.flip-back {
-  font: inherit;
-  cursor: pointer;
-  border: 1px solid rgba(36, 22, 15, 0.18);
-  background: white;
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 0.78rem;
-  color: var(--terracotta-deep);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.flip-back:hover { background: var(--paper); }
 .day-back .summary { margin-top: 12px; }
 .day-back .items { margin-top: 4px; }
 .timeline > .hint { margin: -6px 0 14px; }
@@ -1062,7 +1047,8 @@ h2 {
 .decision { align-items: center; }
 .decision.open { align-items: flex-start; }
 .decision-flip {
-  display: block;
+  display: grid;
+  gap: 2px;
   width: 100%;
   text-align: left;
   border: 0;

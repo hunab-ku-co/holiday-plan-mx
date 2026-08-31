@@ -36,16 +36,12 @@ export default function Decisions({ days, done, onDone, onTab }) {
                   onClick={() => setOpenId(open ? null : d.id)}
                 >
                   <strong>{d.title}</strong>
+                  {open && <span>{d.detail}</span>}
                 </button>
-                {open && (
-                  <>
-                    <span>{d.detail}</span>
-                    {hint && onTab && (
-                      <button type="button" className="textish tab-jump" onClick={() => onTab(d.tab)}>
-                        {hint}
-                      </button>
-                    )}
-                  </>
+                {open && hint && onTab && (
+                  <button type="button" className="textish tab-jump" onClick={() => onTab(d.tab)}>
+                    {hint}
+                  </button>
                 )}
               </div>
             </li>
