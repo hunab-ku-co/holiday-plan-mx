@@ -73,20 +73,21 @@ function arrivalDay() {
   return day({
     date: '2026-12-24',
     title: 'Landing night',
-    place: 'MEX airport hotel',
+    place: 'MEX or Roma Norte',
     city: 'CDMX',
     altitude: 2240,
     theme: 'arrival',
     summary:
-      'S arrives MEX around midnight (possibly just after midnight on the 25th). Zero-expectations night. Book the hotel that matches the arrival terminal. Authorized taxis 24/365 from prepaid kiosks inside — no touts, no Uber from the arrivals kerb with bags at 00:30.',
+      'S arrives MEX around midnight (possibly just after midnight on the 25th). Zero-expectations night. Fork: sleep the terminal-matched airport hotel, or skip it and go straight to Roma Norte if self-check-in is confirmed for 24 Dec night. Authorized taxis 24/365 from prepaid kiosks inside; Uber/DiDi from the designated bay — no touts, no street hail at the arrivals kerb with bags at 00:30.',
     items: [
-      { kind: 'stay', title: 'Terminal-matched airport hotel', detail: 'T1: Hilton inside the terminal (Gate 8, 3rd level) or Courtyard / Camino Real. T2: NH Collection inside T2. Skip downtown. Skip Fiesta Inn unless a 24 h transfer is confirmed in writing.' },
-      { kind: 'note', title: 'Mexican Christmas dinner is Nochebuena', detail: 'The 24th is the feast night in Mexico. S is landing; this is not a dinner reservation night. 25 Dec is the open question.' },
-      { kind: 'note', title: 'Aerotrén is for connecting passengers only', detail: 'Hotel shuttles: T1 Puerta 4; T2 hotel desks on the ground floor.' },
+      { kind: 'stay', title: 'Fork: airport hotel or Roma Norte', detail: 'Airport hotel still on the table: T1 Hilton inside the terminal (Gate 8, 3rd level) or Courtyard / Camino Real. T2: NH Collection inside T2. Skip Fiesta Inn unless a 24 h transfer is confirmed in writing. Roma Norte: self/late check-in from 24 Dec night is a must — listings live on the Stays tab. Metro will be closed.' },
+      { kind: 'note', title: 'Mexican Christmas dinner is Nochebuena', detail: 'The 24th is the feast night in Mexico. S is landing; this is not a dinner reservation night. 25 Dec is the open question. If going to Roma, kitchen/snacks matter — restaurants will be thin.' },
+      { kind: 'note', title: 'Aerotrén is for connecting passengers only', detail: 'Hotel shuttles if staying airside: T1 Puerta 4; T2 hotel desks on the ground floor. If skipping the hotel: designated rideshare bay, not the arrivals curb.' },
     ],
     research: [
-      { label: 'S arrival terminal (T1 vs T2)', state: 'Confirm closer in. Hotel choice follows the terminal.' },
+      { label: 'S arrival terminal (T1 vs T2)', state: 'Confirm closer in. Airport-hotel choice follows the terminal if that fork is taken.' },
       { label: 'Dated airport-hotel rates for 24 Dec 2026', state: 'Not published as a static list.' },
+      { label: 'Roma Norte self-check-in 24 Dec night', state: 'Required if skipping the airport hotel. See the Stays tab.' },
     ],
     hotel: 'hilton-t1',
     flags: ['locked'],
@@ -191,11 +192,11 @@ function polancoReturn(date, fromOaxaca) {
     altitude: 2240,
     theme: 'cdmx-return',
     summary: fromOaxaca
-      ? 'Fly OAX → MEX (~1 h 15). Typical late-morning to mid-afternoon windows — book the actual seats; December is the expensive month. Park-edge Campos Elíseos cluster if Anthropology is still ahead on foot. Soumaya is the light add-on (daily 10:30–18:30, free).'
+      ? 'Return from Oaxaca to CDMX. Flight airborne ~1 h 15, or ADO 6–7 h — the comparison lives on the CDMX–Oaxaca tab, not locked here. Typical late-morning to mid-afternoon windows if flying; December is the expensive month. Park-edge Campos Elíseos cluster if Anthropology is still ahead on foot. Soumaya is the light add-on (daily 10:30–18:30, free).'
       : 'Polanco night. Park-edge stay.',
     items: fromOaxaca
       ? [
-          { kind: 'fly', title: 'OAX → MEX', detail: 'About 1 h 10–1 h 25. Not the 6–7 h ADO bus except as backup. OAX airport to Centro is ~9 km the other direction; here you are connecting onward to MEX and then Polanco.' },
+          { kind: 'move', title: 'OAX → CDMX', detail: 'Bus vs flight is on the CDMX–Oaxaca tab. OAX airport is ~9 km / 20–30 min to Centro; ADO Oaxaca station is closer. Then onward to Polanco.' },
           { kind: 'see', title: 'Soumaya Plaza Carso if the landing is early enough', detail: 'Every day 10:30–18:30, free. Tuesday 5 Jan is an ordinary opening.' },
           { kind: 'eat', title: 'Polanco dinner', detail: 'Comedor Jacinta (Bib Gourmand) or Chapulín or Au Pied. Quintonil is a tasting (MXN 6090, Sun closed) — better as 7 Jan if they want a special.' },
         ]
@@ -269,22 +270,22 @@ function pueblaDay(date) {
 function oaxacaArrival(date, christmas) {
   return day({
     date,
-    title: christmas ? 'Fly Oaxaca · Christmas' : 'Fly Oaxaca · Centro',
+    title: christmas ? 'Oaxaca · Christmas' : 'Oaxaca · Centro',
     place: 'Oaxaca Centro',
     city: 'OAX',
     altitude: 1542,
     theme: 'oaxaca',
     summary: christmas
-      ? 'As soon as a midnight landing is humane: late morning rest, then MEX → OAX (~1 h 15). Christmas dinner at 1,542 m. 2026 menus are not published. Levadura is open on a Friday but this is an arrival day — save it. Casa Oaxaca or Los Danzantes, confirm that week.'
-      : 'MEX → OAX ~1 h 10–1 h 25. Typical Sunday morning windows; December is the expensive month. OAX → Centro ~9 km, 20–30 min official airport taxi. Stay Centro or Jalatlaco. Pool hotels after the later Monte Albán day.',
+      ? 'As soon as a midnight landing is humane: late morning rest, then CDMX → Oaxaca. Christmas dinner at 1,542 m. How you travel (flight ~1 h 15 airborne vs ADO 6–7 h) lives on the CDMX–Oaxaca tab — not locked here. 2026 menus are not published. Levadura is open on a Friday but this is an arrival day — save it. Casa Oaxaca or Los Danzantes, confirm that week.'
+      : 'CDMX → Oaxaca. Flight airborne ~1 h 10–1 h 25, or ADO 6–7 h — comparison on the CDMX–Oaxaca tab. Typical Sunday windows if flying. OAX airport → Centro ~9 km, 20–30 min; ADO Oaxaca station is closer to Centro. Stay Centro or Jalatlaco. Pool hotels after the later Monte Albán day.',
     items: christmas
       ? [
-          { kind: 'fly', title: 'MEX → OAX after a late start', detail: 'About 1 h 15. Not the 6–7 h bus. Confirm T1 vs T2 against the airport hotel already booked.' },
-          { kind: 'eat', title: 'Christmas dinner in Oaxaca', detail: 'Casa Oaxaca rooftop or Los Danzantes. Levadura is a Friday service day but too ambitious after the flight. Menus not published.' },
+          { kind: 'move', title: 'CDMX → Oaxaca', detail: 'Bus vs flight is on the CDMX–Oaxaca tab. If flying, match T1 vs T2 to the airline (not to an airport hotel you may have skipped).' },
+          { kind: 'eat', title: 'Christmas dinner in Oaxaca', detail: 'Casa Oaxaca rooftop or Los Danzantes. Levadura is a Friday service day but too ambitious after a travel day. Menus not published.' },
           { kind: 'stay', title: 'Centro or Jalatlaco', detail: 'Otro (facing Santo Domingo), Escondido, Quinta Real (skip a locked gala), Casa Oaxaca Hotel, Siglo 17, Los Pilares, City Centro Marriott.' },
         ]
       : [
-          { kind: 'fly', title: 'MEX → OAX', detail: 'Typical Sunday windows sit early morning. Book now.' },
+          { kind: 'move', title: 'CDMX → Oaxaca', detail: 'Typical Sunday windows if flying sit early morning. Day or overnight ADO is the other fork. See the CDMX–Oaxaca tab.' },
           { kind: 'see', title: 'Centro, Santo Domingo, light walking', detail: 'Arrival day is not Monte Albán. Jalatlaco dinner keeps it close to a pool hotel.' },
           { kind: 'eat', title: 'Asador Bacanora or Tierra del Sol', detail: 'Levadura is closed Sunday. Proposal: Bacanora in Jalatlaco.' },
         ],
@@ -448,7 +449,7 @@ function oaxacaFinale(date) {
       : 'Last full day. Criollo does not serve Sunday dinner. Casa Oaxaca restaurant Sundays 13:00–21:00, or a quiet market lunch.',
     items: [
       { kind: 'eat', title: criolloOk ? 'Criollo 18:00' : 'Casa Oaxaca restaurant', detail: 'Book Criollo on OpenTable when the last night is Mon–Sat.' },
-      { kind: 'see', title: 'Anything still open on the must-do list', detail: 'No new valley. Pack for an early OAX → MEX the next morning.' },
+      { kind: 'see', title: 'Anything still open on the must-do list', detail: 'No new valley. Pack for an OAX → CDMX move the next morning.' },
     ],
     hotel: 'otro',
     restaurant: criolloOk ? 'criollo' : 'casa-oax-roof',
@@ -479,7 +480,7 @@ function extraOaxaca(date) {
     theme: 'oaxaca',
     summary: 'An extra valley day from the altitude-reverse calendar. Centro, coffee, a second look at Santo Domingo. Keep dinner in town.',
     items: [
-      { kind: 'see', title: 'Centro without an agenda', detail: 'Useful the morning after a Christmas-Day flight.' },
+      { kind: 'see', title: 'Centro without an agenda', detail: 'Useful the morning after a Christmas-Day arrival.' },
       { kind: 'eat', title: 'Tierra del Sol or Asador Bacanora', detail: 'Save Levadura for Tuesday 29 Dec.' },
     ],
     hotel: 'otro',
@@ -649,7 +650,7 @@ export function warningsFor(days, scenario) {
       if (same || (d.flags || []).includes('travel-day')) {
         out.push({ level: 'alert', text: 'Puebla is stacked on a travel day. Do not squeeze Cholula onto a MEX–OAX morning.' })
       } else if (neighbor) {
-        out.push({ level: 'warn', text: 'Puebla sits next to an Oaxaca travel day. Slot 1 (Sun 27 day trip, fly Mon 28) is the only version of that idea that does not stack.' })
+        out.push({ level: 'warn', text: 'Puebla sits next to an Oaxaca travel day. Slot 1 (Sun 27 day trip, travel Mon 28 from CDMX) is the only version of that idea that does not stack.' })
       }
     }
     if (d.theme === 'cdmx-museums' && (d.date === '2026-12-25' || d.date === '2027-01-01')) {
@@ -672,11 +673,11 @@ export function warningsFor(days, scenario) {
   }
   const puebla = days.find((d) => d.theme === 'puebla')
   if (!puebla) {
-    out.push({ level: 'info', text: 'Puebla is not placed. Ranked slots: (1) Sun 27 Dec day trip then fly Oaxaca Mon 28; (2) leave Oaxaca Sat 2 Jan, Cholula Sun 3 Jan; (3) skip. Tunnels closed. No extra hotel.' })
+    out.push({ level: 'info', text: 'Puebla is not placed. Ranked slots: (1) Sun 27 Dec day trip then travel Oaxaca Mon 28 from CDMX; (2) leave Oaxaca Sat 2 Jan, Cholula Sun 3 Jan; (3) skip. Tunnels closed. No extra hotel.' })
   }
   const overloaded = days.filter((d) => (d.items || []).length >= 4 && d.flags?.includes('travel-day'))
   if (overloaded.length) {
-    out.push({ level: 'warn', text: 'A travel day is carrying a full sightseeing list. Strip it back — 8 Jan and the Oaxaca flight days are movement, not museums.' })
+    out.push({ level: 'warn', text: 'A travel day is carrying a full sightseeing list. Strip it back — 8 Jan and the Oaxaca travel days are movement, not museums.' })
   }
   return out
 }

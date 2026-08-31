@@ -13,9 +13,35 @@ import {
   warningsFor,
 } from './engine.js'
 import { decodePlan, defaultState, encodePlan } from './share.js'
+import Stays from './Stays.jsx'
+import OaxacaTravel from './OaxacaTravel.jsx'
 
 const STORAGE_KEY = 'mx-trip-plan-26-27'
 const WHO_KEY = 'mx-trip-who'
+
+const TABS = [
+  { id: 'trip', label: 'Trip' },
+  { id: 'stays', label: 'Stays' },
+  { id: 'oaxaca', label: 'CDMX–Oaxaca' },
+]
+
+function readTab() {
+  try {
+    const t = new URLSearchParams(window.location.search).get('tab')
+    if (t === 'stays' || t === 'oaxaca') return t
+  } catch {
+    /* ignore */
+  }
+  return 'trip'
+}
+
+function urlForTab(id) {
+  const params = new URLSearchParams(window.location.search)
+  if (id === 'trip') params.delete('tab')
+  else params.set('tab', id)
+  const qs = params.toString()
+  return window.location.pathname + (qs ? `?${qs}` : '') + window.location.hash
+}
 
 function loadInitial() {
   const fromHash = decodePlan(window.location.hash)
@@ -35,8 +61,9 @@ function usePlan() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
     const encoded = encodePlan(state)
-    const next = '#' + encoded
-    if (window.location.hash !== next) {
+    const next = window.location.pathname + window.location.search + '#' + encoded
+    const current = window.location.pathname + window.location.search + window.location.hash
+    if (current !== next) {
       history.replaceState(null, '', next)
     }
   }, [state])
@@ -59,6 +86,14 @@ export default function App() {
   const [copied, setCopied] = useState(false)
   const [openDate, setOpenDate] = useState(null)
   const [showPlay, setShowPlay] = useState(false)
+  const [tab, setTabState] = useState(readTab)
+
+  function setTab(id) {
+    setTabState(id)
+    const next = urlForTab(id)
+    const current = window.location.pathname + window.location.search + window.location.hash
+    if (current !== next) history.replaceState(null, '', next)
+  }
 
   const days = useMemo(() => daysFor(state), [state.scenario, state.order, state.includePuebla])
   const warnings = useMemo(() => warningsFor(days, state.scenario), [days, state.scenario])
@@ -101,7 +136,7 @@ export default function App() {
   }
 
   async function copyShare() {
-    const url = `${window.location.origin}${window.location.pathname}${window.location.hash}`
+    const url = `${window.location.origin}${window.location.pathname}${window.location.search}${window.location.hash}`
     try {
       await navigator.clipboard.writeText(url)
     } catch {
@@ -148,7 +183,9 @@ export default function App() {
             <span className="title-kicker">{trip.meta.short}</span>
             {trip.meta.title}
           </h1>
-          <p className="lede">{trip.meta.blurb}</p>
+          <TabNav tab={tab} onTab={setTab} />
+          {tab === 'trip' && <p className="lede">{trip.meta.blurb}</p>}
+          {tab === 'trip' && (
           <div className="meta-row">
             <span>24 Dec 2026 → 8 Jan 2027</span>
             <span className="dot" />
@@ -156,6 +193,16 @@ export default function App() {
             <span className="dot" />
             <span>In-browser editable</span>
           </div>
+          )}
+          {tab !== 'trip' && (
+            <div className="toolbar tab-share">
+              <button className="share" onClick={copyShare}>
+                {copied ? 'Link copied' : 'Copy share link'}
+              </button>
+            </div>
+          )}
+          {tab === 'trip' && (
+          <>
           <div className="toolbar">
             <div className="seg" role="tablist" aria-label="Scenario">
               <button className={state.scenario === 'A' ? 'on' : ''} onClick={() => patch({ scenario: 'A', includePuebla: false, order: DEFAULT_ORDER })}>
@@ -177,8 +224,12 @@ export default function App() {
             {state.scenario === 'B' && trip.scenarioB.lede}
             {state.scenario === 'C' && 'Dates regenerate from the chapter order below. Warnings fire for closures, stacked travel, Frida, 8 Jan, NYE, and Cholula Mon/Tue.'}
           </p>
+          </>
+          )}
         </header>
 
+        {tab === 'trip' && (
+        <>
         <section className="alt-band" aria-label="Altitude">
           {trip.altitudes.map((a) => (
             <article key={a.place}>
@@ -404,6 +455,11 @@ export default function App() {
           <Catalog title="Tables" items={trip.restaurants} />
           <Catalog title="Tickets & days out" items={trip.tours} />
         </section>
+        </>
+        )}
+
+        {tab === 'stays' && <Stays />}
+        {tab === 'oaxaca' && <OaxacaTravel />}
 
         <footer className="colophon">
           <p>
@@ -519,6 +575,24 @@ function DayComments({ date, comments, onAdd, onRemove }) {
       <CommentList comments={comments} onRemove={onRemove} />
       <Composer compact defaultDay={date} onAdd={onAdd} />
     </div>
+  )
+}
+
+function TabNav({ tab, onTab }) {
+  return (
+    <nav className="tabs" aria-label="Trip sections">
+      {TABS.map((t) => (
+        <button
+          key={t.id}
+          type="button"
+          className={tab === t.id ? 'on' : ''}
+          aria-current={tab === t.id ? 'page' : undefined}
+          onClick={() => onTab(t.id)}
+        >
+          {t.label}
+        </button>
+      ))}
+    </nav>
   )
 }
 

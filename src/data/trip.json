@@ -41,8 +41,8 @@
   "pueblaSlots": [
     {
       "rank": 1,
-      "title": "Sun 27 Dec day trip, fly Oaxaca Mon 28",
-      "why": "Replaces a travel morning rather than stacking one. Sunday cathedral window 15:00–16:45 is crowded and fragile. 28 Dec is a dead Cholula day anyway (Monday)."
+      "title": "Sun 27 Dec day trip, travel Oaxaca Mon 28",
+      "why": "Replaces a travel morning rather than stacking one. Sunday cathedral window 15:00–16:45 is crowded and fragile. 28 Dec is a dead Cholula day anyway (Monday). Travel from CDMX, not from Puebla, unless a better Puebla→Oaxaca coach is verified."
     },
     {
       "rank": 2,
@@ -122,18 +122,18 @@
   "playgroundBlocks": [
     { "id": "cdmx-xmas", "label": "CDMX Christmas", "days": 1, "hint": "25 Dec Coyoacán. Museums shut. Nochebuena was the 24th." },
     { "id": "cdmx-museums", "label": "CDMX museums", "days": 2, "hint": "Anthropology + Castillo highlights, then Centro / Templo / Bellas Artes." },
-    { "id": "oaxaca", "label": "Oaxaca", "days": 0, "hint": "Absorbs leftover days. NYE belongs here. Fly ~1 h 15, not the 6–7 h bus." },
+    { "id": "oaxaca", "label": "Oaxaca", "days": 0, "hint": "Absorbs leftover days. NYE belongs here. CDMX–Oaxaca travel (bus vs flight) is on its own tab." },
     { "id": "puebla", "label": "Puebla / Cholula", "days": 1, "hint": "One-day trip, no extra hotel. Cholula closed Mon & Tue." },
     { "id": "frida", "label": "Frida + Coyoacán", "days": 1, "hint": "Timed tickets. Closed 25 Dec and 1 Jan. Includes Anahuacalli." }
   ],
   "scenarioA": {
     "id": "A",
     "name": "Baseline",
-    "lede": "Christmas in CDMX, then fly to Oaxaca for the valley and NYE, back to Polanco for museums and Frida. Puebla is not placed — ranked slots live in the margin."
+    "lede": "Christmas in CDMX, then Oaxaca for the valley and NYE, back to Polanco for museums and Frida. How you travel CDMX–Oaxaca is on its own tab. Puebla is not placed — ranked slots live in the margin."
   },
   "scenarioB": {
     "id": "B",
     "name": "Altitude reverse",
-    "lede": "Land, sleep the airport hotel, then go to Oaxaca as soon as that is humane. Christmas and NYE at 1,542 m. CDMX museums, Frida, and optional Puebla after the return."
+    "lede": "Land, then either sleep the airport hotel or go straight to Roma Norte if self-check-in is ready. Go to Oaxaca as soon as that is humane. Christmas and NYE at 1,542 m. CDMX museums, Frida, and optional Puebla after the return. Bus vs flight is on the CDMX–Oaxaca tab."
   }
 }
