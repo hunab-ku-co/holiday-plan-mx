@@ -997,3 +997,130 @@ h2 {
   .maps-grid { grid-template-columns: 1fr 1fr; }
   .area-map { min-height: 260px; }
 }
+
+/* Trip tab declutter — flip cards, chips, folds */
+.day {
+  perspective: 900px;
+}
+.day-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.22s ease;
+  min-height: 5.5rem;
+}
+.day.flipping .day-inner {
+  transform: rotateY(90deg);
+  transition: transform 0.18s ease;
+}
+.day-face { min-width: 0; }
+.day-front .summary.teaser {
+  margin: 8px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.flip-hint {
+  margin: 8px 0 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+.day-front .picked { margin: 10px 0 0; }
+.day-back-head {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.day-back-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.day-back-title h3 { margin: 4px 0 6px; }
+.flip-back {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid rgba(36, 22, 15, 0.18);
+  background: white;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  color: var(--terracotta-deep);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.flip-back:hover { background: var(--paper); }
+.day-back .summary { margin-top: 12px; }
+.day-back .items { margin-top: 4px; }
+.timeline > .hint { margin: -6px 0 14px; }
+
+.decision { align-items: center; }
+.decision.open { align-items: flex-start; }
+.decision-flip {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.decision-flip strong { font-weight: 600; font-size: 0.92rem; }
+
+.must-chips { display: flex; flex-direction: column; gap: 6px; }
+.must .must-chip {
+  padding: 0;
+  border-bottom: 0;
+  line-height: inherit;
+  font-size: inherit;
+}
+.must-chip button {
+  font: inherit;
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(36, 22, 15, 0.1);
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  color: inherit;
+}
+.must-chip.open button {
+  white-space: normal;
+  border-radius: 12px;
+}
+
+.puebla-slots .textish { margin: 4px 0 10px; }
+.puebla-slots ol { margin-top: 8px; }
+
+.catalog-fold { margin-bottom: 8px; }
+.catalog-fold summary {
+  cursor: pointer;
+  color: var(--terracotta-deep);
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+.catalog-fold .hint { margin-top: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .day-inner,
+  .day.flipping .day-inner {
+    transition: none;
+    transform: none;
+    animation: none;
+  }
+}

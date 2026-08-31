@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { sortedDecisions, TAB_HINT } from './data/decisions.js'
 
 export default function Decisions({ days, done, onDone, onTab }) {
   const rows = sortedDecisions(days, done)
+  const [openId, setOpenId] = useState(null)
   if (!rows.length) return null
   return (
     <section className="decide" aria-label="Decisions">
@@ -11,13 +13,14 @@ export default function Decisions({ days, done, onDone, onTab }) {
         {rows.map((d) => {
           const isDone = Boolean(done?.[d.id])
           const hint = d.tab ? TAB_HINT[d.tab] : null
+          const open = openId === d.id
           return (
             <li
               key={d.id}
-              className={`decision ${d.urgency}${isDone ? ' done' : ''}`}
+              className={`decision ${d.urgency}${isDone ? ' done' : ''}${open ? ' open' : ''}`}
               data-kind={d.kind}
             >
-              <label className="decision-check">
+              <label className="decision-check" onClick={(e) => e.stopPropagation()}>
                 <input
                   type="checkbox"
                   checked={isDone}
@@ -26,12 +29,23 @@ export default function Decisions({ days, done, onDone, onTab }) {
                 />
               </label>
               <div className="decision-body">
-                <strong>{d.title}</strong>
-                <span>{d.detail}</span>
-                {hint && onTab && (
-                  <button type="button" className="textish tab-jump" onClick={() => onTab(d.tab)}>
-                    {hint}
-                  </button>
+                <button
+                  type="button"
+                  className="decision-flip"
+                  aria-expanded={open}
+                  onClick={() => setOpenId(open ? null : d.id)}
+                >
+                  <strong>{d.title}</strong>
+                </button>
+                {open && (
+                  <>
+                    <span>{d.detail}</span>
+                    {hint && onTab && (
+                      <button type="button" className="textish tab-jump" onClick={() => onTab(d.tab)}>
+                        {hint}
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
             </li>

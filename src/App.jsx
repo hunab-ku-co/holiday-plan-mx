@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ALL_BLOCKS,
   DEFAULT_ORDER,
@@ -46,6 +46,12 @@ function urlForTab(id) {
   return window.location.pathname + (qs ? `?${qs}` : '') + window.location.hash
 }
 
+function firstSentence(text) {
+  if (!text) return ''
+  const cut = text.indexOf('. ')
+  return cut === -1 ? text : text.slice(0, cut + 1)
+}
+
 function loadInitial() {
   const fromHash = decodePlan(window.location.hash)
   if (fromHash) return { ...defaultState(), ...fromHash }
@@ -88,8 +94,27 @@ export default function App() {
   const [state, patch] = usePlan()
   const [copied, setCopied] = useState(false)
   const [openDate, setOpenDate] = useState(null)
+  const [flippingDate, setFlippingDate] = useState(null)
+  const flipLock = useRef(false)
   const [showPlay, setShowPlay] = useState(false)
+  const [showPuebla, setShowPuebla] = useState(false)
   const [tab, setTabState] = useState(readTab)
+
+  function flipDay(date) {
+    if (flipLock.current) return
+    const reduce = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) {
+      setOpenDate((cur) => (cur === date ? null : date))
+      return
+    }
+    flipLock.current = true
+    setFlippingDate(date)
+    window.setTimeout(() => {
+      setOpenDate((cur) => (cur === date ? null : date))
+      setFlippingDate(null)
+      flipLock.current = false
+    }, 180)
+  }
 
   function setTab(id) {
     setTabState(id)
@@ -259,20 +284,26 @@ export default function App() {
           <div className="must-grid">
             <Must city="CDMX" items={trip.mustDos.cdmx} />
             <Must city="Oaxaca" items={trip.mustDos.oaxaca} />
-            <Must city="Puebla" items={trip.mustDos.puebla} extra="Not placed in A or B. Ranked slots below." />
+            <Must city="Puebla" items={trip.mustDos.puebla} />
           </div>
         </section>
 
         <section className="puebla-slots">
           <h2>Puebla · ranked slots</h2>
-          <ol>
-            {trip.pueblaSlots.map((s) => (
-              <li key={s.rank}>
-                <strong>{s.title}</strong>
-                <span>{s.why}</span>
-              </li>
-            ))}
-          </ol>
+          <p className="hint">Not in A or B. Ranked day-trip slots.</p>
+          <button type="button" className="textish" onClick={() => setShowPuebla((v) => !v)}>
+            {showPuebla ? 'Hide ranked slots' : 'Show ranked slots'}
+          </button>
+          {showPuebla && (
+            <ol>
+              {trip.pueblaSlots.map((s) => (
+                <li key={s.rank}>
+                  <strong>{s.title}</strong>
+                  <span>{s.why}</span>
+                </li>
+              ))}
+            </ol>
+          )}
         </section>
 
         <section className="play">
@@ -329,6 +360,7 @@ export default function App() {
 
         <section className="timeline">
           <h2>The days</h2>
+          <p className="hint">Tap a day to flip it.</p>
           <ol className="days">
             {days.map((d) => {
               const status = state.status[d.date] || 'idea'
@@ -338,116 +370,138 @@ export default function App() {
               const restId = picks.restaurant || d.restaurant
               const tourId = picks.tour || d.tour
               const open = openDate === d.date
+              const teaser = firstSentence(d.summary)
+              const dayComments = comments.filter((c) => c.day === d.date)
+              const flipping = flippingDate === d.date
               return (
-                <li key={d.date} className={`day theme-${d.theme} st-${status}${asap.has(d.date) ? ' asap' : ''}`}>
-                  <button type="button" className="day-toggle" onClick={() => setOpenDate(open ? null : d.date)} aria-expanded={open}>
-                    <div className="when">
-                      <span className="dow">{d.dow}</span>
-                      <span className="num">{d.date.slice(8)}</span>
-                      <span className="mon">{d.date.slice(5, 7) === '12' ? 'Dec' : 'Jan'}</span>
-                    </div>
-                    <div className="day-main">
-                      <h3>{d.title}</h3>
-                      <p className="place">
-                        {d.place}
-                        <span className="alt-badge">{d.altitude.toLocaleString('en-US')} m</span>
-                        <StatusPill status={status} />
-                      </p>
-                    </div>
-                  </button>
-                  <p className="summary">{d.summary}</p>
-                  <ul className="items">
-                    {d.items.map((it, idx) => (
-                      <li key={idx} data-kind={it.kind}>
-                        <em>{it.title}</em>
-                        <span>{it.detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {d.research?.length > 0 && (
-                    <div className="research">
-                      {d.research.map((r) => (
-                        <div key={r.label} className="clip">
-                          <strong>{r.label}</strong>
-                          <span>{r.state}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  {open && (
-                    <div className="editor">
-                      <div className="status-row">
-                        {STATUSES.map((s) => (
-                          <button key={s.id} className={status === s.id ? 'on' : ''} type="button" onClick={() => setStatus(d.date, s.id)}>
-                            {s.label}
-                          </button>
-                        ))}
+                <li key={d.date} className={`day theme-${d.theme} st-${status}${asap.has(d.date) ? ' asap' : ''}${open ? ' flipped' : ''}${flipping ? ' flipping' : ''}`}>
+                  <div className="day-inner">
+                    {!open ? (
+                      <div className="day-face day-front">
+                        <button type="button" className="day-toggle" onClick={() => flipDay(d.date)} aria-expanded={false}>
+                          <DayWhen d={d} />
+                          <div className="day-main">
+                            <h3>{d.title}</h3>
+                            <p className="place">
+                              {d.place}
+                              <span className="alt-badge">{d.altitude.toLocaleString('en-US')} m</span>
+                              <StatusPill status={status} />
+                            </p>
+                            {teaser ? <p className="summary teaser">{teaser}</p> : null}
+                            <p className="flip-hint">Tap for details</p>
+                          </div>
+                        </button>
+                        {(hotelId || restId || note || dayComments.length > 0) && (
+                          <p className="picked">
+                            {hotelId && <span>{lookup(trip.hotels, hotelId)?.name}</span>}
+                            {restId && <span>{lookup(trip.restaurants, restId)?.name}</span>}
+                            {note && <span className="note-preview">{note}</span>}
+                            {dayComments.length > 0 && (
+                              <span>{dayComments.length} comment{dayComments.length === 1 ? '' : 's'}</span>
+                            )}
+                          </p>
+                        )}
                       </div>
-                      <label>
-                        Hotel
-                        <select value={hotelId || ''} onChange={(e) => setPick(d.date, 'hotel', e.target.value)}>
-                          <option value="">—</option>
-                          {hotelsByCity(d.city).map((h) => (
-                            <option key={h.id} value={h.id}>
-                              {h.name}
-                            </option>
+                    ) : (
+                      <div className="day-face day-back">
+                        <div className="day-back-head">
+                          <DayWhen d={d} />
+                          <div className="day-main">
+                            <div className="day-back-title">
+                              <h3>{d.title}</h3>
+                              <button type="button" className="flip-back" onClick={() => flipDay(d.date)} aria-expanded={true}>
+                                Flip back
+                              </button>
+                            </div>
+                            <p className="place">
+                              {d.place}
+                              <span className="alt-badge">{d.altitude.toLocaleString('en-US')} m</span>
+                              <StatusPill status={status} />
+                            </p>
+                          </div>
+                        </div>
+                        <p className="summary">{d.summary}</p>
+                        <ul className="items">
+                          {d.items.map((it, idx) => (
+                            <li key={idx} data-kind={it.kind}>
+                              <em>{it.title}</em>
+                              <span>{it.detail}</span>
+                            </li>
                           ))}
-                        </select>
-                      </label>
-                      <PickHint item={lookup(trip.hotels, hotelId)} />
-                      <label>
-                        Restaurant
-                        <select value={restId || ''} onChange={(e) => setPick(d.date, 'restaurant', e.target.value)}>
-                          <option value="">—</option>
-                          {restByCity(d.city).map((r) => (
-                            <option key={r.id} value={r.id}>
-                              {r.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <PickHint item={lookup(trip.restaurants, restId)} />
-                      <label>
-                        Tour / ticket
-                        <select value={tourId || ''} onChange={(e) => setPick(d.date, 'tour', e.target.value)}>
-                          <option value="">—</option>
-                          {toursByCity(d.city).map((t) => (
-                            <option key={t.id} value={t.id}>
-                              {t.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <PickHint item={lookup(trip.tours, tourId)} />
-                      <label>
-                        Notes
-                        <textarea
-                          rows={4}
-                          value={note}
-                          placeholder="Private to this share link — still public if you send the URL."
-                          onChange={(e) => setNote(d.date, e.target.value)}
+                        </ul>
+                        {d.research?.length > 0 && (
+                          <div className="research">
+                            {d.research.map((r) => (
+                              <div key={r.label} className="clip">
+                                <strong>{r.label}</strong>
+                                <span>{r.state}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        <div className="editor">
+                          <div className="status-row">
+                            {STATUSES.map((s) => (
+                              <button key={s.id} className={status === s.id ? 'on' : ''} type="button" onClick={() => setStatus(d.date, s.id)}>
+                                {s.label}
+                              </button>
+                            ))}
+                          </div>
+                          <label>
+                            Hotel
+                            <select value={hotelId || ''} onChange={(e) => setPick(d.date, 'hotel', e.target.value)}>
+                              <option value="">—</option>
+                              {hotelsByCity(d.city).map((h) => (
+                                <option key={h.id} value={h.id}>
+                                  {h.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <PickHint item={lookup(trip.hotels, hotelId)} />
+                          <label>
+                            Restaurant
+                            <select value={restId || ''} onChange={(e) => setPick(d.date, 'restaurant', e.target.value)}>
+                              <option value="">—</option>
+                              {restByCity(d.city).map((r) => (
+                                <option key={r.id} value={r.id}>
+                                  {r.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <PickHint item={lookup(trip.restaurants, restId)} />
+                          <label>
+                            Tour / ticket
+                            <select value={tourId || ''} onChange={(e) => setPick(d.date, 'tour', e.target.value)}>
+                              <option value="">—</option>
+                              {toursByCity(d.city).map((t) => (
+                                <option key={t.id} value={t.id}>
+                                  {t.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <PickHint item={lookup(trip.tours, tourId)} />
+                          <label>
+                            Notes
+                            <textarea
+                              rows={4}
+                              value={note}
+                              placeholder="Private to this share link — still public if you send the URL."
+                              onChange={(e) => setNote(d.date, e.target.value)}
+                            />
+                          </label>
+                        </div>
+                        <DayComments
+                          date={d.date}
+                          comments={dayComments}
+                          onAdd={addComment}
+                          onRemove={removeComment}
                         />
-                      </label>
-                    </div>
-                  )}
-                  {open && (
-                    <DayComments
-                      date={d.date}
-                      comments={comments.filter((c) => c.day === d.date)}
-                      onAdd={addComment}
-                      onRemove={removeComment}
-                    />
-                  )}
-                  {!open && (hotelId || restId || note || comments.some((c) => c.day === d.date)) && (
-                    <p className="picked">
-                      {hotelId && <span>{lookup(trip.hotels, hotelId)?.name}</span>}
-                      {restId && <span>{lookup(trip.restaurants, restId)?.name}</span>}
-                      {note && <span className="note-preview">{note}</span>}
-                      {comments.some((c) => c.day === d.date) && (
-                        <span>{comments.filter((c) => c.day === d.date).length} comment{comments.filter((c) => c.day === d.date).length === 1 ? '' : 's'}</span>
-                      )}
-                    </p>
-                  )}
+                      </div>
+                    )}
+                  </div>
                 </li>
               )
             })}
@@ -464,10 +518,13 @@ export default function App() {
 
         <section className="catalog">
           <h2>The lists</h2>
-          <p className="hint">Research slots stay typeset even when the 2026–27 circular has not landed. No invented hours. No flight numbers.</p>
-          <Catalog title="Hotels" items={trip.hotels} />
-          <Catalog title="Tables" items={trip.restaurants} />
-          <Catalog title="Tickets & days out" items={trip.tours} />
+          <details className="catalog-fold">
+            <summary>Hotels, tables, tickets</summary>
+            <p className="hint">Research slots stay typeset even when the 2026–27 circular has not landed. No invented hours. No flight numbers.</p>
+            <Catalog title="Hotels" items={trip.hotels} />
+            <Catalog title="Tables" items={trip.restaurants} />
+            <Catalog title="Tickets & days out" items={trip.tours} />
+          </details>
         </section>
         </>
         )}
@@ -615,12 +672,33 @@ function Must({ city, items, extra }) {
     <article>
       <h3>{city}</h3>
       {extra && <p className="extra">{extra}</p>}
-      <ul>
+      <ul className="must-chips">
         {items.map((x) => (
-          <li key={x}>{x}</li>
+          <MustChip key={x} text={x} />
         ))}
       </ul>
     </article>
+  )
+}
+
+function MustChip({ text }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <li className={open ? 'must-chip open' : 'must-chip'}>
+      <button type="button" title={text} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+        {text}
+      </button>
+    </li>
+  )
+}
+
+function DayWhen({ d }) {
+  return (
+    <div className="when">
+      <span className="dow">{d.dow}</span>
+      <span className="num">{d.date.slice(8)}</span>
+      <span className="mon">{d.date.slice(5, 7) === '12' ? 'Dec' : 'Jan'}</span>
+    </div>
   )
 }
 
