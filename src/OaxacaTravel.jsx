@@ -11,8 +11,8 @@ const ROWS = [
   },
   {
     label: 'Money (two adults, tickets only)',
-    flight: 'Live Google Flights 31 Aug 2026, MEX not NLU: Viva RT 27 Dec–5 Jan $325 pp (~$650 for two, no overhead bin). Aeroméxico $454–$495 pp (~$900–$1,000 for two) before ULCC bags.',
-    bus: 'Christmas 2026 ADO / Clickbus fares were not retrieved — will not guess MXN. Off-peak Platino ~$90 (Wanderu current-week average, 31 Aug 2026) is a sample only, not a 27 Dec quote.',
+    flight: 'Live Google Flights 31 Aug 2026, MEX not NLU: Viva RT 27 Dec–5 Jan MXN 5,530 · €280 per person (MXN 11,060 · €561 for two, no overhead bin). Aeroméxico MXN 7,730–8,420 · €392–427 per person (MXN 15,320–17,020 · €776–863 for two) before ULCC bags.',
+    bus: 'Christmas 2026 ADO / Clickbus fares were not retrieved — will not guess. Off-peak Platino ~MXN 1,530 · €78 (Wanderu current-week average, 31 Aug 2026) is a sample only, not a 27 Dec quote.',
   },
   {
     label: 'Terminals',
@@ -21,7 +21,7 @@ const ROWS = [
   },
   {
     label: 'Baggage',
-    flight: 'Viva cheapest: personal item only, no overhead bin on the $168 / $157 quotes. Price the bag in checkout before comparing to AM. Aeroméxico is fare-dependent; exact bag fee was not on an official checkout page in this research.',
+    flight: 'Viva cheapest: personal item only, no overhead bin on the MXN 2,860 · €145 / MXN 2,670 · €135 quotes. Price the bag in checkout before comparing to AM. Aeroméxico is fare-dependent; exact bag fee was not on an official checkout page in this research.',
     bus: 'ADO published policy: 25 kg checked free + one carry-on free. Real comfort/money difference vs ULCC air.',
   },
   {
@@ -40,29 +40,29 @@ const QUOTES = [
   {
     when: '27 Dec MEX → OAX',
     items: [
-      'Viva 11:00–12:04 · $168 pp · no overhead bin',
-      'Aeroméxico 13:15–14:37 · $235 pp',
+      'Viva 11:00–12:04 · MXN 2,860 · €145 per person · no overhead bin',
+      'Aeroméxico 13:15–14:37 · MXN 4,000 · €203 per person',
     ],
   },
   {
     when: '28 Dec MEX → OAX',
     items: [
-      'Viva 11:00 · $168 pp · similar to the 27th',
-      'Aeroméxico 05:45 and 13:50 · $235 pp',
+      'Viva 11:00 · MXN 2,860 · €145 per person · similar to the 27th',
+      'Aeroméxico 05:45 and 13:50 · MXN 4,000 · €203 per person',
     ],
   },
   {
     when: '5 Jan OAX → MEX',
     items: [
-      'Viva 12:49–14:00 · $157 pp · no overhead bin',
-      'Aeroméxico cluster · $199–$213 pp',
+      'Viva 12:49–14:00 · MXN 2,670 · €135 per person · no overhead bin',
+      'Aeroméxico cluster · MXN 3,390–3,630 · €172–184 per person',
     ],
   },
   {
     when: 'Round-trip 27 Dec – 5 Jan',
     items: [
-      'Viva MEX $325 pp · two adults ~$650 before bags',
-      'Aeroméxico MEX $454–$495 pp · two adults ~$900–$1,000',
+      'Viva MEX MXN 5,530 · €280 per person · two adults MXN 11,060 · €561 before bags',
+      'Aeroméxico MEX MXN 7,730–8,420 · €392–427 per person · two adults MXN 15,320–17,020 · €776–863',
     ],
   },
 ]
@@ -71,7 +71,7 @@ const SKETCHES = [
   {
     when: 'Outbound · Sun 27 Dec · Google Flights quote',
     title: 'Viva 11:00 or AM 13:15 from MEX',
-    body: 'Viva: Uber Roma ~08:00–08:15 to T1, 2 h buffer, airborne 11:00–12:04 (1 h 04), OAX taxi 20–30 min, hotel ~12:30–13:00. Door-to-door ~4 h 45–5 h 15. Late lunch is realistic. AM 13:15 T2: leave Roma ~10:15–10:30, hotel ~15:15–15:45 — still a dinner night. $168 vs $235 pp as of 31 Aug 2026. Times only, not tickets.',
+    body: 'Viva: Uber Roma ~08:00–08:15 to T1, 2 h buffer, airborne 11:00–12:04 (1 h 04), OAX taxi 20–30 min, hotel ~12:30–13:00. Door-to-door ~4 h 45–5 h 15. Late lunch is realistic. AM 13:15 T2: leave Roma ~10:15–10:30, hotel ~15:15–15:45 — still a dinner night. MXN 2,860 · €145 vs MXN 4,000 · €203 per person as of 31 Aug 2026. Times only, not tickets.',
   },
   {
     when: 'Outbound · Sun 27 Dec · typical coach times',
@@ -86,7 +86,7 @@ const SKETCHES = [
   {
     when: 'Return · Tue 5 Jan · Google Flights quote',
     title: 'Viva 12:49 OAX → MEX (or AM afternoon)',
-    body: 'Taxi to OAX ~10:00, 2 h buffer at a small airport, Viva 12:49–14:00 $157 pp, Uber MEX → Roma 20–50 min. Still a Roma dinner. AM afternoon cluster $213 pp if you want a last Oaxaca lunch (lands T2). Skip NLU evening cheap fares (60–90 min transfer; home 22:00–23:30).',
+    body: 'Taxi to OAX ~10:00, 2 h buffer at a small airport, Viva 12:49–14:00 MXN 2,670 · €135 per person, Uber MEX → Roma 20–50 min. Still a Roma dinner. AM afternoon cluster MXN 3,630 · €184 per person if you want a last Oaxaca lunch (lands T2). Skip NLU evening cheap fares (60–90 min transfer; home 22:00–23:30).',
   },
 ]
 
@@ -104,7 +104,7 @@ const SPLIT = [
   {
     n: '3',
     title: 'Cholula on 27 Dec → fly 28 Dec from MEX',
-    body: 'Come back to CDMX that night. Fly 28 Dec 11:00 Viva or 13:50 AM from MEX ($168 / $235 pp, 31 Aug 2026). Do not bus Puebla → Oaxaca unless sleeping in Puebla. CAPU → Oaxaca is real (~4.5–5.5 h) and not better than flying the next morning from the city they already live in that week. No useful PBC → OAX flight.',
+    body: 'Come back to CDMX that night. Fly 28 Dec 11:00 Viva or 13:50 AM from MEX (MXN 2,860 · €145 / MXN 4,000 · €203 per person, 31 Aug 2026). Do not bus Puebla → Oaxaca unless sleeping in Puebla. CAPU → Oaxaca is real (~4.5–5.5 h) and not better than flying the next morning from the city they already live in that week. No useful PBC → OAX flight.',
   },
 ]
 
@@ -119,9 +119,9 @@ export default function OaxacaTravel() {
       </p>
 
       <p className="fare-note">
-        Flight USD figures are live Google Flights quotes, 31 Aug 2026, two adults, MEX not NLU. Christmas 2026 ADO /
-        Clickbus fares were not retrieved — will not guess MXN. Off-peak Platino ~$90 is a current-week Wanderu sample
-        only, not a 27 Dec fare.
+        Google Flights quotes converted from USD at mid-market 1 USD = MXN 17.02 · €0.86 (Xe, 31 Aug 2026). Christmas
+        2026 ADO / Clickbus fares were not retrieved — will not guess. Off-peak Platino ~MXN 1,530 · €78 is a
+        current-week Wanderu sample only, not a 27 Dec fare.
       </p>
 
       <div className="compare" role="table" aria-label="Flight versus bus">
@@ -146,7 +146,7 @@ export default function OaxacaTravel() {
       </div>
 
       <h3 className="subhead">Live flight quotes · MEX only · 31 Aug 2026</h3>
-      <p className="hint">USD as shown on Google Flights. Volaris times exist; prices were unavailable. No flight numbers on this page.</p>
+      <p className="hint">MXN and euros, converted; Volaris times exist, prices were unavailable. No flight numbers on this page.</p>
       <div className="quotes">
         {QUOTES.map((q) => (
           <article key={q.when} className="quote-card">
@@ -160,8 +160,9 @@ export default function OaxacaTravel() {
         ))}
       </div>
       <p className="hint">
-        NLU / AIFA one-ways look cheaper on paper ($86–$134 outbound; $76 / $81 on 5 Jan). They cost 60–90 min transfer
-        (Uber ~500–900 MXN) and often a late arrival. Not a bargain from Roma Norte.
+        NLU / AIFA one-ways look cheaper on paper (MXN 1,460–2,280 · €74–116 outbound; MXN 1,290 · €66 / MXN 1,380 · €70
+        on 5 Jan). They cost 60–90 min transfer (Uber MXN 500–900 · €25–46) and often a late arrival. Not a bargain from
+        Roma Norte.
       </p>
 
       <h3 className="subhead">Timed sketches · quotes and typical clocks, not tickets</h3>
@@ -191,8 +192,8 @@ export default function OaxacaTravel() {
         <h3>Skip</h3>
         <p>
           Daytime TAPO both ways. AU / Santa Rosa. NLU “deals.” Anything that lands OAX after 21:00 and then a
-          colectivo. Viva $168 is not a $168 trip if a roll-aboard needs the bin — price the bag before comparing it to
-          AM $235.
+          colectivo. Viva MXN 2,860 · €145 is not an MXN 2,860 · €145 trip if a roll-aboard needs the bin — price the bag
+          before comparing it to AM MXN 4,000 · €203.
         </p>
       </article>
     </section>

@@ -17,7 +17,7 @@ export const BOOKING_SEARCH =
  * @property {string} walkToColima
  * @property {number | null} [rating]
  * @property {number | null} [reviewCount]
- * @property {string | null} [price]  // USD for 24–28 Dec 2026, 2 adults, as shown 31 Aug 2026
+ * @property {string | null} [price]  // MXN · euro for 24–28 Dec 2026, 2 adults, converted from Booking.com USD at Xe mid-market 31 Aug 2026 (1 USD = 17.02 MXN · €0.8625)
  * @property {boolean | null} [selfCheckIn]  // true only for lockbox; 24h desk is not self-check-in
  * @property {string} [checkInNote]
  * @property {string} [source]
@@ -35,7 +35,7 @@ export const stays = [
     walkToColima: 'about 8 min to Colima cluster',
     rating: 9.0,
     reviewCount: 445,
-    price: '$606–$662 / 4 nights (deluxe queen studio; 1BR loft ~$696–766)',
+    price: 'MXN 10,310–11,270 · €523–571 / 4 nights (deluxe queen studio; 1BR loft ~MXN 11,850–13,040 · €600–661)',
     selfCheckIn: false,
     checkInNote: 'Open-ended late check-in · listed from 15:00, no closing time · 24/7 security in reviews',
     source: 'Booking.com',
@@ -50,7 +50,7 @@ export const stays = [
     walkToColima: 'about 8 min to Colima cluster',
     rating: 9.0,
     reviewCount: 158,
-    price: '$622–$721 / 4 nights (1-BR loft)',
+    price: 'MXN 10,590–12,270 · €536–622 / 4 nights (1-BR loft)',
     selfCheckIn: false,
     checkInNote: '24h front desk · listed 15:00–24:00',
     source: 'Booking.com',
@@ -65,7 +65,7 @@ export const stays = [
     walkToColima: 'about 12 min to Colima cluster',
     rating: 9.0,
     reviewCount: 441,
-    price: '$738–$1,039 / 4 nights',
+    price: 'MXN 12,560–17,680 · €637–896 / 4 nights',
     selfCheckIn: false,
     checkInNote: '24h front desk · listed from 15:00, no cutoff shown',
     source: 'Booking.com',
@@ -80,7 +80,7 @@ export const stays = [
     walkToColima: 'about 7 min to Colima cluster',
     rating: 9.2,
     reviewCount: 383,
-    price: '$1,031–$1,146 / 4 nights (2-BR)',
+    price: 'MXN 17,550–19,500 · €889–988 / 4 nights (2-BR)',
     selfCheckIn: false,
     checkInNote: '24h front desk · listed 15:00–24:00',
     source: 'Booking.com',
@@ -95,7 +95,7 @@ export const stays = [
     walkToColima: 'about 5 min to Colima cluster',
     rating: 9.4,
     reviewCount: 88,
-    price: '$3,851–$4,043 / 4 nights (opened-page range; search card also showed $3,660 mobile)',
+    price: 'MXN 65,540–68,810 · €3,321–3,487 / 4 nights (opened-page range; search card also showed MXN 62,290 · €3,157 mobile)',
     selfCheckIn: false,
     checkInNote: '24h front desk · listed 15:00–24:00',
     source: 'Booking.com',
@@ -110,7 +110,7 @@ export const stays = [
     walkToColima: 'about 10 min to Colima cluster',
     rating: 9.5,
     reviewCount: 188,
-    price: '$2,213–$2,432 / 4 nights',
+    price: 'MXN 37,670–41,390 · €1,909–2,098 / 4 nights',
     selfCheckIn: false,
     checkInNote: '24h front desk · listed 15:00–24:00',
     source: 'Booking.com',
@@ -125,7 +125,7 @@ export const stays = [
     walkToColima: 'about 8 min to Colima cluster',
     rating: 8.9,
     reviewCount: 302,
-    price: '$1,085–$1,245 / 4 nights',
+    price: 'MXN 18,470–21,190 · €936–1,074 / 4 nights',
     selfCheckIn: false,
     checkInNote: 'Listed 15:00–24:00 · early 10:00 checkout',
     source: 'Booking.com',
@@ -140,7 +140,7 @@ export const stays = [
     walkToColima: 'about 10 min to Colima cluster',
     rating: 9.1,
     reviewCount: 272,
-    price: '$1,526–$2,329 / 4 nights',
+    price: 'MXN 25,970–39,640 · €1,316–2,009 / 4 nights',
     selfCheckIn: false,
     checkInNote: '24h front desk · listed from 15:00',
     source: 'Booking.com',

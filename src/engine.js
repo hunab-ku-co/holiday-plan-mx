@@ -147,8 +147,8 @@ function anthroDay(date) {
     summary:
       'A normal INAH day if it is Tue–Sun. Anthropology 09:00–18:00, Sun Stone in Sala Mexica. Castillo is at least 1.5 h inside up a paved ramp with no elevator — highlights only, do not stack the full castle on the same ticketed day.',
     items: [
-      { kind: 'see', title: 'Museo Nacional de Antropología', detail: 'Tue–Sun 09:00–18:00, closed Mon. MXN 210 general. Tickets: ventadeboletosenlinea.inah.gob.mx. 26 Dec 2026 is a Saturday (normal). 2024–25 the museum stayed open 24, 25, 31 Dec and 1 Jan — still reconfirm 2026–27 circulars.' },
-      { kind: 'see', title: 'Castillo de Chapultepec — highlights only', detail: 'Tue–Sun 09:00–17:00. MXN 210. If energy is low at altitude, skip the castle and keep Anthropology.' },
+      { kind: 'see', title: 'Museo Nacional de Antropología', detail: 'Tue–Sun 09:00–18:00, closed Mon. MXN 210 · €11 general. Tickets: ventadeboletosenlinea.inah.gob.mx. 26 Dec 2026 is a Saturday (normal). 2024–25 the museum stayed open 24, 25, 31 Dec and 1 Jan — still reconfirm 2026–27 circulars.' },
+      { kind: 'see', title: 'Castillo de Chapultepec — highlights only', detail: 'Tue–Sun 09:00–17:00. MXN 210 · €11. If energy is low at altitude, skip the castle and keep Anthropology.' },
       { kind: 'eat', title: 'Tacos Roma–Condesa in the evening', detail: 'Orinoco or El Califa. This is the right night if the date is Sat 26 Dec. Skip tacos on 25 Dec and on Frida day.' },
     ],
     research: [{ label: 'INAH 2026–27 holiday circular', state: 'Not yet published. 26 Dec should be ordinary Saturday hours.' }],
@@ -169,8 +169,8 @@ function centroDay(date) {
     summary:
       '6 Jan 2027 is Wednesday, Día de Reyes — not a federal rest day. Templo Mayor Tue–Sun 09:00–17:00, expected open. Bellas Artes museum same-day taquilla only. Palacio Postal is a different building.',
     items: [
-      { kind: 'see', title: 'Templo Mayor', detail: 'Tue–Sun 09:00–17:00. MXN 210 INAH (older SIC $100 listings are stale). Includes the archaeological zone. Original Coyolxauhqui in the museum.' },
-      { kind: 'see', title: 'Palacio de Bellas Artes museum', detail: 'Tue–Sun 10:00–18:00, last entry 17:30. MXN 95, same-day taquilla, no online. Sun free. Concert hall is a separate ticket. 2024–25 INBAL closed 25 Dec and 1 Jan; 24 and 31 Dec closed 14:00.' },
+      { kind: 'see', title: 'Templo Mayor', detail: 'Tue–Sun 09:00–17:00. MXN 210 · €11 INAH (older SIC $100 listings are stale). Includes the archaeological zone. Original Coyolxauhqui in the museum.' },
+      { kind: 'see', title: 'Palacio de Bellas Artes museum', detail: 'Tue–Sun 10:00–18:00, last entry 17:30. MXN 95 · €5, same-day taquilla, no online. Sun free. Concert hall is a separate ticket. 2024–25 INBAL closed 25 Dec and 1 Jan; 24 and 31 Dec closed 14:00.' },
       { kind: 'eat', title: 'Centro lunch', detail: 'El Cardenal Palma (lunch only 08:00–18:30) or Azul Histórico or Café de Tacuba.' },
     ],
     research: [
@@ -198,7 +198,7 @@ function polancoReturn(date, fromOaxaca) {
       ? [
           { kind: 'move', title: 'OAX → CDMX', detail: 'Bus vs flight is on the CDMX–Oaxaca tab. OAX airport is ~9 km / 20–30 min to Centro; ADO Oaxaca station is closer. Then onward to Polanco.' },
           { kind: 'see', title: 'Soumaya Plaza Carso if the landing is early enough', detail: 'Every day 10:30–18:30, free. Tuesday 5 Jan is an ordinary opening.' },
-          { kind: 'eat', title: 'Polanco dinner', detail: 'Comedor Jacinta (Bib Gourmand) or Chapulín or Au Pied. Quintonil is a tasting (MXN 6090, Sun closed) — better as 7 Jan if they want a special.' },
+          { kind: 'eat', title: 'Polanco dinner', detail: 'Comedor Jacinta (Bib Gourmand) or Chapulín or Au Pied. Quintonil is a tasting (MXN 6090 · €309, Sun closed) — better as 7 Jan if they want a special.' },
         ]
       : [{ kind: 'stay', title: 'Polanco', detail: 'Campos Elíseos / Lincoln cluster.' }],
     research: [
@@ -222,8 +222,8 @@ function fridaDay(date) {
     summary:
       'Timed tickets only — boletos.museofridakahlo.org.mx — no door sales. Closed 25 Dec and 1 Jan 2027. 7 Jan 2027 is Thursday 10:00–18:00. The ticket includes courtesy Anahuacalli, 15–20 min by car, not walkable. Evening geography then points to Sud 777 or back to Polanco for Quintonil.',
     items: [
-      { kind: 'see', title: 'Casa Azul', detail: 'Mon closed. Tue 10–18, Wed 11–18, Thu–Sun 10–18. General MXN 320 / national 160. Reduced hours 24 and 31 Dec 10:00–14:00 (English visit page; Spanish homepage says 11:00–14:00 — recheck).' },
-      { kind: 'see', title: 'Anahuacalli', detail: 'Tue–Sun 11:00–17:30. MXN 130 if bought separately. Calle Museo 150, San Pablo Tepetlapa.' },
+      { kind: 'see', title: 'Casa Azul', detail: 'Mon closed. Tue 10–18, Wed 11–18, Thu–Sun 10–18. General MXN 320 · €16 / national 160. Reduced hours 24 and 31 Dec 10:00–14:00 (English visit page; Spanish homepage says 11:00–14:00 — recheck).' },
+      { kind: 'see', title: 'Anahuacalli', detail: 'Tue–Sun 11:00–17:30. MXN 130 · €7 if bought separately. Calle Museo 150, San Pablo Tepetlapa.' },
       { kind: 'eat', title: 'Coyoacán by day, special by night', detail: 'Los Danzantes or Corazón de Maguey for lunch. Quintonil (Thu is a service day) or Sud 777 after Anahuacalli. Skip Roma tacos tonight.' },
     ],
     research: [
@@ -257,7 +257,7 @@ function pueblaDay(date) {
           { kind: 'see', title: 'Puebla Centro fallback', detail: 'Zócalo, cathedral, Capilla del Rosario, Palafoxiana (Tue–Thu 10–17, Fri–Sun 10–18, closed Mon). Mole / cemitas. Do not add a hotel.' },
         ]
       : [
-          { kind: 'see', title: 'Zona Arqueológica de Cholula', detail: 'One ticket: ceremonial area + Museo de Sitio. Foreigner MXN 210. Tunnels closed. Church of Remedios on top is separate, 07:00–19:00, stairs, volcano views.' },
+          { kind: 'see', title: 'Zona Arqueológica de Cholula', detail: 'One ticket: ceremonial area + Museo de Sitio. Foreigner MXN 210 · €11. Tunnels closed. Church of Remedios on top is separate, 07:00–19:00, stairs, volcano views.' },
           { kind: 'see', title: 'Puebla Centro afternoon', detail: 'Skip Amparo. Palafoxiana and Rosario if short. Sunday cathedral tourist visit only 15:00–16:45.' },
           { kind: 'move', title: 'There and back in a day', detail: 'Estrella Roja TAPO ↔ Cholula 12 Poniente is the cleanest if Cholula first. Uber Puebla–Cholula ~24 min. Overland Oaxaca → Puebla → CDMX the same day is 12–16 h — do not.' },
         ],
@@ -325,7 +325,7 @@ function monteAlban(date) {
     city: 'OAX',
     altitude: 1542,
     theme: 'oaxaca',
-    summary: 'Private driver for 08:00. Daily 08:00–17:00, last access 16:00, MXN 210. About 2–3 h on site. Valley ~1,500 m, ridge ~400 m above — sun and stairs, not extra altitude vs CDMX. Then the hotel pool. Optional Atzompa on the way back, not a second ruin marathon.',
+    summary: 'Private driver for 08:00. Daily 08:00–17:00, last access 16:00, MXN 210 · €11. About 2–3 h on site. Valley ~1,500 m, ridge ~400 m above — sun and stairs, not extra altitude vs CDMX. Then the hotel pool. Optional Atzompa on the way back, not a second ruin marathon.',
     items: [
       { kind: 'see', title: 'Monte Albán at opening', detail: '8 km west of Centro. INAH zone 94.' },
       { kind: 'stay', title: 'Pool afternoon', detail: 'This is why Otro, Escondido, Quinta Real, Siglo 17, or Los Pilares matter.' },
@@ -404,7 +404,7 @@ function mezcalDay(date) {
     city: 'OAX',
     altitude: 1542,
     theme: 'oaxaca',
-    summary: 'East: Tule → optional Teotitlán → Mitla (INAH daily 08:00–17:00 last 16:30, MXN 210) → two palenques toward Matatlán. Two or three palenques max. Eat first. Buy bottles where you like them. Real Minero (south) is a different day — reserved, not combined with Mitla.',
+    summary: 'East: Tule → optional Teotitlán → Mitla (INAH daily 08:00–17:00 last 16:30, MXN 210 · €11) → two palenques toward Matatlán. Two or three palenques max. Eat first. Buy bottles where you like them. Real Minero (south) is a different day — reserved, not combined with Mitla.',
     items: [
       { kind: 'see', title: 'Mitla + two palenques', detail: 'Juan Montes-Lara is a usual private guide pattern (normally three palenques — hold to two or three).' },
       { kind: 'eat', title: 'Pitiona or leftover', detail: 'If this lands on Sat 2 Jan, Pitiona fits. Otherwise Origen.' },
@@ -423,7 +423,7 @@ function flexDay(date) {
     city: 'OAX',
     altitude: 1542,
     theme: 'oaxaca',
-    summary: 'Hierve el Agua is ~1.5–1 h 45, locally managed, hours conflict, can shut with little warning — private and early or skip. Casa Crespo public class Tue–Sun 10:00 MXN 1350 (Sunday is published). Casa de los Sabores group is Wed/Fri only and does not fit a Sunday.',
+    summary: 'Hierve el Agua is ~1.5–1 h 45, locally managed, hours conflict, can shut with little warning — private and early or skip. Casa Crespo public class Tue–Sun 10:00 MXN 1350 · €68 (Sunday is published). Casa de los Sabores group is Wed/Fri only and does not fit a Sunday.',
     items: [
       { kind: 'see', title: 'Pick one', detail: 'Hierve, Casa Crespo, Seasons of My Heart (full day Etla), or a pool day.' },
     ],

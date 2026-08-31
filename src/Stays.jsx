@@ -106,7 +106,8 @@ export default function Stays() {
           Ranked by reviews, then interior Roma safety, then walk to Colima. 15:00–24:00 windows are tight if S lands
           00:07 on 25 Dec — 24h desk is the insurance; message the property. Walk times are street estimates, not OSM.
           Dropped (not shown as cards): Tanat Art Apartments check-in only 15:00–18:00 — fails midnight arrival. Kukun
-          Tonala 121 check-in ends 23:00 — borderline.
+          Tonala 121 check-in ends 23:00 — borderline. Prices in MXN and euros, converted from Booking.com USD at Xe
+          mid-market 1 USD = MXN 17.02 · €0.8625 (31 Aug 2026).
         </p>
         <p className="hint">
           <a className="stay-link" href={BOOKING_SEARCH} target="_blank" rel="noreferrer">
