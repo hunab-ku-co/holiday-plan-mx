@@ -1,4 +1,4 @@
-import { AIRBNB_SEARCH, stays } from './data/stays.js'
+import { AIRBNB_SEARCH, BOOKING_SEARCH, stays } from './data/stays.js'
 
 const CLUSTER = [
   { name: 'Rosetta', addr: 'Colima 166', walk: '1 min' },
@@ -8,12 +8,6 @@ const CLUSTER = [
   { name: 'Despacho Margarita', addr: 'Córdoba 115', walk: 'about 5 min' },
   { name: 'Martínez', addr: 'Puebla 90', walk: '7 min' },
 ]
-
-function selfLabel(v) {
-  if (v === true) return 'Self-check-in'
-  if (v === false) return 'Hosted check-in'
-  return 'Check-in unknown'
-}
 
 function StayCard({ stay }) {
   return (
@@ -35,13 +29,13 @@ function StayCard({ stay }) {
         )}
         <dt>Those dates</dt>
         <dd>{stay.price || 'Price not verified — will not guess.'}</dd>
-        <dt>24 Dec night</dt>
-        <dd>{selfLabel(stay.selfCheckIn)}</dd>
+        <dt>Check-in</dt>
+        <dd>{stay.checkInNote || 'Check-in unknown'}</dd>
       </dl>
       <p className="stay-why">{stay.why}</p>
       {stay.url && (
         <a className="stay-link" href={stay.url} target="_blank" rel="noreferrer">
-          Airbnb listing
+          {stay.linkLabel || 'Booking.com listing'}
         </a>
       )}
     </article>
@@ -54,7 +48,7 @@ export default function Stays() {
       <h2>Roma Norte · 24–28 Dec</h2>
       <p className="hint">
         Two adults. S lands AICM around midnight 24 Dec (possibly just after midnight on the 25th). They may skip the
-        airport hotel and go straight to Roma Norte. Self or late check-in from 24 Dec night is a must.
+        airport hotel and go straight to Roma Norte. Late check-in from 24 Dec night is a must.
       </p>
 
       <article className="brief">
@@ -95,41 +89,40 @@ export default function Stays() {
       </article>
 
       <article className="brief grade">
-        <h3>How listings will be ranked</h3>
+        <h3>How listings are ranked</h3>
         <ol>
           <li>Reviews</li>
           <li>Area safety (lit interior Roma / Condesa blocks)</li>
           <li>Closeness to the Colima cluster</li>
         </ol>
-        <p className="hint">Self-check-in from 24 Dec night is a must, not a scored nicety. Fail that and the listing is out.</p>
+        <p className="hint">Late check-in from 24 Dec night is a must, not a scored nicety. A 24h desk is the insurance — not a lockbox. Fail a usable midnight arrival and the listing is out.</p>
       </article>
 
       <div className="listings">
         <h3>Listings</h3>
-        {stays.length === 0 ? (
-          <div className="stay-empty">
-            <p>
-              Checking Roma Norte 24–28 Dec 2026 · 2 guests. Listings will appear here; we will not fake prices.
-            </p>
-            <a className="stay-link" href={AIRBNB_SEARCH} target="_blank" rel="noreferrer">
-              Open the Airbnb search for those dates
-            </a>
-          </div>
-        ) : (
-          <>
-            <p className="hint">
-              Ranked by reviews, then area safety, then walk to Colima.{' '}
-              <a href={AIRBNB_SEARCH} target="_blank" rel="noreferrer">
-                Airbnb search
-              </a>
-            </p>
-            <div className="stay-grid">
-              {stays.map((s) => (
-                <StayCard key={s.id} stay={s} />
-              ))}
-            </div>
-          </>
-        )}
+        <p className="hint">
+          Airbnb.com was unreachable (503) from this environment on 31 Aug 2026. These are Booking.com apartments for
+          check-in 24 Dec / checkout 28 Dec, 2 adults, 1 room, neighbourhood Roma, 8+ reviews, sorted by review score.
+          Ranked by reviews, then interior Roma safety, then walk to Colima. 15:00–24:00 windows are tight if S lands
+          00:07 on 25 Dec — 24h desk is the insurance; message the property. Walk times are street estimates, not OSM.
+          Dropped (not shown as cards): Tanat Art Apartments check-in only 15:00–18:00 — fails midnight arrival. Kukun
+          Tonala 121 check-in ends 23:00 — borderline.
+        </p>
+        <p className="hint">
+          <a className="stay-link" href={BOOKING_SEARCH} target="_blank" rel="noreferrer">
+            Booking.com search
+          </a>
+          {' · '}
+          <a className="stay-link" href={AIRBNB_SEARCH} target="_blank" rel="noreferrer">
+            Airbnb search
+          </a>
+          {' '}(secondary)
+        </p>
+        <div className="stay-grid">
+          {stays.map((s) => (
+            <StayCard key={s.id} stay={s} />
+          ))}
+        </div>
       </div>
     </section>
   )
