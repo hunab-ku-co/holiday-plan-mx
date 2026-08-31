@@ -15,6 +15,7 @@ import {
 import { decodePlan, defaultState, encodePlan } from './share.js'
 
 const STORAGE_KEY = 'mx-trip-plan-26-27'
+const WHO_KEY = 'mx-trip-who'
 
 function loadInitial() {
   const fromHash = decodePlan(window.location.hash)
@@ -71,6 +72,32 @@ export default function App() {
   function setPick(date, field, value) {
     const prev = state.picks[date] || {}
     patch({ picks: { ...state.picks, [date]: { ...prev, [field]: value } } })
+  }
+
+  const comments = Array.isArray(state.comments) ? state.comments : []
+
+  function addComment(who, text, day) {
+    const body = text.trim().slice(0, 600)
+    if (!body) return
+    const item = {
+      id: `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`,
+      who: who === 'S' ? 'S' : 'V',
+      text: body,
+      day: day || null,
+      at: Date.now(),
+    }
+    patch({ comments: [...comments, item].slice(-80) })
+  }
+
+  function removeComment(id) {
+    patch({ comments: comments.filter((c) => c.id !== id) })
+  }
+
+  const dayLabel = (iso) => {
+    if (!iso) return 'Plan'
+    const d = days.find((x) => x.date === iso)
+    if (!d) return iso.slice(8) + ' ' + (iso.slice(5, 7) === '12' ? 'Dec' : 'Jan')
+    return `${d.dow} ${iso.slice(8)} ${iso.slice(5, 7) === '12' ? 'Dec' : 'Jan'}`
   }
 
   async function copyShare() {
@@ -338,11 +365,22 @@ export default function App() {
                       </label>
                     </div>
                   )}
-                  {!open && (hotelId || restId || note) && (
+                  {open && (
+                    <DayComments
+                      date={d.date}
+                      comments={comments.filter((c) => c.day === d.date)}
+                      onAdd={addComment}
+                      onRemove={removeComment}
+                    />
+                  )}
+                  {!open && (hotelId || restId || note || comments.some((c) => c.day === d.date)) && (
                     <p className="picked">
                       {hotelId && <span>{lookup(trip.hotels, hotelId)?.name}</span>}
                       {restId && <span>{lookup(trip.restaurants, restId)?.name}</span>}
                       {note && <span className="note-preview">{note}</span>}
+                      {comments.some((c) => c.day === d.date) && (
+                        <span>{comments.filter((c) => c.day === d.date).length} comment{comments.filter((c) => c.day === d.date).length === 1 ? '' : 's'}</span>
+                      )}
                     </p>
                   )}
                 </li>
@@ -350,6 +388,14 @@ export default function App() {
             })}
           </ol>
         </section>
+
+        <Feedback
+          comments={comments}
+          days={days}
+          dayLabel={dayLabel}
+          onAdd={addComment}
+          onRemove={removeComment}
+        />
 
         <section className="catalog">
           <h2>The lists</h2>
@@ -361,7 +407,7 @@ export default function App() {
 
         <footer className="colophon">
           <p>
-            Share links encode the active scenario, chapter order, notes, statuses, and picks in the URL hash. Nothing is stored on a server. localStorage keeps a copy on this browser. Anyone with the link can read the notes — do not put passport numbers, ticket codes, or phone numbers in them.
+            Share links encode the active scenario, chapter order, notes, comments, statuses, and picks in the URL hash. Nothing is stored on a server. Copy the share link after you write feedback so the other person sees it. Anyone with the link can read comments — do not put passport numbers, ticket codes, or phone numbers in them.
           </p>
           <p>
             Live at{' '}
@@ -370,6 +416,108 @@ export default function App() {
           </p>
         </footer>
       </div>
+    </div>
+  )
+}
+
+function loadWho() {
+  try {
+    const w = localStorage.getItem(WHO_KEY)
+    if (w === 'S' || w === 'V') return w
+  } catch {
+    /* ignore */
+  }
+  return 'V'
+}
+
+function Composer({ days, defaultDay, onAdd, compact }) {
+  const [who, setWho] = useState(loadWho)
+  const [text, setText] = useState('')
+  const [day, setDay] = useState(defaultDay || '')
+
+  function submit(e) {
+    e.preventDefault()
+    if (!text.trim()) return
+    try {
+      localStorage.setItem(WHO_KEY, who)
+    } catch {
+      /* ignore */
+    }
+    onAdd(who, text, day || null)
+    setText('')
+  }
+
+  return (
+    <form className={compact ? 'composer compact' : 'composer'} onSubmit={submit}>
+      <div className="who-row" role="group" aria-label="Who is writing">
+        <button type="button" className={who === 'V' ? 'on' : ''} onClick={() => setWho('V')}>
+          V
+        </button>
+        <button type="button" className={who === 'S' ? 'on' : ''} onClick={() => setWho('S')}>
+          S
+        </button>
+      </div>
+      {days && (
+        <select value={day} onChange={(e) => setDay(e.target.value)} aria-label="About which day">
+          <option value="">Whole plan</option>
+          {days.map((d) => (
+            <option key={d.date} value={d.date}>
+              {d.dow} {d.date.slice(8)} {d.date.slice(5, 7) === '12' ? 'Dec' : 'Jan'} · {d.title}
+            </option>
+          ))}
+        </select>
+      )}
+      <textarea
+        rows={compact ? 2 : 3}
+        value={text}
+        placeholder={who === 'S' ? 'Feedback from S' : 'Feedback from V'}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <button type="submit" className="post">
+        Post
+      </button>
+    </form>
+  )
+}
+
+function CommentList({ comments, dayLabel, onRemove }) {
+  if (!comments.length) return <p className="hint">No comments yet.</p>
+  return (
+    <ul className="thread">
+      {comments.map((c) => (
+        <li key={c.id} className={`bubble who-${c.who}`}>
+          <header>
+            <strong>{c.who}</strong>
+            {dayLabel ? <span>{c.day ? dayLabel(c.day) : 'Plan'}</span> : null}
+            {c.at ? <time>{new Date(c.at).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}</time> : null}
+            <button type="button" className="x" onClick={() => onRemove(c.id)} aria-label="Remove comment">
+              ×
+            </button>
+          </header>
+          <p>{c.text}</p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function Feedback({ comments, days, dayLabel, onAdd, onRemove }) {
+  return (
+    <section className="feedback" id="feedback">
+      <h2>Feedback</h2>
+      <p className="hint">Write as S or V. Copy the share link after you post so the other person sees the thread. Still public if you send the URL.</p>
+      <Composer days={days} onAdd={onAdd} />
+      <CommentList comments={[...comments].reverse()} dayLabel={dayLabel} onRemove={onRemove} />
+    </section>
+  )
+}
+
+function DayComments({ date, comments, onAdd, onRemove }) {
+  return (
+    <div className="day-thread">
+      <h4>Comments on this day</h4>
+      <CommentList comments={comments} onRemove={onRemove} />
+      <Composer compact defaultDay={date} onAdd={onAdd} />
     </div>
   )
 }

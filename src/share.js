@@ -17,6 +17,30 @@ function fromB64url(s) {
   return out
 }
 
+function compactComments(list) {
+  if (!Array.isArray(list)) return []
+  return list.slice(-80).map((c) => ({
+    i: String(c.id || ''),
+    w: c.who === 'S' ? 'S' : 'V',
+    t: String(c.text || '').slice(0, 600),
+    d: c.day || '',
+    a: Number(c.at) || 0,
+  }))
+}
+
+function expandComments(list) {
+  if (!Array.isArray(list)) return []
+  return list
+    .map((c) => ({
+      id: String(c.i || c.id || ''),
+      who: c.w === 'S' || c.who === 'S' ? 'S' : 'V',
+      text: String(c.t || c.text || '').slice(0, 600),
+      day: c.d || c.day || null,
+      at: Number(c.a || c.at) || 0,
+    }))
+    .filter((c) => c.text)
+}
+
 export function encodePlan(state) {
   const compact = {
     v: 1,
@@ -26,6 +50,7 @@ export function encodePlan(state) {
     n: state.notes,
     t: state.status,
     k: state.picks,
+    f: compactComments(state.comments),
   }
   const json = JSON.stringify(compact)
   const bytes = new TextEncoder().encode(json)
@@ -48,6 +73,7 @@ export function decodePlan(hash) {
       notes: c.n && typeof c.n === 'object' ? c.n : {},
       status: c.t && typeof c.t === 'object' ? c.t : {},
       picks: c.k && typeof c.k === 'object' ? c.k : {},
+      comments: expandComments(c.f),
     }
   } catch {
     return null
@@ -62,5 +88,6 @@ export function defaultState() {
     notes: {},
     status: {},
     picks: {},
+    comments: [],
   }
 }

@@ -10,7 +10,7 @@ Install dependencies, then start the Vite dev server, then build to docs/.
 Base path is /holiday-plan-mx/. GitHub Pages serves main/docs (legacy static).
 
 ## Share links
-Plan state lives in the URL hash and in localStorage. No backend. Do not put secrets in notes.
+Plan state lives in the URL hash and in localStorage. No backend. Comments are an S/V thread on the plan or a day. Copy the share link after posting. Do not put secrets in notes or comments.
 
 ## Privacy
 No flight numbers, PNR, ticket codes, passport numbers, phone numbers, tokens, or full names.
