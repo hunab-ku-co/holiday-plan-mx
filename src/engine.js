@@ -192,18 +192,18 @@ function polancoReturn(date, fromOaxaca) {
     altitude: 2240,
     theme: 'cdmx-return',
     summary: fromOaxaca
-      ? 'Return from Oaxaca to CDMX. Flight airborne ~1 h 15, or ADO 6–7 h — the comparison lives on the CDMX–Oaxaca tab, not locked here. Typical late-morning to mid-afternoon windows if flying; December is the expensive month. Park-edge Campos Elíseos cluster if Anthropology is still ahead on foot. Soumaya is the light add-on (daily 10:30–18:30, free).'
+      ? 'Return from Oaxaca to CDMX by bus. ADO Oaxaca → ADO TAPO first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Day or overnight still open; Christmas fare not retrieved. Park-edge Campos Elíseos cluster if Anthropology is still ahead on foot. Soumaya is the light add-on (daily 10:30–18:30, free).'
       : 'Polanco night. Park-edge stay.',
     items: fromOaxaca
       ? [
-          { kind: 'move', title: 'OAX → CDMX', detail: 'Bus vs flight is on the CDMX–Oaxaca tab. OAX airport is ~9 km / 20–30 min to Centro; ADO Oaxaca station is closer. Then onward to Polanco.' },
-          { kind: 'see', title: 'Soumaya Plaza Carso if the landing is early enough', detail: 'Every day 10:30–18:30, free. Tuesday 5 Jan is an ordinary opening.' },
+          { kind: 'move', title: 'OAX → CDMX', detail: 'ADO Oaxaca → ADO TAPO first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Then onward to Polanco. Day or overnight still open; Christmas fare not retrieved. Details on the CDMX–Oaxaca tab.' },
+          { kind: 'see', title: 'Soumaya Plaza Carso if the arrival is early enough', detail: 'Every day 10:30–18:30, free. Tuesday 5 Jan is an ordinary opening.' },
           { kind: 'eat', title: 'Polanco dinner', detail: 'Comedor Jacinta (Bib Gourmand) or Chapulín or Au Pied. Quintonil is a tasting (MXN 6090 · €309, Sun closed) — better as 7 Jan if they want a special.' },
         ]
       : [{ kind: 'stay', title: 'Polanco', detail: 'Campos Elíseos / Lincoln cluster.' }],
     research: [
       { label: 'Dated Polanco rates 5–8 Jan', state: 'Not published as a static list.' },
-      { label: 'OAX–MEX December inventory', state: 'Book now. Typical return windows cluster late morning to mid-afternoon.' },
+      { label: 'ADO TAPO–Oaxaca Christmas inventory', state: 'Book now; dated fares not retrieved.' },
     ],
     hotel: 'las-alcobas',
     restaurant: 'comedor-jacinta',
@@ -276,20 +276,21 @@ function oaxacaArrival(date, christmas) {
     altitude: 1542,
     theme: 'oaxaca',
     summary: christmas
-      ? 'As soon as a midnight landing is humane: late morning rest, then CDMX → Oaxaca. Christmas dinner at 1,542 m. How you travel (flight ~1 h 15 airborne vs ADO 6–7 h) lives on the CDMX–Oaxaca tab — not locked here. 2026 menus are not published. Levadura is open on a Friday but this is an arrival day — save it. Casa Oaxaca or Los Danzantes, confirm that week.'
-      : 'CDMX → Oaxaca. Flight airborne ~1 h 10–1 h 25, or ADO 6–7 h — comparison on the CDMX–Oaxaca tab. Typical Sunday windows if flying. OAX airport → Centro ~9 km, 20–30 min; ADO Oaxaca station is closer to Centro. Stay Centro or Jalatlaco. Pool hotels after the later Monte Albán day.',
+      ? 'As soon as a midnight landing is humane: late morning rest, then CDMX → Oaxaca by bus. Christmas dinner at 1,542 m. ADO TAPO → ADO Oaxaca first-class, 6–7 h typical. Day or overnight still open; Christmas fare not retrieved. 2026 menus are not published. Levadura is open on a Friday but this is an arrival day — save it. Casa Oaxaca or Los Danzantes, confirm that week.'
+      : 'CDMX → Oaxaca by bus. ADO TAPO → ADO Oaxaca first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Day or overnight still open; Christmas fare not retrieved. Stay Centro or Jalatlaco. Pool hotels after the later Monte Albán day.',
     items: christmas
       ? [
-          { kind: 'move', title: 'CDMX → Oaxaca', detail: 'Bus vs flight is on the CDMX–Oaxaca tab. If flying, match T1 vs T2 to the airline (not to an airport hotel you may have skipped).' },
+          { kind: 'move', title: 'CDMX → Oaxaca', detail: 'ADO TAPO → ADO Oaxaca first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Day or overnight still open; Christmas fare not retrieved. Details on the CDMX–Oaxaca tab.' },
           { kind: 'eat', title: 'Christmas dinner in Oaxaca', detail: 'Casa Oaxaca rooftop or Los Danzantes. Levadura is a Friday service day but too ambitious after a travel day. Menus not published.' },
           { kind: 'stay', title: 'Centro or Jalatlaco', detail: 'Otro (facing Santo Domingo), Escondido, Quinta Real (skip a locked gala), Casa Oaxaca Hotel, Siglo 17, Los Pilares, City Centro Marriott.' },
         ]
       : [
-          { kind: 'move', title: 'CDMX → Oaxaca', detail: 'Typical Sunday windows if flying sit early morning. Day or overnight ADO is the other fork. See the CDMX–Oaxaca tab.' },
+          { kind: 'move', title: 'CDMX → Oaxaca', detail: 'ADO TAPO → ADO Oaxaca first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Day or overnight still open; Christmas fare not retrieved. Details on the CDMX–Oaxaca tab.' },
           { kind: 'see', title: 'Centro, Santo Domingo, light walking', detail: 'Arrival day is not Monte Albán. Jalatlaco dinner keeps it close to a pool hotel.' },
           { kind: 'eat', title: 'Asador Bacanora or Tierra del Sol', detail: 'Levadura is closed Sunday. Proposal: Bacanora in Jalatlaco.' },
         ],
     research: [
+      { label: 'ADO TAPO–Oaxaca Christmas inventory', state: 'Book now; dated fares not retrieved.' },
       { label: 'NYE and Christmas 2026 menus', state: 'Not yet published. Watch October–November.' },
       { label: 'Winter Expo-Venta de Alebrijes 2026–27', state: 'Not listed yet. Last winter: 19 Dec 2025–4 Jan 2026, Galera Municipal, San Martín Tilcajete, 10:00–18:00.' },
     ],

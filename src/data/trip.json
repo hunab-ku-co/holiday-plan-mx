@@ -122,18 +122,18 @@
   "playgroundBlocks": [
     { "id": "cdmx-xmas", "label": "CDMX Christmas", "days": 1, "hint": "25 Dec Coyoacán. Museums shut. Nochebuena was the 24th." },
     { "id": "cdmx-museums", "label": "CDMX museums", "days": 2, "hint": "Anthropology + Castillo highlights, then Centro / Templo / Bellas Artes." },
-    { "id": "oaxaca", "label": "Oaxaca", "days": 0, "hint": "Absorbs leftover days. NYE belongs here. CDMX–Oaxaca travel (bus vs flight) is on its own tab." },
+    { "id": "oaxaca", "label": "Oaxaca", "days": 0, "hint": "Absorbs leftover days. NYE belongs here. CDMX–Oaxaca travel is buses; details on the tab." },
     { "id": "puebla", "label": "Puebla / Cholula", "days": 1, "hint": "One-day trip, no extra hotel. Cholula closed Mon & Tue." },
     { "id": "frida", "label": "Frida + Coyoacán", "days": 1, "hint": "Timed tickets. Closed 25 Dec and 1 Jan. Includes Anahuacalli." }
   ],
   "scenarioA": {
     "id": "A",
     "name": "Baseline",
-    "lede": "Christmas in CDMX, then Oaxaca for the valley and NYE, back to Polanco for museums and Frida. How you travel CDMX–Oaxaca is on its own tab. Puebla is not placed — ranked slots live in the margin."
+    "lede": "Christmas in CDMX, then Oaxaca for the valley and NYE, back to Polanco for museums and Frida. CDMX–Oaxaca is bus both ways (locked 31 Aug 2026); overnight vs day still open on the tab. Puebla is not placed — ranked slots live in the margin."
   },
   "scenarioB": {
     "id": "B",
     "name": "Altitude reverse",
-    "lede": "Land, then either sleep the airport hotel or go straight to Roma Norte if self-check-in is ready. Go to Oaxaca as soon as that is humane. Christmas and NYE at 1,542 m. CDMX museums, Frida, and optional Puebla after the return. Bus vs flight is on the CDMX–Oaxaca tab."
+    "lede": "Land, then either sleep the airport hotel or go straight to Roma Norte if self-check-in is ready. Go to Oaxaca as soon as that is humane. Christmas and NYE at 1,542 m. CDMX museums, Frida, and optional Puebla after the return. Locked to bus; overnight vs day still open on the CDMX–Oaxaca tab."
   }
 }

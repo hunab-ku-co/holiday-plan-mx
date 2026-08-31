@@ -714,8 +714,6 @@ h2 {
   color: var(--agave);
 }
 .compare-row p { margin: 0; font-size: 0.9rem; line-height: 1.45; color: var(--ink); }
-.compare-k { display: inline; font-weight: 600; color: var(--terracotta-deep); }
-.compare-row p:last-of-type .compare-k { color: var(--agave); }
 .compare-head span:first-child { display: none; }
 
 .sketches {
@@ -744,7 +742,7 @@ h2 {
 
 @media (min-width: 720px) {
   .compare-head, .compare-row {
-    grid-template-columns: 8.5rem 1fr 1fr;
+    grid-template-columns: 8.5rem 1fr;
     gap: 14px;
     align-items: start;
   }

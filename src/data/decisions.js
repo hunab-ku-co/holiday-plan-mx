@@ -20,9 +20,9 @@ export const DECISIONS = [
     match: { date: '2026-12-31', city: 'OAX' },
   },
   {
-    id: 'mex-oax',
-    title: 'Decide fly vs bus CDMX–Oaxaca',
-    detail: 'Hold December seats if flying. Comparison is on the CDMX–Oaxaca tab, not locked on Trip.',
+    id: 'ado-seats',
+    title: 'Book ADO TAPO–Oaxaca both ways',
+    detail: 'Locked: bus, not flights. Platino / GL sell first at Christmas. Christmas 2026 fares were not retrieved — book on ado.com.mx, do not wait until 23 Dec. Overnight vs day still open. Details on the CDMX–Oaxaca tab.',
     kind: 'move',
     urgency: 'now',
     tab: 'oaxaca',
