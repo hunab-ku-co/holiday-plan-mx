@@ -2,6 +2,8 @@
 // Grade order: (1) reviews (2) interior Roma safety (3) closeness to the Colima cluster.
 // Inventory is Booking.com apartments pulled 31 Aug 2026. Airbnb.com returned 503.
 // Walk times are street estimates, not OSM measurements.
+// Band: more than €50 and less than €200 per night (4 nights ≈ €200–€800 · about MXN 3,950–15,780).
+// Per-night figures are the existing 4-night Booking quotes divided by 4; Xe 31 Aug 2026 (1 USD = MXN 17.02 · €0.8625). No new rates.
 
 export const AIRBNB_SEARCH =
   'https://www.airbnb.com/s/Roma-Norte--Mexico-City--Mexico/homes?checkin=2026-12-24&checkout=2026-12-28&adults=2'
@@ -17,7 +19,7 @@ export const BOOKING_SEARCH =
  * @property {string} walkToColima
  * @property {number | null} [rating]
  * @property {number | null} [reviewCount]
- * @property {string | null} [price]  // MXN · euro for 24–28 Dec 2026, 2 adults, converted from Booking.com USD at Xe mid-market 31 Aug 2026 (1 USD = 17.02 MXN · €0.8625)
+ * @property {string | null} [price]  // MXN · euro per night for 24–28 Dec 2026, 2 adults, from existing 4-night Booking.com quotes at Xe mid-market 31 Aug 2026 (1 USD = 17.02 MXN · €0.8625)
  * @property {boolean | null} [selfCheckIn]  // true only for lockbox; 24h desk is not self-check-in
  * @property {string} [checkInNote]
  * @property {string} [source]
@@ -35,7 +37,7 @@ export const stays = [
     walkToColima: 'about 8 min to Colima cluster',
     rating: 9.0,
     reviewCount: 445,
-    price: 'MXN 10,310–11,270 · €523–571 / 4 nights (deluxe queen studio; 1BR loft ~MXN 11,850–13,040 · €600–661)',
+    price: 'MXN 2,578–2,818 · €131–143 per night (deluxe queen studio; 4 nights MXN 10,310–11,270 · €523–571). 1BR loft MXN 2,963–3,260 · €150–165 per night (4 nights MXN 11,850–13,040 · €600–661), still under €200.',
     selfCheckIn: false,
     checkInNote: 'Open-ended late check-in · listed from 15:00, no closing time · 24/7 security in reviews',
     source: 'Booking.com',
@@ -50,7 +52,7 @@ export const stays = [
     walkToColima: 'about 8 min to Colima cluster',
     rating: 9.0,
     reviewCount: 158,
-    price: 'MXN 10,590–12,270 · €536–622 / 4 nights (1-BR loft)',
+    price: 'MXN 2,648–3,068 · €134–156 per night (1-BR loft; 4 nights MXN 10,590–12,270 · €536–622).',
     selfCheckIn: false,
     checkInNote: '24h front desk · listed 15:00–24:00',
     source: 'Booking.com',
@@ -65,87 +67,12 @@ export const stays = [
     walkToColima: 'about 12 min to Colima cluster',
     rating: 9.0,
     reviewCount: 441,
-    price: 'MXN 12,560–17,680 · €637–896 / 4 nights',
+    price: 'MXN 3,140 · €159 per night at the cheap end (4 nights MXN 12,560 · €637). Top of the quoted range MXN 4,420 · €224 per night (4 nights MXN 17,680 · €896) is over €200 — skip those rooms.',
     selfCheckIn: false,
     checkInNote: '24h front desk · listed from 15:00, no cutoff shown',
     source: 'Booking.com',
     linkLabel: 'Booking.com listing',
     url: 'https://www.booking.com/hotel/mx/casa-cibeles-by-lumina.html',
-    why: 'Lots of reviews, 24h desk; Oaxaca is a busier avenue.',
-  },
-  {
-    id: 'casa-oliva',
-    title: 'Casa Oliva',
-    area: '74 Puebla, Roma Norte',
-    walkToColima: 'about 7 min to Colima cluster',
-    rating: 9.2,
-    reviewCount: 383,
-    price: 'MXN 17,550–19,500 · €889–988 / 4 nights (2-BR)',
-    selfCheckIn: false,
-    checkInNote: '24h front desk · listed 15:00–24:00',
-    source: 'Booking.com',
-    linkLabel: 'Booking.com listing',
-    url: 'https://www.booking.com/hotel/mx/casa-oliva.html',
-    why: 'On Puebla (near Martínez), 2BR, 24h desk.',
-  },
-  {
-    id: 'colima-71',
-    title: 'Colima 71 – Casa de Arte Hotel',
-    area: 'Colima 71, Roma Norte',
-    walkToColima: 'about 5 min to Colima cluster',
-    rating: 9.4,
-    reviewCount: 88,
-    price: 'MXN 65,540–68,810 · €3,321–3,487 / 4 nights (opened-page range; search card also showed MXN 62,290 · €3,157 mobile)',
-    selfCheckIn: false,
-    checkInNote: '24h front desk · listed 15:00–24:00',
-    source: 'Booking.com',
-    linkLabel: 'Booking.com listing',
-    url: 'https://www.booking.com/hotel/mx/colima71-art-community-ciudad-de-mexico.html',
-    why: 'On Colima itself, pricey.',
-  },
-  {
-    id: 'xoma-viadora',
-    title: 'Xoma by Viadora',
-    area: '80 Zacatecas, Roma Norte',
-    walkToColima: 'about 10 min to Colima cluster',
-    rating: 9.5,
-    reviewCount: 188,
-    price: 'MXN 37,670–41,390 · €1,909–2,098 / 4 nights',
-    selfCheckIn: false,
-    checkInNote: '24h front desk · listed 15:00–24:00',
-    source: 'Booking.com',
-    linkLabel: 'Booking.com listing',
-    url: 'https://www.booking.com/hotel/mx/xoma-boutique-apartments-by-viadora.html',
-    why: 'Highest score, expensive, Zacatecas edge. Free cancel before 19 Dec 2026.',
-  },
-  {
-    id: 'caliza-roma',
-    title: 'Caliza Roma Residences by Tasman',
-    area: 'Jalapa 17, Roma Norte',
-    walkToColima: 'about 8 min to Colima cluster',
-    rating: 8.9,
-    reviewCount: 302,
-    price: 'MXN 18,470–21,190 · €936–1,074 / 4 nights',
-    selfCheckIn: false,
-    checkInNote: 'Listed 15:00–24:00 · early 10:00 checkout',
-    source: 'Booking.com',
-    linkLabel: 'Booking.com listing',
-    url: 'https://www.booking.com/hotel/mx/caliza-roma-residences-by-tasman.html',
-    why: 'Solid, early checkout is the ding.',
-  },
-  {
-    id: 'onto-alvaro-obregon',
-    title: 'ONTO Álvaro Obregón',
-    area: 'Av. Álvaro Obregón 43, Roma Norte',
-    walkToColima: 'about 10 min to Colima cluster',
-    rating: 9.1,
-    reviewCount: 272,
-    price: 'MXN 25,970–39,640 · €1,316–2,009 / 4 nights',
-    selfCheckIn: false,
-    checkInNote: '24h front desk · listed from 15:00',
-    source: 'Booking.com',
-    linkLabel: 'Booking.com listing',
-    url: 'https://www.booking.com/hotel/mx/onto-alvaro-obregon-mexico-city.html',
-    why: 'Last because the avenue is noisy.',
+    why: 'Lots of reviews, 24h desk; Oaxaca is a busier avenue. Cheapest quoted rooms sit under €200 per night.',
   },
 ]
