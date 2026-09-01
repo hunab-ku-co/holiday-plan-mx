@@ -761,6 +761,18 @@ export function warningsFor(days, scenario) {
   if (nye && nye.city !== 'OAX') {
     out.push({ level: 'warn', text: 'NYE is not in Oaxaca. Baseline was always a Centro night on foot after a rooftop dinner — menus for 2026 are not published, and a locked hotel gala is a trap.' })
   }
+  const xmas = byDate['2026-12-25']
+  if (!xmas) {
+    out.push({ level: 'alert', text: 'Christmas Day is missing from the timeline. No travel on Christmas Day is a locked decision — 25 Dec stays in CDMX; not a bus or flight day.' })
+  } else {
+    const travelling = (xmas.flags || []).includes('travel-day') || xmas.theme === 'depart'
+    if (travelling || xmas.city !== 'CDMX') {
+      out.push({
+        level: 'alert',
+        text: 'No travel on Christmas Day — 25 Dec stays in CDMX; not a bus or flight day. That is a locked decision.',
+      })
+    }
+  }
   const frida = days.find((d) => d.theme === 'frida')
   if (frida) {
     if (frida.date === '2026-12-25' || frida.date === '2027-01-01') {

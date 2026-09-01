@@ -19,13 +19,16 @@ import Stays from './Stays.jsx'
 import OaxacaTravel from './OaxacaTravel.jsx'
 import Maps from './Maps.jsx'
 import Decisions from './Decisions.jsx'
+import Board from './Board.jsx'
 import { asapDates } from './data/decisions.js'
+import { BOARD_CARDS, BOOKING_IDS, defaultBoard, hydrateBoard } from './data/board.js'
 
 const STORAGE_KEY = 'mx-trip-plan-26-27'
 const WHO_KEY = 'mx-trip-who'
 
 const TABS = [
   { id: 'trip', label: 'Trip' },
+  { id: 'decisions', label: 'Decisions' },
   { id: 'stays', label: 'Stays' },
   { id: 'oaxaca', label: 'CDMX–Oaxaca' },
 ]
@@ -33,7 +36,7 @@ const TABS = [
 function readTab() {
   try {
     const t = new URLSearchParams(window.location.search).get('tab')
-    if (t === 'stays' || t === 'oaxaca') return t
+    if (t === 'stays' || t === 'oaxaca' || t === 'decisions') return t
   } catch {
     /* ignore */
   }
@@ -54,12 +57,24 @@ function firstSentence(text) {
   return cut === -1 ? text : text.slice(0, cut + 1)
 }
 
+function mergePlan(partial) {
+  const base = defaultState()
+  if (!partial || typeof partial !== 'object') return base
+  const done = partial.done && typeof partial.done === 'object' ? partial.done : {}
+  return {
+    ...base,
+    ...partial,
+    done,
+    board: hydrateBoard(partial.board, done),
+  }
+}
+
 function loadInitial() {
   const fromHash = decodePlan(window.location.hash)
-  if (fromHash) return { ...defaultState(), ...fromHash }
+  if (fromHash) return mergePlan(fromHash)
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) return { ...defaultState(), ...JSON.parse(raw) }
+    if (raw) return mergePlan(JSON.parse(raw))
   } catch {
     /* ignore */
   }
@@ -142,7 +157,23 @@ export default function App() {
     const done = { ...(state.done || {}) }
     if (value) done[id] = true
     else delete done[id]
-    patch({ done })
+    const board = { ...(state.board || defaultBoard()) }
+    const card = BOARD_CARDS.find((c) => c.id === id)
+    if (card) {
+      if (value) board[id] = 'booked'
+      else if (board[id] === 'booked') board[id] = card.defaultColumn === 'booked' ? 'maybe' : card.defaultColumn
+    }
+    patch({ done, board })
+  }
+
+  function setColumn(id, column) {
+    const board = { ...(state.board || defaultBoard()), [id]: column }
+    const done = { ...(state.done || {}) }
+    if (BOOKING_IDS.has(id)) {
+      if (column === 'booked') done[id] = true
+      else delete done[id]
+    }
+    patch({ board, done })
   }
 
   const comments = Array.isArray(state.comments) ? state.comments : []
@@ -281,14 +312,13 @@ export default function App() {
 
         <Maps days={days} />
 
-        <section className="must">
-          <h2>Must-do, not maybe</h2>
-          <div className="must-grid">
-            <Must city="CDMX" items={trip.mustDos.cdmx} />
-            <Must city="Oaxaca" items={trip.mustDos.oaxaca} />
-            <Must city="Puebla" items={trip.mustDos.puebla} />
-          </div>
-        </section>
+        <p className="hint must-pointer">
+          Must-do visits and taken decisions live on the{' '}
+          <button type="button" className="textish" onClick={() => setTab('decisions')}>
+            Decisions
+          </button>{' '}
+          tab.
+        </p>
 
         <section className="puebla-slots">
           <h2>Puebla · locked dates</h2>
@@ -521,12 +551,15 @@ export default function App() {
         </>
         )}
 
+        {tab === 'decisions' && (
+          <Board board={state.board || defaultBoard()} onColumn={setColumn} />
+        )}
         {tab === 'stays' && <Stays />}
         {tab === 'oaxaca' && <OaxacaTravel />}
 
         <footer className="colophon">
           <p>
-            Share links encode the active scenario, chapter order, notes, comments, statuses, picks, and checked decisions in the URL hash. Nothing is stored on a server. Copy the share link after you write feedback so the other person sees it. Anyone with the link can read comments — do not put passport numbers, ticket codes, or phone numbers in them.
+            Share links encode the active scenario, chapter order, notes, comments, statuses, picks, checked decisions, and the Decisions board in the URL hash. Nothing is stored on a server. Copy the share link after you write feedback or move a card so the other person sees it. Anyone with the link can read comments — do not put passport numbers, ticket codes, or phone numbers in them.
           </p>
           <p>
             Live at{' '}
@@ -675,31 +708,6 @@ function CityTimeline({ days }) {
         ))}
       </ol>
     </div>
-  )
-}
-
-function Must({ city, items, extra }) {
-  return (
-    <article>
-      <h3>{city}</h3>
-      {extra && <p className="extra">{extra}</p>}
-      <ul className="must-chips">
-        {items.map((x) => (
-          <MustChip key={x} text={x} />
-        ))}
-      </ul>
-    </article>
-  )
-}
-
-function MustChip({ text }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <li className={open ? 'must-chip open' : 'must-chip'}>
-      <button type="button" title={text} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
-        {text}
-      </button>
-    </li>
   )
 }
 

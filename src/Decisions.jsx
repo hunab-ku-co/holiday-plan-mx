@@ -8,7 +8,17 @@ export default function Decisions({ days, done, onDone, onTab }) {
   return (
     <section className="decide" aria-label="Decisions">
       <h2>Decide soon</h2>
-      <p className="hint">Bright red = do first; other left colors match stay / eat / see / travel.</p>
+      <p className="hint">
+        Bright red = do first; other left colors match stay / eat / see / travel. The full maybe / decided / booked board is on the{' '}
+        {onTab ? (
+          <button type="button" className="textish" onClick={() => onTab('decisions')}>
+            Decisions
+          </button>
+        ) : (
+          'Decisions'
+        )}{' '}
+        tab.
+      </p>
       <ul className="decisions">
         {rows.map((d) => {
           const isDone = Boolean(done?.[d.id])

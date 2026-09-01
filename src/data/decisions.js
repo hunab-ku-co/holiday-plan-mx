@@ -112,4 +112,5 @@ export function asapDates(days, done) {
 export const TAB_HINT = {
   stays: 'Stays tab',
   oaxaca: 'CDMX–Oaxaca tab',
+  decisions: 'Decisions tab',
 }

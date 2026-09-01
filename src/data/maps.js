@@ -46,6 +46,14 @@ export const PINS = {
     lon: -99.1314324,
     name: 'Templo Mayor',
   },
+  // Nominatim, 1 Sep 2026.
+  // q=Mercado de Artesanías de la Ciudadela, Balderas, Ciudad de México
+  // → amenity=marketplace, Avenida Balderas, Centro, Cuauhtémoc, 06040.
+  ciudadela: {
+    lat: 19.4307608,
+    lon: -99.1491607,
+    name: 'Mercado de Artesanías de La Ciudadela',
+  },
   santoDomingo: {
     lat: 17.0656246,
     lon: -96.7230004,

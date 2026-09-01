@@ -242,6 +242,17 @@ export function mapsFromDays(days) {
     })
   }
 
+  if (PINS.ciudadela && cdmxDays.length) {
+    const ciudadelaDay = list.find((d) => d.date === '2027-01-06' && d.city === 'CDMX')
+    pushPin(
+      'ciudadela',
+      'visit',
+      PINS.ciudadela,
+      'La Ciudadela',
+      ciudadelaDay ? formatDayChip([numOf(list, ciudadelaDay)]) : '',
+    )
+  }
+
   if (pueDays.length && PINS.pueblaZocalo) {
     pins.push({
       id: 'puebla-zocalo',

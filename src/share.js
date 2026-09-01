@@ -1,3 +1,5 @@
+import { compactBoard, defaultBoard, hydrateBoard } from './data/board.js'
+
 const PREFIX = 'mx1.'
 
 function toB64url(bytes) {
@@ -73,6 +75,8 @@ export function encodePlan(state) {
   }
   const doneIds = compactDone(state.done)
   if (doneIds.length) compact.e = doneIds
+  const b = compactBoard(state.board)
+  if (Object.keys(b).length) compact.b = b
   const json = JSON.stringify(compact)
   const bytes = new TextEncoder().encode(json)
   return PREFIX + toB64url(bytes)
@@ -87,6 +91,7 @@ export function decodePlan(hash) {
     const json = new TextDecoder().decode(fromB64url(raw))
     const c = JSON.parse(json)
     if (!c || c.v !== 1) return null
+    const done = expandDone(c.e)
     return {
       scenario: c.s || 'A',
       order: Array.isArray(c.o) ? c.o : null,
@@ -95,7 +100,8 @@ export function decodePlan(hash) {
       status: c.t && typeof c.t === 'object' ? c.t : {},
       picks: c.k && typeof c.k === 'object' ? c.k : {},
       comments: expandComments(c.f),
-      done: expandDone(c.e),
+      done,
+      board: hydrateBoard(c.b, done),
     }
   } catch {
     return null
@@ -112,5 +118,6 @@ export function defaultState() {
     picks: {},
     comments: [],
     done: {},
+    board: defaultBoard(),
   }
 }
