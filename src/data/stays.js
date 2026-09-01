@@ -2,7 +2,7 @@
 // Grade order: (1) reviews (2) interior Roma safety (3) closeness to the Colima cluster.
 // Inventory is Booking.com apartments pulled 31 Aug 2026. Airbnb.com returned 503.
 // Walk times are street estimates, not OSM measurements.
-// Band: more than €50 and less than €200 per night. Booking quotes on the cards were pulled for 24–28 Dec (4 nights); per-night band still applies. Do not invent 2-night totals.
+// Price range: more than €50 and less than €200 per night. Booking quotes on the cards were pulled for 24–28 Dec (4 nights); per-night range still applies. Do not invent 2-night totals.
 // Per-night figures are the existing 4-night Booking quotes divided by 4; Xe 31 Aug 2026 (1 USD = MXN 17.02 · €0.8625). No new rates.
 
 export const AIRBNB_SEARCH =

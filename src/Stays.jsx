@@ -101,11 +101,11 @@ export default function Stays() {
       <div className="listings">
         <h3>Listings</h3>
         <p className="hint">
-          Band is more than €50 and less than €200 per night. Two adults, 1 room, 24–26 Dec 2026 (2 nights). The
-          Booking quotes on the cards were pulled for 24–28 Dec (4 nights); per-night band still applies — do not invent
+          Price range is more than €50 and less than €200 per night. Two adults, 1 room, 24–26 Dec 2026 (2 nights). The
+          Booking quotes on the cards were pulled for 24–28 Dec (4 nights); per-night range still applies — do not invent
           2-night totals. Airbnb.com was unreachable (503) from this environment on 31 Aug 2026. Booking.com search was
           blocked this pass (bot / JS wall) — no new properties added; only previously verified cards, filtered to the
-          band. Ranked by reviews, then interior Roma safety, then walk to Colima. 15:00–24:00 windows are tight if S
+          range. Ranked by reviews, then interior Roma safety, then walk to Colima. 15:00–24:00 windows are tight if S
           lands 00:07 on 25 Dec — 24h desk is the insurance; message the property. Walk times are street estimates, not
           OSM. Dropped (not shown as cards): Casa Oliva, Colima 71, Xoma, Caliza, ONTO — over €200 per night. Tanat Art
           Apartments check-in only 15:00–18:00 — fails midnight arrival. Kukun Tonala 121 check-in ends 23:00 —
