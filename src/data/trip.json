@@ -5,7 +5,7 @@
     "travelers": "S & V",
     "start": "2026-12-24",
     "end": "2027-01-08",
-    "blurb": "A winter-holiday dossier for two. S lands MEX around midnight on 24 Dec (possibly just after midnight on the 25th). V is already on the trip. Order is CDMX → Puebla (4 nights) → Oaxaca → CDMX; home on 8 Jan. Everything here is editable in the browser; the share link carries the plan in the URL hash. No accounts, no backend."
+    "blurb": "A winter-holiday dossier for two. S lands MEX around midnight on 24 Dec (possibly just after midnight on the 25th). V is already on the trip. Order is CDMX → Puebla (4 nights) → Oaxaca → CDMX; home on 8 Jan."
   },
   "altitudes": [
     { "place": "CDMX / MEX", "m": 2240, "note": "Sleeping altitude. Landing here is unavoidable." },

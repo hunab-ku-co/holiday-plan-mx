@@ -559,9 +559,6 @@ export default function App() {
 
         <footer className="colophon">
           <p>
-            Share links encode the active scenario, chapter order, notes, comments, statuses, picks, checked decisions, and the Decisions board in the URL hash. Nothing is stored on a server. Copy the share link after you write feedback or move a card so the other person sees it. Anyone with the link can read comments — do not put passport numbers, ticket codes, or phone numbers in them.
-          </p>
-          <p>
             Live at{' '}
             <a href="https://hunab-ku-co.github.io/holiday-plan-mx/">hunab-ku-co.github.io/holiday-plan-mx</a>
             . Source on GitHub. Travelers referred to as S and V only.
