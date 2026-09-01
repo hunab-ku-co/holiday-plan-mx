@@ -1,19 +1,27 @@
 const FACTS = [
   {
-    label: 'Ride',
-    body: 'Typically 6–7 h TAPO ↔ Oaxaca first-class. Fastest current-week sample 5 h; other samples 6 h–7 h 35 m (Busbud / Wanderu, off-peak).',
+    label: 'Three legs',
+    body: 'This order is CDMX → Puebla 26 Dec, Puebla → Oaxaca 30 Dec, Oaxaca → TAPO 5 Jan. Buses, not internal flights. Times only, not tickets.',
   },
   {
-    label: 'Door-to-door from Roma Norte',
-    body: 'Day bus ~7 h 30–9 h: Uber TAPO 25–40 min + 30 min station buffer + 6–7 h ride + ~10 min taxi. Overnight: leave after dinner, arrive ~05:00–07:00 — clock similar, waking day is not eaten.',
+    label: 'CDMX → Puebla · 26 Dec',
+    body: 'Estrella Roja TAPO / Cholula is the existing fact, ~2–2.5 h. Christmas fare not retrieved — will not guess. Book Estrella Roja / ado.com.mx.',
+  },
+  {
+    label: 'Puebla → Oaxaca · 30 Dec',
+    body: 'Not TAPO–Oaxaca. CAPU → Oaxaca is real (~4.5–5.5 h). Overnight vs day still open. Christmas fare not retrieved.',
+  },
+  {
+    label: 'Oaxaca → TAPO · 5 Jan',
+    body: 'ADO Oaxaca → ADO TAPO first-class, 6–7 h typical. Fastest current-week sample 5 h; other samples 6 h–7 h 35 m (Busbud / Wanderu, off-peak). Station is close to Centro (~10 min taxi / ~20 min walk). Overnight vs day still open.',
   },
   {
     label: 'Money (two adults, tickets only)',
-    body: 'Christmas 2026 ADO / Clickbus fares were not retrieved — will not guess. Off-peak Platino ~MXN 1,530 · €78 (Wanderu current-week average, 31 Aug 2026) is a sample only, not a 27 Dec quote.',
+    body: 'Christmas 2026 ADO / Clickbus / Estrella Roja fares were not retrieved — will not guess. Off-peak Platino ~MXN 1,530 · €78 (Wanderu current-week average, 31 Aug 2026) is a TAPO sample only, not a 26 Dec, 30 Dec, or 5 Jan quote.',
   },
   {
     label: 'Stations',
-    body: 'TAPO (east, Metro San Lázaro). Ignore Norte and Taxqueña/Sur from Roma Norte. ADO first-class Oaxaca station is close to Centro (~10 min taxi or ~20 min walk).',
+    body: 'TAPO (east, Metro San Lázaro) for the CDMX legs. Ignore Norte and Taxqueña/Sur from Roma Norte. CAPU is the Puebla station on the Oaxaca leg. ADO first-class Oaxaca station is close to Centro (~10 min taxi or ~20 min walk).',
   },
   {
     label: 'Baggage',
@@ -21,73 +29,75 @@ const FACTS = [
   },
   {
     label: 'Overnight vs day',
-    body: 'Still open — not locked. Day coach usually sits through lunch and does not save a hotel night. Overnight Platino trades a hotel night for sleep on the coach.',
+    body: 'Still open on the long Oaxaca legs (30 Dec out, 5 Jan back) — not locked. The 26 Dec Puebla hop is a short daylight ride.',
   },
   {
     label: 'Christmas-week sold-out risk',
-    body: 'ADO flags Christmas as high season; Platino / GL sell first. Book now, not 23 Dec. Remaining 27 Dec seats were not visible.',
+    body: 'ADO flags Christmas as high season; Platino / GL sell first. Book now, not 23 Dec.',
   },
 ]
 
 const SKETCHES = [
   {
-    when: 'Outbound · Sun 27 Dec · typical coach times',
-    title: 'Overnight Platino TAPO',
-    body: 'The bus that protects restaurant time. Full CDMX day, Uber Roma → TAPO 20:30–21:00 (25–40 min), board ~21:30–22:30, arrive ~05:00–07:00 28 Dec. 25 kg + cabin included. Breakfast in Oaxaca is the prize. Clock time similar to a day bus; waking day is not eaten. Typical night pattern from current TAPO tables — confirm on ado.com.mx. Overnight vs day still open. Christmas fare not retrieved.',
+    when: 'Outbound · Sat 26 Dec',
+    title: 'Estrella Roja TAPO → Cholula / Puebla',
+    body: '~2–2.5 h. Travel day belongs to Puebla. Light Cholula if energy (INAH open Sat). Times only, not tickets. Christmas fare not retrieved. Book Estrella Roja / ado.com.mx.',
   },
   {
-    when: 'Outbound · Sun 27 or Mon 28 Dec',
-    title: 'Day ADO',
-    body: 'Door-to-door ~7 h 30–9 h. You did not save a hotel night and you sat Highway 135D through lunch. Off-peak samples exist; Christmas 2026 fares were not retrieved. Still on the table — usually worse for dinners. Times only, not tickets.',
+    when: 'Outbound · Wed 30 Dec',
+    title: 'Puebla → Oaxaca (not TAPO)',
+    body: 'CAPU → Oaxaca is real (~4.5–5.5 h). Overnight vs day still open. Do not invent board clocks or Christmas fares. Confirm times on ado.com.mx. Arrival is Centro walking, not Levadura. Times only, not tickets.',
   },
   {
     when: 'Return · Tue 5 Jan · typical coach times',
     title: 'Day or overnight ADO Oaxaca → TAPO',
-    body: 'ADO Oaxaca first-class station is close to Centro (~10 min taxi / ~20 min walk), then 6–7 h to TAPO, then onward to Polanco. Overnight vs day still open. Confirm times on ado.com.mx. Christmas fare not retrieved. Times only, not tickets.',
+    body: 'ADO Oaxaca first-class station is close to Centro (~10 min taxi / ~20 min walk), then 6–7 h to TAPO, then onward in CDMX. Overnight vs day still open. Confirm times on ado.com.mx. Christmas fare not retrieved. Times only, not tickets.',
   },
 ]
 
 const SPLIT = [
   {
     n: '1',
-    title: 'Overnight Platino outbound + day or overnight return 5 Jan',
-    body: 'The bus plan that still protects dinners. Keep 27 Dec in Roma if they overnight TAPO, breakfast in Oaxaca the 28th. Return 5 Jan day or overnight — still open. Book Platino / GL on ado.com.mx now; Christmas fare not retrieved. Do not donate 5 Jan or 28 Dec to a daylight window over Puebla.',
+    title: 'Three buses as locked',
+    body: 'CDMX → Puebla 26 Dec (Estrella Roja TAPO / Cholula ~2–2.5 h), Puebla → Oaxaca 30 Dec (CAPU ~4.5–5.5 h), Oaxaca → TAPO 5 Jan (6–7 h). Overnight vs day still open on the two long legs. Book now; Christmas fare not retrieved.',
   },
   {
     n: '2',
-    title: 'Day TAPO both ways',
-    body: 'Usually worse for restaurants: sits Highway 135D through lunch and does not save a hotel night. Still a legal bus plan if they prefer daylight. Confirm times on ado.com.mx. Christmas fare not retrieved.',
+    title: 'Overnight vs day on the long legs',
+    body: 'Still open for 30 Dec Puebla → Oaxaca and 5 Jan Oaxaca → TAPO. A day coach sits through lunch and does not save a hotel night. Overnight trades a hotel night for sleep on the coach. Confirm times on ado.com.mx. Christmas fare not retrieved.',
   },
   {
     n: '3',
-    title: 'Cholula 27 Dec, then bus 28 Dec TAPO',
-    body: 'Come back to CDMX that night. Day or overnight TAPO on Mon 28 Dec — not Puebla → Oaxaca the same day. CAPU → Oaxaca is real (~4.5–5.5 h) and not better than leaving from the city they already live in that week. No extra Puebla hotel.',
+    title: 'Do not go back to TAPO for the Oaxaca outbound',
+    body: 'The old Cholula-27-then-TAPO-28 split is retired. Leave Puebla Wednesday morning 30 Dec. Do not add an invented Puebla hotel listing here — shortlist is not on the Stays tab yet.',
   },
 ]
 
 export default function OaxacaTravel() {
   return (
-    <section className="panel oax-panel" aria-label="CDMX to Oaxaca">
-      <h2>CDMX–Oaxaca · bus both ways</h2>
+    <section className="panel oax-panel" aria-label="Bus legs">
+      <h2>Buses · CDMX → Puebla → Oaxaca → CDMX</h2>
       <p className="hint">
-        Locked 31 Aug 2026. Two adults from Roma Norte. Outbound likely Sun 27 or Mon 28 Dec 2026;
-        return Tue 5 Jan 2027. Overnight vs day still open. Times only, not tickets. Book on{' '}
+        Locked 31 Aug 2026, reframed for this order. Two adults. Outbound is CDMX → Puebla 26 Dec then Puebla → Oaxaca
+        30 Dec; return Oaxaca → TAPO 5 Jan. Overnight vs day still open on the long Oaxaca legs. Times only, not
+        tickets. Book on{' '}
         <a href="https://www.ado.com.mx/" target="_blank" rel="noreferrer">
           ado.com.mx
         </a>
-        .
+        {' '}
+        / Estrella Roja for the Puebla leg.
       </p>
 
       <p className="fare-note">
-        Christmas 2026 ADO / Clickbus fares were not retrieved — will not guess. Off-peak Platino ~MXN
-        1,530 · €78 is a current-week Wanderu sample only (31 Aug 2026), not a 27 Dec fare. Platino / GL
-        sell first at Christmas — book now, not 23 Dec.
+        Christmas 2026 ADO / Clickbus / Estrella Roja fares were not retrieved — will not guess. Off-peak Platino ~MXN
+        1,530 · €78 is a current-week Wanderu TAPO sample only (31 Aug 2026), not a dated fare. Platino / GL sell first
+        at Christmas — book now, not 23 Dec.
       </p>
 
-      <div className="compare compare-bus" role="table" aria-label="ADO TAPO–Oaxaca bus facts">
+      <div className="compare compare-bus" role="table" aria-label="Bus facts for this order">
         <div className="compare-head" role="row">
           <span role="columnheader"> </span>
-          <span role="columnheader">ADO / OCC · TAPO ↔ Oaxaca</span>
+          <span role="columnheader">Three bus legs</span>
         </div>
         {FACTS.map((row) => (
           <div className="compare-row" role="row" key={row.label}>
@@ -123,19 +133,17 @@ export default function OaxacaTravel() {
       <article className="brief">
         <h3>Skip</h3>
         <p>
-          Daytime TAPO both ways is the weak bus choice if they care about dinners — still legal, just
-          the option that loses restaurant time. AU / Santa Rosa. Coaches that arrive after 21:00 and
-          then a colectivo. Do not bus Puebla → Oaxaca the same day as Cholula. Christmas fares are
-          still not guessed.
+          Internal flights. AU / Santa Rosa. Going back to TAPO on 28 Dec for a TAPO–Oaxaca outbound. Daytime TAPO both
+          ways is the retired CDMX–Oaxaca sketch. Christmas fares are still not guessed.
         </p>
       </article>
 
       <p className="hint">
-        Book both ways on{' '}
+        Book on{' '}
         <a href="https://www.ado.com.mx/" target="_blank" rel="noreferrer">
           ado.com.mx
         </a>
-        . Times only, not tickets.
+        . Estrella Roja for the 26 Dec Puebla leg. Times only, not tickets.
       </p>
     </section>
   )

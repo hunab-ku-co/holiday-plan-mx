@@ -5,7 +5,7 @@
     "travelers": "S & V",
     "start": "2026-12-24",
     "end": "2027-01-08",
-    "blurb": "A winter-holiday dossier for two. S lands MEX around midnight on 24 Dec (possibly just after midnight on the 25th). V is already on the trip. Home on 8 Jan. Everything here is editable in the browser; the share link carries the plan in the URL hash. No accounts, no backend."
+    "blurb": "A winter-holiday dossier for two. S lands MEX around midnight on 24 Dec (possibly just after midnight on the 25th). V is already on the trip. Order is CDMX → Puebla (4 nights) → Oaxaca → CDMX; home on 8 Jan. Everything here is editable in the browser; the share link carries the plan in the URL hash. No accounts, no backend."
   },
   "altitudes": [
     { "place": "CDMX / MEX", "m": 2240, "note": "Sleeping altitude. Landing here is unavoidable." },
@@ -26,7 +26,7 @@
     ],
     "oaxaca": [
       "Monte Albán at opening with a private driver, then the pool",
-      "Levadura de Olla — Tuesday 29 Dec 19:00 (closed Sun & Mon)",
+      "Levadura de Olla — Saturday 2 Jan 19:00 (closed Sun & Mon)",
       "South valley handicrafts: Coyotepec → Jalieza → Tilcajete (not five villages)",
       "East valley mezcal: Tule → Mitla → two palenques, not a warehouse tour",
       "NYE in Centro on foot after a rooftop dinner",
@@ -40,19 +40,9 @@
   },
   "pueblaSlots": [
     {
-      "rank": 1,
-      "title": "Sun 27 Dec day trip, travel Oaxaca Mon 28",
-      "why": "Replaces a travel morning rather than stacking one. Sunday cathedral window 15:00–16:45 is crowded and fragile. 28 Dec is a dead Cholula day anyway (Monday). Travel from CDMX, not from Puebla, unless a better Puebla→Oaxaca coach is verified."
-    },
-    {
-      "rank": 2,
-      "title": "Leave Oaxaca Sat 2 Jan, Cholula Sun 3 Jan",
-      "why": "Costs 2–3 Oaxaca nights. A one-night-earlier return (4 Jan) lands Tuesday 5 Jan — Cholula closed — and does not work."
-    },
-    {
-      "rank": 3,
-      "title": "Skip",
-      "why": "Cleanest. Do not swap Anthropology or Frida for it. Do not squeeze Puebla onto a MEX–OAX travel day, and do not add a Puebla hotel."
+      "rank": 0,
+      "title": "Superseded",
+      "why": "Day-trip ranking retired. Baseline A is an overnight Puebla stay 26–30 Dec (4 nights). Not shown on the Trip tab."
     }
   ],
   "hotels": [
@@ -81,25 +71,25 @@
     { "id": "pied-de-cochon", "city": "CDMX", "name": "Au Pied de Cochon", "note": "Polanco, Presidente InterContinental, Campos Elíseos 218. Officially 24 h / 365 — the only kitchen that promises 25 Dec. OpenTable, typically over MXN 500.", "url": "https://aupieddecochon.com.mx/" },
     { "id": "danzantes-coyo", "city": "CDMX", "name": "Los Danzantes Coyoacán", "note": "Parque Centenario 12. Best geography after a Coyoacán afternoon. Holiday hours unknown — confirm that week." },
     { "id": "corazon-maguey", "city": "CDMX", "name": "Corazón de Maguey", "note": "Plaza Jardín Centenario 9A. Confirm 25 Dec." },
-    { "id": "comedor-jacinta", "city": "CDMX", "name": "Comedor Jacinta", "note": "Virgilio 40. Bib Gourmand, walk from Lincoln. Polanco dinner 26 Dec / 5 Jan." },
+    { "id": "comedor-jacinta", "city": "CDMX", "name": "Comedor Jacinta", "note": "Virgilio 40. Bib Gourmand, walk from Lincoln. Polanco dinner after the 5 Jan return." },
     { "id": "chapulin", "city": "CDMX", "name": "Chapulín", "note": "Campos Elíseos 218." },
     { "id": "quintonil", "city": "CDMX", "name": "Quintonil", "note": "Newton 55. Tasting MXN 6090 · €309, Sunday closed, website reservations only. Thu 7 Jan is a service day." },
-    { "id": "el-cardenal", "city": "CDMX", "name": "El Cardenal Palma", "note": "Palma 23. Lunch only 08:00–18:30. Centro 6 Jan." },
+    { "id": "el-cardenal", "city": "CDMX", "name": "El Cardenal Palma", "note": "Palma 23. Lunch only 08:00–18:30. Optional Centro hour on 6 Jan, not a full Templo day." },
     { "id": "azul-historico", "city": "CDMX", "name": "Azul Histórico", "note": "Isabel la Católica 30. 13:00–23:00 daily, Resy." },
     { "id": "cafe-tacuba", "city": "CDMX", "name": "Café de Tacuba", "note": "Tacuba 28. 08:00–22:30." },
     { "id": "sud-777", "city": "CDMX", "name": "Sud 777", "note": "Jardines del Pedregal — better geography after Coyoacán / Anahuacalli." },
-    { "id": "orinoco", "city": "CDMX", "name": "Orinoco", "note": "Tacos. Best Sat 26 Dec after Anthropology. Backup Tue 5 Jan. Skip 25 Dec and 7 Jan." },
+    { "id": "orinoco", "city": "CDMX", "name": "Orinoco", "note": "Tacos. After Anthropology on 6 Jan. Skip 25 Dec and 7 Jan." },
     { "id": "califa", "city": "CDMX", "name": "El Califa", "note": "Tacos Roma–Condesa. Same window as Orinoco." },
     { "id": "jarocho", "city": "CDMX", "name": "Café El Jarocho", "note": "Walk-up coffee, Coyoacán." },
-    { "id": "bacanora", "city": "OAX", "name": "Asador Bacanora", "note": "Jalatlaco, 5 de Mayo 614. 15–20 min walk from Centro. Proposal for Sun 27 Dec." },
+    { "id": "bacanora", "city": "OAX", "name": "Asador Bacanora", "note": "Jalatlaco, 5 de Mayo 614. 15–20 min walk from Centro. Arrival-day option (30 Dec), not Levadura." },
     { "id": "tierra-sol", "city": "OAX", "name": "Tierra del Sol", "note": "Watch-list. Useful 1 Jan if markets are thin." },
-    { "id": "danzantes-oax", "city": "OAX", "name": "Los Danzantes Oaxaca", "note": "Andador. Proposal Mon 28 Dec. NYE backup.", "url": "https://losdanzantesoaxaca.com.mx/reservaciones/" },
-    { "id": "levadura", "city": "OAX", "name": "Levadura de Olla", "note": "Closed Sun & Mon — cannot be 27 Dec or 4 Jan. Book Tue 29 Dec 19:00 now. No under-12.", "url": "https://levaduradeolla.mx/reserva-aqui/" },
-    { "id": "alfonsina", "city": "OAX", "name": "Alfonsina", "note": "San Juan Bautista La Raya, not Centro. Lunch if the south-valley day is 30 Dec.", "url": "https://www.alfonsina.mx/" },
-    { "id": "origen", "city": "OAX", "name": "Origen", "note": "Dinner alternative to Alfonsina on 30 Dec. NYE watch-list." },
+    { "id": "danzantes-oax", "city": "OAX", "name": "Los Danzantes Oaxaca", "note": "Andador. NYE backup. Confirm that week.", "url": "https://losdanzantesoaxaca.com.mx/reservaciones/" },
+    { "id": "levadura", "city": "OAX", "name": "Levadura de Olla", "note": "Closed Sun & Mon — cannot be 27 Dec or 4 Jan. Book Sat 2 Jan 19:00 now (moved off Tue 29 Dec; that night is Puebla). No under-12.", "url": "https://levaduradeolla.mx/reserva-aqui/" },
+    { "id": "alfonsina", "city": "OAX", "name": "Alfonsina", "note": "San Juan Bautista La Raya, not Centro. Lunch on a non-Sunday south-valley day. Sunday 3 Jan is a worse fit.", "url": "https://www.alfonsina.mx/" },
+    { "id": "origen", "city": "OAX", "name": "Origen", "note": "Dinner alternative to Alfonsina when the south-valley day is Sunday. NYE watch-list." },
     { "id": "casa-oax-roof", "city": "OAX", "name": "Casa Oaxaca rooftop", "note": "Constitución 104-A, 2 min to the plaza. NYE proposal ~19:00–20:00 then walk Santo Domingo / Zócalo. Mon–Sat 13:00–23:00, Sun 13:00–21:00.", "url": "https://casaoaxacaelrestaurante.com/home/" },
     { "id": "criollo", "city": "OAX", "name": "Criollo", "note": "Dinner Mon–Sat 18:00–21:00. Last night Mon 4 Jan at 18:00. OpenTable. Levadura is closed that Monday.", "url": "https://www.opentable.com/" },
-    { "id": "pitiona", "city": "OAX", "name": "Pitiona", "note": "Sat 2 Jan leftover, or NYE watch-list." },
+    { "id": "pitiona", "city": "OAX", "name": "Pitiona", "note": "NYE watch-list. Saturday 2 Jan is Levadura, not a leftover." },
     { "id": "in-situ", "city": "OAX", "name": "In Situ", "note": "Mezcal bar. One directory lists Sunday close; 1 Jan is Friday — ask 31 Dec." },
     { "id": "terranova", "city": "OAX", "name": "Terranova Zócalo", "note": "Claims 365 days, 08:00–midnight. 1 Jan recovery breakfast if the hotel is quiet." }
   ],
@@ -112,7 +102,7 @@
     { "id": "casa-crespo", "city": "OAX", "name": "Casa Crespo cooking class", "note": "Public Tue–Sun 10:00 MXN 1350 · €68 (Sunday published). Private 4 h MXN 6650 · €337 for 1–2. Fits Sun 3 Jan.", "url": "https://casacrespo.com/cooking-classes/" },
     { "id": "frida", "city": "CDMX", "name": "Casa Azul timed ticket", "note": "Tickets only at boletos.museofridakahlo.org.mx — no door sales. Closed 25 Dec and 1 Jan 2027. Reduced 24 and 31 Dec. Ticket includes courtesy Anahuacalli (15–20 min drive, not walkable).", "url": "https://boletos.museofridakahlo.org.mx/" },
     { "id": "anahuacalli", "city": "CDMX", "name": "Anahuacalli", "note": "Tue–Sun 11:00–17:30. Calle Museo 150, San Pablo Tepetlapa. Same ticket as Casa Azul." },
-    { "id": "anthropology", "city": "CDMX", "name": "Museo Nacional de Antropología", "note": "Tue–Sun 09:00–18:00, closed Mon. MXN 210 · €11. 26 Dec 2026 is a normal Saturday. Do not stack a full Castillo on the same day.", "url": "https://mna.inah.gob.mx/informacion_general.php" },
+    { "id": "anthropology", "city": "CDMX", "name": "Museo Nacional de Antropología", "note": "Tue–Sun 09:00–18:00, closed Mon. MXN 210 · €11. 6 Jan 2027 is a normal Wednesday. Do not stack Castillo + Templo.", "url": "https://mna.inah.gob.mx/informacion_general.php" },
     { "id": "castillo", "city": "CDMX", "name": "Castillo de Chapultepec highlights", "note": "Tue–Sun 09:00–17:00. MXN 210 · €11. Paved ramp 10–20 min, no elevator. Highlights only if paired with Anthropology." },
     { "id": "templo", "city": "CDMX", "name": "Templo Mayor", "note": "Tue–Sun 09:00–17:00. MXN 210 · €11 INAH. 6 Jan 2027 (Día de Reyes) expected open. 2024–25 closed 25 Dec and 1 Jan only." },
     { "id": "bellas", "city": "CDMX", "name": "Palacio de Bellas Artes museum", "note": "Tue–Sun 10:00–18:00, last entry 17:30. MXN 95 · €5 same-day taquilla only. Sun free. Concert hall is separate." },
@@ -122,18 +112,18 @@
   "playgroundBlocks": [
     { "id": "cdmx-xmas", "label": "CDMX Christmas", "days": 1, "hint": "25 Dec Coyoacán. Museums shut. Nochebuena was the 24th." },
     { "id": "cdmx-museums", "label": "CDMX museums", "days": 2, "hint": "Anthropology + Castillo highlights, then Centro / Templo / Bellas Artes." },
-    { "id": "oaxaca", "label": "Oaxaca", "days": 0, "hint": "Absorbs leftover days. NYE belongs here. CDMX–Oaxaca travel is buses; details on the tab." },
-    { "id": "puebla", "label": "Puebla / Cholula", "days": 1, "hint": "One-day trip, no extra hotel. Cholula closed Mon & Tue." },
+    { "id": "oaxaca", "label": "Oaxaca", "days": 0, "hint": "Absorbs leftover days. NYE belongs here. Buses: CDMX→Puebla, Puebla→Oaxaca, Oaxaca→TAPO; details on the tab." },
+    { "id": "puebla", "label": "Puebla / Cholula", "days": 4, "hint": "Four overnight days in Puebla/Cholula. Cholula closed Mon & Tue — those become Centro days." },
     { "id": "frida", "label": "Frida + Coyoacán", "days": 1, "hint": "Timed tickets. Closed 25 Dec and 1 Jan. Includes Anahuacalli." }
   ],
   "scenarioA": {
     "id": "A",
     "name": "Baseline",
-    "lede": "Christmas in CDMX, then Oaxaca for the valley and NYE, back to Polanco for museums and Frida. CDMX–Oaxaca is bus both ways (locked 31 Aug 2026); overnight vs day still open on the tab. Puebla is not placed — ranked slots live in the margin."
+    "lede": "Christmas in Roma Norte, then Puebla 26–30 Dec (4 nights), Oaxaca for the valley and NYE, back to CDMX for the flight. Buses, no internal flights: CDMX → Puebla 26 Dec, Puebla → Oaxaca 30 Dec, Oaxaca → TAPO 5 Jan. Overnight vs day still open on the long Oaxaca legs."
   },
   "scenarioB": {
     "id": "B",
     "name": "Altitude reverse",
-    "lede": "Land, then either sleep the airport hotel or go straight to Roma Norte if self-check-in is ready. Go to Oaxaca as soon as that is humane. Christmas and NYE at 1,542 m. CDMX museums, Frida, and optional Puebla after the return. Locked to bus; overnight vs day still open on the CDMX–Oaxaca tab."
+    "lede": "Land, then either sleep the airport hotel or go straight to Roma Norte if self-check-in is ready. Go to Oaxaca as soon as that is humane. Christmas and NYE at 1,542 m. CDMX museums and Frida after the return. Locked to bus; overnight vs day still open on the CDMX–Oaxaca tab."
   }
 }

@@ -1,15 +1,15 @@
-// Roma Norte stays for 24–28 Dec 2026, 2 adults, 1 room.
+// Roma Norte stays for 24–26 Dec 2026 (2 nights), 2 adults, 1 room.
 // Grade order: (1) reviews (2) interior Roma safety (3) closeness to the Colima cluster.
 // Inventory is Booking.com apartments pulled 31 Aug 2026. Airbnb.com returned 503.
 // Walk times are street estimates, not OSM measurements.
-// Band: more than €50 and less than €200 per night (4 nights ≈ €200–€800 · about MXN 3,950–15,780).
+// Band: more than €50 and less than €200 per night. Booking quotes on the cards were pulled for 24–28 Dec (4 nights); per-night band still applies. Do not invent 2-night totals.
 // Per-night figures are the existing 4-night Booking quotes divided by 4; Xe 31 Aug 2026 (1 USD = MXN 17.02 · €0.8625). No new rates.
 
 export const AIRBNB_SEARCH =
-  'https://www.airbnb.com/s/Roma-Norte--Mexico-City--Mexico/homes?checkin=2026-12-24&checkout=2026-12-28&adults=2'
+  'https://www.airbnb.com/s/Roma-Norte--Mexico-City--Mexico/homes?checkin=2026-12-24&checkout=2026-12-26&adults=2'
 
 export const BOOKING_SEARCH =
-  'https://www.booking.com/searchresults.html?ss=Mexico+City%2C+Mexico&dest_type=city&checkin=2026-12-24&checkout=2026-12-28&group_adults=2&no_rooms=1&group_children=0&order=bayesian_review_score&nflt=di%3D2262%3Bht_id%3D201%3Breview_score%3D80'
+  'https://www.booking.com/searchresults.html?ss=Mexico+City%2C+Mexico&dest_type=city&checkin=2026-12-24&checkout=2026-12-26&group_adults=2&no_rooms=1&group_children=0&order=bayesian_review_score&nflt=di%3D2262%3Bht_id%3D201%3Breview_score%3D80'
 
 /**
  * @typedef {object} Stay
@@ -19,7 +19,7 @@ export const BOOKING_SEARCH =
  * @property {string} walkToColima
  * @property {number | null} [rating]
  * @property {number | null} [reviewCount]
- * @property {string | null} [price]  // MXN · euro per night for 24–28 Dec 2026, 2 adults, from existing 4-night Booking.com quotes at Xe mid-market 31 Aug 2026 (1 USD = 17.02 MXN · €0.8625)
+ * @property {string | null} [price]  // MXN · euro per night from existing 4-night Booking.com quotes for 24–28 Dec 2026; stay is now 24–26 Dec — do not invent 2-night totals at Xe mid-market 31 Aug 2026 (1 USD = 17.02 MXN · €0.8625)
  * @property {boolean | null} [selfCheckIn]  // true only for lockbox; 24h desk is not self-check-in
  * @property {string} [checkInNote]
  * @property {string} [source]

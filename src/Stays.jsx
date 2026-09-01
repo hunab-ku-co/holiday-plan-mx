@@ -45,10 +45,10 @@ function StayCard({ stay }) {
 export default function Stays() {
   return (
     <section className="panel stays-panel" aria-label="Stays">
-      <h2>Roma Norte · 24–28 Dec</h2>
+      <h2>Roma Norte · 24–26 Dec</h2>
       <p className="hint">
-        Two adults. S lands AICM around midnight 24 Dec (possibly just after midnight on the 25th). They may skip the
-        airport hotel and go straight to Roma Norte. Late check-in from 24 Dec night is a must.
+        Two adults, two nights (24–26 Dec). S lands AICM around midnight 24 Dec (possibly just after midnight on the
+        25th). They may skip the airport hotel and go straight to Roma Norte. Late check-in from 24 Dec night is a must.
       </p>
 
       <article className="brief">
@@ -101,15 +101,16 @@ export default function Stays() {
       <div className="listings">
         <h3>Listings</h3>
         <p className="hint">
-          Band is more than €50 and less than €200 per night (4 nights ≈ €200–€800 · about MXN 3,950–15,780). Two
-          adults, 1 room, 24–28 Dec 2026. Airbnb.com was unreachable (503) from this environment on 31 Aug 2026.
-          Booking.com search was blocked this pass (bot / JS wall) — no new properties added; only previously verified
-          cards, filtered to the band. Ranked by reviews, then interior Roma safety, then walk to Colima. 15:00–24:00
-          windows are tight if S lands 00:07 on 25 Dec — 24h desk is the insurance; message the property. Walk times
-          are street estimates, not OSM. Dropped (not shown as cards): Casa Oliva, Colima 71, Xoma, Caliza, ONTO — over
-          €200 per night. Tanat Art Apartments check-in only 15:00–18:00 — fails midnight arrival. Kukun Tonala 121
-          check-in ends 23:00 — borderline. Prices in MXN and euros, converted from Booking.com USD at Xe mid-market 1
-          USD = MXN 17.02 · €0.8625 (31 Aug 2026).
+          Band is more than €50 and less than €200 per night. Two adults, 1 room, 24–26 Dec 2026 (2 nights). The
+          Booking quotes on the cards were pulled for 24–28 Dec (4 nights); per-night band still applies — do not invent
+          2-night totals. Airbnb.com was unreachable (503) from this environment on 31 Aug 2026. Booking.com search was
+          blocked this pass (bot / JS wall) — no new properties added; only previously verified cards, filtered to the
+          band. Ranked by reviews, then interior Roma safety, then walk to Colima. 15:00–24:00 windows are tight if S
+          lands 00:07 on 25 Dec — 24h desk is the insurance; message the property. Walk times are street estimates, not
+          OSM. Dropped (not shown as cards): Casa Oliva, Colima 71, Xoma, Caliza, ONTO — over €200 per night. Tanat Art
+          Apartments check-in only 15:00–18:00 — fails midnight arrival. Kukun Tonala 121 check-in ends 23:00 —
+          borderline. Prices in MXN and euros, converted from Booking.com USD at Xe mid-market 1 USD = MXN 17.02 ·
+          €0.8625 (31 Aug 2026).
         </p>
         <p className="hint">
           <a className="stay-link" href={BOOKING_SEARCH} target="_blank" rel="noreferrer">

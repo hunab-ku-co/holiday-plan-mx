@@ -5,6 +5,8 @@ import {
   STATUSES,
   authoredA,
   authoredB,
+  cityCaption,
+  citySpans,
   generateFromOrder,
   lookup,
   longDate,
@@ -85,7 +87,7 @@ function usePlan() {
 }
 
 function daysFor(state) {
-  if (state.scenario === 'A' && !state.includePuebla) return authoredA()
+  if (state.scenario === 'A') return authoredA()
   if (state.scenario === 'B' && !state.includePuebla) return authoredB()
   return generateFromOrder(state.order, state.includePuebla)
 }
@@ -97,7 +99,6 @@ export default function App() {
   const [flippingDate, setFlippingDate] = useState(null)
   const flipLock = useRef(false)
   const [showPlay, setShowPlay] = useState(false)
-  const [showPuebla, setShowPuebla] = useState(false)
   const [tab, setTabState] = useState(readTab)
 
   function flipDay(date) {
@@ -229,6 +230,7 @@ export default function App() {
             <span>In-browser editable</span>
           </div>
           )}
+          {tab === 'trip' && <CityTimeline days={days} />}
           {tab !== 'trip' && (
             <div className="toolbar tab-share">
               <button className="share" onClick={copyShare}>
@@ -240,7 +242,7 @@ export default function App() {
           <>
           <div className="toolbar">
             <div className="seg" role="tablist" aria-label="Scenario">
-              <button className={state.scenario === 'A' ? 'on' : ''} onClick={() => patch({ scenario: 'A', includePuebla: false, order: DEFAULT_ORDER })}>
+              <button className={state.scenario === 'A' ? 'on' : ''} onClick={() => patch({ scenario: 'A', includePuebla: true, order: DEFAULT_ORDER })}>
                 A · Baseline
               </button>
               <button className={state.scenario === 'B' ? 'on' : ''} onClick={() => patch({ scenario: 'B', includePuebla: false, order: ['oaxaca', 'cdmx-xmas', 'cdmx-museums', 'frida'] })}>
@@ -289,21 +291,13 @@ export default function App() {
         </section>
 
         <section className="puebla-slots">
-          <h2>Puebla · ranked slots</h2>
-          <p className="hint">Not in A or B. Ranked day-trip slots.</p>
-          <button type="button" className="textish" onClick={() => setShowPuebla((v) => !v)}>
-            {showPuebla ? 'Hide ranked slots' : 'Show ranked slots'}
-          </button>
-          {showPuebla && (
-            <ol>
-              {trip.pueblaSlots.map((s) => (
-                <li key={s.rank}>
-                  <strong>{s.title}</strong>
-                  <span>{s.why}</span>
-                </li>
-              ))}
-            </ol>
-          )}
+          <h2>Puebla · locked dates</h2>
+          <p className="hint">
+            Baseline A sleeps Puebla 26–30 Dec (4 nights). Cholula Saturday 26 (light, if energy) and Sunday 27
+            (full day; tunnels still closed). Centro Monday 28 and Tuesday 29 — Cholula closed those days; Palafoxiana
+            closed Mon, open Tue–Thu 10–17. Bus CDMX → Puebla 26 Dec; leave Wednesday 30 morning for Oaxaca. Hotel not
+            shortlisted yet.
+          </p>
         </section>
 
         <section className="play">
@@ -316,7 +310,7 @@ export default function App() {
           {(showPlay || state.scenario === 'C') && (
             <>
               <p className="hint">
-                Arrival 24 Dec and the 8 Jan homebound day stay locked. Oaxaca stretches to fill leftover days. Puebla is a one-day trip with no extra hotel.
+                Arrival 24 Dec and the 8 Jan homebound day stay locked. Oaxaca stretches to fill leftover days. Puebla is four overnight days, not a day trip. Default order: CDMX Christmas → Puebla → Oaxaca → museums → Frida.
               </p>
               <ul className="blocks">
                 {normalizeOrder(state.order, state.includePuebla).map((id, i, arr) => {
@@ -341,7 +335,7 @@ export default function App() {
               </ul>
               <label className="check">
                 <input type="checkbox" checked={state.includePuebla} onChange={togglePuebla} />
-                Place Puebla / Cholula as a one-day chapter
+                Place Puebla / Cholula as four overnight days
               </label>
             </>
           )}
@@ -662,6 +656,25 @@ function TabNav({ tab, onTab }) {
         </button>
       ))}
     </nav>
+  )
+}
+
+function CityTimeline({ days }) {
+  const spans = citySpans(days)
+  const caption = cityCaption(spans)
+  if (!spans.length) return null
+  return (
+    <div className="city-timeline">
+      <p className="city-caption">{caption}</p>
+      <ol className="city-strip" aria-label="City dates">
+        {spans.map((s) => (
+          <li key={s.key} className={`city-seg city-${s.city.toLowerCase()}`}>
+            <strong>{s.city}</strong>
+            <span>{s.range}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
   )
 }
 

@@ -105,8 +105,8 @@ export function decodePlan(hash) {
 export function defaultState() {
   return {
     scenario: 'A',
-    order: ['cdmx-xmas', 'cdmx-museums', 'oaxaca', 'frida'],
-    includePuebla: false,
+    order: ['cdmx-xmas', 'puebla', 'oaxaca', 'cdmx-museums', 'frida'],
+    includePuebla: true,
     notes: {},
     status: {},
     picks: {},
