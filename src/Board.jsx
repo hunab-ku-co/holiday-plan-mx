@@ -34,11 +34,45 @@ function ignoreFrom(target) {
   return Boolean(el.closest('.board-move, a'))
 }
 
+function cardMeta(card) {
+  const kind = KIND_LABEL[card.kind] || card.kind
+  return card.city ? `${card.city} · ${kind}` : kind
+}
+
+function spawnGhost(s, clientX, clientY) {
+  const el = document.createElement('div')
+  el.className = 'board-ghost board-card'
+  el.dataset.kind = s.kind
+  el.setAttribute('aria-hidden', 'true')
+  el.style.width = `${s.width}px`
+  const title = document.createElement('strong')
+  title.textContent = s.title
+  const meta = document.createElement('span')
+  meta.className = 'board-meta'
+  meta.textContent = s.meta
+  el.append(title, meta)
+  el.style.transform = `translate(${clientX - s.ox}px, ${clientY - s.oy}px)`
+  document.body.appendChild(el)
+  return el
+}
+
+function placeGhost(el, clientX, clientY, ox, oy) {
+  if (!el) return
+  el.style.transform = `translate(${clientX - ox}px, ${clientY - oy}px)`
+}
+
+function removeGhost(s) {
+  if (!s?.ghost) return
+  s.ghost.remove()
+  s.ghost = null
+}
+
 export default function Board({ board, onColumn }) {
   const [openId, setOpenId] = useState(null)
   const [dragId, setDragId] = useState(null)
   const [dropCol, setDropCol] = useState(null)
   const boardRef = useRef(null)
+  const ghostRef = useRef(null)
   const session = useRef(null)
   const skipToggle = useRef(false)
   const onColumnRef = useRef(onColumn)
@@ -55,6 +89,9 @@ export default function Board({ board, onColumn }) {
         s.active = true
         setDragId(s.id)
         setDropCol(s.from)
+        const ghost = spawnGhost(s, e.clientX, e.clientY)
+        s.ghost = ghost
+        ghostRef.current = ghost
         try {
           s.host.setPointerCapture(e.pointerId)
         } catch {
@@ -62,6 +99,7 @@ export default function Board({ board, onColumn }) {
         }
       }
       if (e.cancelable) e.preventDefault()
+      placeGhost(ghostRef.current, e.clientX, e.clientY, s.ox, s.oy)
       const over = hitColumn(boardRef.current, e.clientX, e.clientY)
       if (over !== s.over) {
         s.over = over
@@ -73,6 +111,8 @@ export default function Board({ board, onColumn }) {
       const s = session.current
       if (!s || (e && e.pointerId !== s.pointerId)) return
       session.current = null
+      removeGhost(s)
+      ghostRef.current = null
       if (s.active) {
         skipToggle.current = true
         window.setTimeout(() => {
@@ -103,21 +143,37 @@ export default function Board({ board, onColumn }) {
       window.removeEventListener('pointermove', onMove, { capture: true })
       window.removeEventListener('pointerup', onUp, { capture: true })
       window.removeEventListener('pointercancel', onCancel, { capture: true })
+      const s = session.current
+      removeGhost(s)
+      ghostRef.current = null
     }
   }, [])
 
   function onCardPointerDown(e, card, column) {
     if (e.button != null && e.button !== 0) return
     if (ignoreFrom(e.target)) return
+    if (session.current?.ghost) {
+      session.current.ghost.remove()
+      session.current.ghost = null
+      ghostRef.current = null
+    }
+    const rect = e.currentTarget.getBoundingClientRect()
     session.current = {
       id: card.id,
       from: column,
       over: column,
       x: e.clientX,
       y: e.clientY,
+      ox: e.clientX - rect.left,
+      oy: e.clientY - rect.top,
+      width: rect.width,
+      title: card.title,
+      meta: cardMeta(card),
+      kind: card.kind,
       pointerId: e.pointerId,
       host: e.currentTarget,
       active: false,
+      ghost: null,
     }
   }
 

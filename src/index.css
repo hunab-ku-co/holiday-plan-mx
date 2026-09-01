@@ -1274,6 +1274,27 @@ h2 {
   box-shadow: 0 10px 24px rgba(36, 22, 15, 0.16);
   touch-action: none;
 }
+.board-ghost {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 0;
+  list-style: none;
+  pointer-events: none;
+  z-index: 40;
+  cursor: grabbing;
+  box-shadow: 0 18px 40px rgba(36, 22, 15, 0.22);
+  display: grid;
+  gap: 3px;
+  transition: none;
+  opacity: 1;
+}
+.board-ghost strong {
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  font-family: Fraunces, Georgia, serif;
+}
 .board-flip {
   display: grid;
   gap: 3px;
@@ -1356,9 +1377,8 @@ h2 {
 
 @media (prefers-reduced-motion: reduce) {
   .board-card,
-  .board-card.dragging {
+  .board-card.dragging,
+  .board-ghost {
     transition: none;
-    opacity: 1;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset;
   }
 }
