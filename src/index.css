@@ -868,6 +868,7 @@ h2 {
   overflow: hidden;
   box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset;
 }
+.map-card.trip { border-left-color: var(--terracotta); }
 .map-card.roma { border-left-color: var(--terracotta); }
 .map-card.chap { border-left-color: var(--gold); }
 .map-card.coyo { border-left-color: #a43d4a; }
@@ -890,7 +891,9 @@ h2 {
   position: relative;
   background: var(--paper-2);
   overflow: hidden;
-  min-height: 220px;
+  width: 100%;
+  height: min(58vh, 28rem);
+  min-height: 22rem;
 }
 .area-stage {
   position: absolute;
@@ -1047,8 +1050,11 @@ h2 {
 .map-attrib a:hover { color: var(--terracotta-deep); }
 
 @media (min-width: 720px) {
-  .maps-grid { grid-template-columns: 1fr 1fr; }
-  .area-map { min-height: 260px; }
+  .maps-grid { grid-template-columns: 1fr; }
+  .area-map {
+    height: min(62vh, 36rem);
+    min-height: 28rem;
+  }
 }
 
 /* Trip tab declutter — flip cards, chips, folds */

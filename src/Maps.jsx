@@ -6,6 +6,8 @@ const NYE = '2026-12-31'
 const NYD = '2027-01-01'
 const CASA_CLOSED = new Set([XMAS, NYD])
 const SUBS = ['a', 'b', 'c', 'd']
+const TILE = 256
+const CITY_MAX_Z = 11
 
 function lonToX(lon, z) {
   return ((lon + 180) / 360) * 2 ** z
@@ -57,74 +59,109 @@ function isAnthro(d) {
 
 function isCentro(d) {
   if (!d || d.theme !== 'cdmx-museums') return false
+  if (isAnthro(d)) return false
   return /centro|templo mayor/i.test(`${d.place} ${d.title}`)
+}
+
+function holidaysAt(byDate, city) {
+  const holidays = []
+  if (byDate[XMAS]?.city === city) holidays.push({ text: 'Christmas Day', tone: 'xmas' })
+  if (byDate[NYE]?.city === city) holidays.push({ text: 'New Year’s Eve', tone: 'nye' })
+  if (byDate[NYD]?.city === city) holidays.push({ text: 'New Year’s Day', tone: 'nyd' })
+  return holidays
+}
+
+function chipOf(list, days) {
+  return formatDayChip((days || []).map((d) => numOf(list, d)))
 }
 
 export function mapsFromDays(days) {
   const list = Array.isArray(days) ? days : []
   const byDate = Object.fromEntries(list.map((d) => [d.date, d]))
   const firstOax = list.findIndex((d) => d.city === 'OAX')
+  const cdmxDays = list.filter((d) => d.city === 'CDMX' && d.theme !== 'depart')
   const romaDays = list.filter((d, i) => {
     if (d.city !== 'CDMX') return false
     if (d.theme === 'depart') return false
     if (firstOax >= 0 && i >= firstOax) return false
     return true
   })
-  const xmas = byDate[XMAS]
-  const nye = byDate[NYE]
-  const nyd = byDate[NYD]
+  const pueDays = list.filter((d) => d.city === 'PUE')
+  const cholulaDays = pueDays.filter((d) => !(d.flags || []).includes('cholula-closed'))
+  const oaxDays = list.filter((d) => d.city === 'OAX')
   const xmasDay = list.find((d) => d.theme === 'cdmx-xmas')
   const anthro = list.find(isAnthro)
   const centro = list.find(isCentro)
   const frida = list.find((d) => d.theme === 'frida')
-  const oaxDays = list.filter((d) => d.city === 'OAX')
-  const out = []
+  const pins = []
+
+  if (cdmxDays.length) {
+    pins.push({
+      id: 'city-cdmx',
+      layer: 'city',
+      lat: PINS.plazaRio.lat,
+      lon: PINS.plazaRio.lon,
+      place: 'CDMX',
+      chip: chipOf(list, cdmxDays),
+      holidays: holidaysAt(byDate, 'CDMX'),
+    })
+  }
+
+  if (pueDays.length && PINS.pueblaZocalo) {
+    pins.push({
+      id: 'city-pue',
+      layer: 'city',
+      lat: PINS.pueblaZocalo.lat,
+      lon: PINS.pueblaZocalo.lon,
+      place: 'Puebla / Cholula',
+      chip: chipOf(list, pueDays),
+      holidays: holidaysAt(byDate, 'PUE'),
+    })
+  }
+
+  if (oaxDays.length) {
+    pins.push({
+      id: 'city-oax',
+      layer: 'city',
+      lat: PINS.santoDomingo.lat,
+      lon: PINS.santoDomingo.lon,
+      place: 'Oaxaca',
+      chip: chipOf(list, oaxDays),
+      holidays: holidaysAt(byDate, 'OAX'),
+    })
+  }
 
   if (romaDays.length) {
     const holidays = []
-    if (xmas?.city === 'CDMX') holidays.push({ text: 'Christmas Day', tone: 'xmas' })
-    out.push({
-      id: 'roma',
-      title: AREAS.roma.title,
-      accent: 'roma',
-      area: AREAS.roma,
-      pins: [
-        {
-          id: 'home',
-          lat: PINS.plazaRio.lat,
-          lon: PINS.plazaRio.lon,
-          place: 'HOME',
-          chip: formatDayChip(romaDays.map((d) => numOf(list, d))),
-          holidays,
-        },
-      ],
+    if (byDate[XMAS]?.city === 'CDMX') holidays.push({ text: 'Christmas Day', tone: 'xmas' })
+    pins.push({
+      id: 'home',
+      layer: 'street',
+      lat: PINS.plazaRio.lat,
+      lon: PINS.plazaRio.lon,
+      place: 'HOME',
+      chip: chipOf(list, romaDays),
+      holidays,
     })
   }
 
   if (anthro) {
-    out.push({
-      id: 'chapultepec',
-      title: AREAS.chapultepec.title,
-      accent: 'chap',
-      area: AREAS.chapultepec,
-      pins: [
-        {
-          id: 'anthro',
-          lat: PINS.anthropology.lat,
-          lon: PINS.anthropology.lon,
-          place: 'Anthropology',
-          chip: formatDayChip([numOf(list, anthro)]),
-          holidays: [],
-        },
-      ],
+    pins.push({
+      id: 'anthro',
+      layer: 'street',
+      lat: PINS.anthropology.lat,
+      lon: PINS.anthropology.lon,
+      place: 'Anthropology',
+      chip: formatDayChip([numOf(list, anthro)]),
+      holidays: [],
     })
   }
 
-  const coyoPins = []
   if (xmasDay) {
     const holidays = xmasDay.date === XMAS ? [{ text: 'Christmas Day', tone: 'xmas' }] : []
-    coyoPins.push({
+    pins.push({
       id: 'jardin',
+      layer: 'street',
       lat: PINS.jardinCentenario.lat,
       lon: PINS.jardinCentenario.lon,
       place: 'Jardín Centenario',
@@ -132,10 +169,12 @@ export function mapsFromDays(days) {
       holidays,
     })
   }
+
   if (frida && !CASA_CLOSED.has(frida.date)) {
     const n = numOf(list, frida)
-    coyoPins.push({
+    pins.push({
       id: 'casa-azul',
+      layer: 'street',
       lat: PINS.casaAzul.lat,
       lon: PINS.casaAzul.lon,
       place: 'Casa Azul',
@@ -143,59 +182,56 @@ export function mapsFromDays(days) {
       holidays: [],
     })
   }
-  if (coyoPins.length) {
-    out.push({
-      id: 'coyoacan',
-      title: AREAS.coyoacan.title,
-      accent: 'coyo',
-      area: AREAS.coyoacan,
-      pins: coyoPins,
+
+  if (centro) {
+    pins.push({
+      id: 'templo',
+      layer: 'street',
+      lat: PINS.temploMayor.lat,
+      lon: PINS.temploMayor.lon,
+      place: 'Templo Mayor',
+      chip: formatDayChip([numOf(list, centro)]),
+      holidays: [],
     })
   }
 
-  if (centro) {
-    out.push({
-      id: 'centro',
-      title: AREAS.centro.title,
-      accent: 'centro',
-      area: AREAS.centro,
-      pins: [
-        {
-          id: 'templo',
-          lat: PINS.temploMayor.lat,
-          lon: PINS.temploMayor.lon,
-          place: 'Templo Mayor',
-          chip: formatDayChip([numOf(list, centro)]),
-          holidays: [],
-        },
-      ],
+  if (pueDays.length && PINS.pueblaZocalo) {
+    pins.push({
+      id: 'puebla-zocalo',
+      layer: 'street',
+      lat: PINS.pueblaZocalo.lat,
+      lon: PINS.pueblaZocalo.lon,
+      place: 'Puebla Zócalo',
+      chip: chipOf(list, pueDays),
+      holidays: holidaysAt(byDate, 'PUE'),
+    })
+  }
+
+  if (cholulaDays.length && PINS.cholula) {
+    pins.push({
+      id: 'cholula',
+      layer: 'street',
+      lat: PINS.cholula.lat,
+      lon: PINS.cholula.lon,
+      place: 'Cholula',
+      chip: chipOf(list, cholulaDays),
+      holidays: [],
     })
   }
 
   if (oaxDays.length) {
-    const holidays = []
-    if (xmas?.city === 'OAX') holidays.push({ text: 'Christmas Day', tone: 'xmas' })
-    if (nye?.city === 'OAX') holidays.push({ text: 'New Year’s Eve', tone: 'nye' })
-    if (nyd?.city === 'OAX') holidays.push({ text: 'New Year’s Day', tone: 'nyd' })
-    out.push({
-      id: 'oaxaca',
-      title: AREAS.oaxaca.title,
-      accent: 'oax',
-      area: AREAS.oaxaca,
-      pins: [
-        {
-          id: 'santo',
-          lat: PINS.santoDomingo.lat,
-          lon: PINS.santoDomingo.lon,
-          place: 'Santo Domingo',
-          chip: formatDayChip(oaxDays.map((d) => numOf(list, d))),
-          holidays,
-        },
-      ],
+    pins.push({
+      id: 'santo',
+      layer: 'street',
+      lat: PINS.santoDomingo.lat,
+      lon: PINS.santoDomingo.lon,
+      place: 'Santo Domingo',
+      chip: chipOf(list, oaxDays),
+      holidays: holidaysAt(byDate, 'OAX'),
     })
   }
 
-  return out
+  return pins
 }
 
 function clamp(n, a, b) {
@@ -203,9 +239,10 @@ function clamp(n, a, b) {
 }
 
 function AreaMap({ area, pins }) {
-  const { west, south, east, north, zoom: z0 } = area
-  const minZ = z0 - 1
-  const maxZ = 18
+  const { west, south, east, north } = area
+  const z0 = area.zoom ?? 7
+  const minZ = area.minZ ?? 7
+  const maxZ = area.maxZ ?? 18
   const stageRef = useRef(null)
   const drag = useRef(null)
   const pts = useRef(new Map())
@@ -213,7 +250,11 @@ function AreaMap({ area, pins }) {
   const lastTap = useRef(null)
   const lastWheel = useRef(0)
   const viewRef = useRef(null)
+  const sizeRef = useRef({ w: 640, h: 400 })
   const zoomAtRef = useRef(() => {})
+
+  const [size, setSize] = useState({ w: 640, h: 400 })
+  sizeRef.current = size
 
   const [view, setView] = useState(() => {
     const cx = (west + east) / 2
@@ -222,11 +263,24 @@ function AreaMap({ area, pins }) {
   })
   viewRef.current = view
 
+  useEffect(() => {
+    const el = stageRef.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    function apply() {
+      const w = el.clientWidth
+      const h = el.clientHeight
+      if (w > 0 && h > 0) setSize((prev) => (prev.w === w && prev.h === h ? prev : { w, h }))
+    }
+    apply()
+    const ro = new ResizeObserver(apply)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
   const model = useMemo(() => {
     const { z, cx, cy } = view
-    // Tile-span of the original bbox, scaled so one Carto zoom step is 2× geography.
-    const spanX = (lonToX(east, z) - lonToX(west, z)) * 2 ** (z0 - z)
-    const spanY = (latToY(south, z) - latToY(north, z)) * 2 ** (z0 - z)
+    const spanX = Math.max(size.w, 1) / TILE
+    const spanY = Math.max(size.h, 1) / TILE
     const ox = lonToX(cx, z) - spanX / 2
     const oy = latToY(cy, z) - spanY / 2
     const nTiles = 2 ** z
@@ -249,19 +303,19 @@ function AreaMap({ area, pins }) {
         })
       }
     }
-    const laidPins = (pins || []).map((p) => {
+    const cityLayer = z <= CITY_MAX_Z
+    const laidPins = (pins || []).flatMap((p) => {
+      const isCity = p.layer === 'city'
+      if (cityLayer ? !isCity : isCity) return []
       const x = ((lonToX(p.lon, z) - ox) / spanX) * 100
       const y = ((latToY(p.lat, z) - oy) / spanY) * 100
+      if (x < -6 || x > 106 || y < -6 || y > 106) return []
       const ax = x > 62 ? 'w' : x < 38 ? 'e' : 'c'
       const ay = y < 34 ? 's' : 'n'
-      return { ...p, x, y, anchor: `${ay}${ax}` }
+      return [{ ...p, x, y, anchor: `${ay}${ax}` }]
     })
-    return {
-      aspect: `${spanX} / ${spanY}`,
-      tiles,
-      pins: laidPins,
-    }
-  }, [west, south, east, north, z0, view, pins])
+    return { tiles, pins: laidPins }
+  }, [view, pins, size])
 
   function clampView(z, cx, cy) {
     return {
@@ -271,11 +325,9 @@ function AreaMap({ area, pins }) {
     }
   }
 
-  function spans(z) {
-    return {
-      spanX: (lonToX(east, z) - lonToX(west, z)) * 2 ** (z0 - z),
-      spanY: (latToY(south, z) - latToY(north, z)) * 2 ** (z0 - z),
-    }
+  function spans() {
+    const { w, h } = sizeRef.current
+    return { spanX: Math.max(w, 1) / TILE, spanY: Math.max(h, 1) / TILE }
   }
 
   function zoomAt(nextZ, clientX, clientY) {
@@ -293,15 +345,14 @@ function AreaMap({ area, pins }) {
       py = clamp((clientY - r.top) / h, 0, 1)
     }
     const { z, cx, cy } = cur
-    const { spanX, spanY } = spans(z)
+    const { spanX, spanY } = spans()
     const ox = lonToX(cx, z) - spanX / 2
     const oy = latToY(cy, z) - spanY / 2
     const focusLon = xToLon(ox + px * spanX, z)
     const focusLat = yToLat(oy + py * spanY, z)
-    const { spanX: spanX2, spanY: spanY2 } = spans(nextZ)
-    const ox2 = lonToX(focusLon, nextZ) - px * spanX2
-    const oy2 = latToY(focusLat, nextZ) - py * spanY2
-    setView(clampView(nextZ, xToLon(ox2 + spanX2 / 2, nextZ), yToLat(oy2 + spanY2 / 2, nextZ)))
+    const ox2 = lonToX(focusLon, nextZ) - px * spanX
+    const oy2 = latToY(focusLat, nextZ) - py * spanY
+    setView(clampView(nextZ, xToLon(ox2 + spanX / 2, nextZ), yToLat(oy2 + spanY / 2, nextZ)))
   }
   zoomAtRef.current = zoomAt
 
@@ -375,7 +426,7 @@ function AreaMap({ area, pins }) {
     const dyPx = e.clientY - drag.current.y
     if (Math.hypot(dxPx, dyPx) > 8) drag.current.moved = true
     const z = drag.current.z
-    const { spanX, spanY } = spans(z)
+    const { spanX, spanY } = spans()
     const dx = dxPx / drag.current.w
     const dy = dyPx / drag.current.h
     const nx = xToLon(lonToX(drag.current.cx, z) - dx * spanX, z)
@@ -421,7 +472,7 @@ function AreaMap({ area, pins }) {
   }
 
   return (
-    <div className="area-map" style={{ aspectRatio: model.aspect }}>
+    <div className="area-map">
       <div
         ref={stageRef}
         className="area-stage"
@@ -502,25 +553,22 @@ function AreaMap({ area, pins }) {
 }
 
 export default function Maps({ days }) {
-  const maps = useMemo(() => mapsFromDays(days), [days])
-  if (!maps.length) return null
+  const pins = useMemo(() => mapsFromDays(days), [days])
   return (
-    <section className="maps" aria-label="Neighborhood maps">
-      <h2>Where, not everywhere</h2>
+    <section className="maps" aria-label="Trip map">
+      <h2>Where this goes</h2>
       <p className="hint">
-        Cropped to the blocks you use; zoom in for streets, not out to the whole city. Pins follow the timeline of the
-        active scenario (A / B / C). Christmas Day / New Year’s Day mark where S &amp; V are those days, not every
-        restaurant.
+        One map of the trip. Zoom out for the three cities, zoom in for streets. Pins follow the timeline of
+        the active scenario (A / B / C). Christmas Day / New Year’s Day mark where S &amp; V are those days, not
+        every restaurant.
       </p>
       <div className="maps-grid">
-        {maps.map((m) => (
-          <figure key={m.id} className={`map-card ${m.accent}`}>
-            <figcaption>
-              <h3>{m.title}</h3>
-            </figcaption>
-            <AreaMap area={m.area} pins={m.pins} />
-          </figure>
-        ))}
+        <figure className="map-card trip">
+          <figcaption>
+            <h3>{AREAS.trip.title}</h3>
+          </figcaption>
+          <AreaMap area={AREAS.trip} pins={pins} />
+        </figure>
       </div>
     </section>
   )

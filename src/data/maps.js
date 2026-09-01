@@ -1,6 +1,7 @@
-// Neighborhood bboxes and pin coordinates. Facts only — day / holiday labels
-// are computed from the live `days` array in Maps.jsx.
-// Pins: Nominatim, 31 Aug 2026. Do not invent further coordinates.
+// Trip corridor, neighborhood bboxes, and pin coordinates. Facts only —
+// day / holiday labels are computed from the live `days` array in Maps.jsx.
+// Existing pins: Nominatim, 31 Aug 2026. New pins: Nominatim, 1 Sep 2026.
+// Do not invent further coordinates.
 
 export const PINS = {
   plazaRio: {
@@ -45,10 +46,38 @@ export const PINS = {
     lon: -99.15977,
     name: 'Rosetta Colima 166',
   },
+  // Nominatim, 1 Sep 2026. q=Zócalo de Puebla, Puebla, Mexico
+  // → Plaza de la Constitución, Centro Histórico de Puebla.
+  pueblaZocalo: {
+    lat: 19.0436856,
+    lon: -98.1981095,
+    name: 'Zócalo de Puebla',
+  },
+  // Nominatim, 1 Sep 2026. q=Zona Arqueológica de Cholula, Puebla, Mexico
+  cholula: {
+    lat: 19.0574295,
+    lon: -98.3025011,
+    name: 'Zona Arqueológica de Cholula',
+  },
 }
 
-/** west, south, east, north in WGS84. Zoom locked to the pocket. */
+/** west, south, east, north in WGS84. */
 export const AREAS = {
+  // Trip corridor: CDMX west/Chapultepec, CDMX north/Templo Mayor,
+  // Oaxaca east/south (Santo Domingo), Puebla / Cholula in between.
+  // Padding ~0.20° lon / ~0.15° lat so pins are not on the clip edge.
+  // Pan clamp only — not the whole world, not a Roma block.
+  trip: {
+    id: 'trip',
+    title: 'CDMX → Puebla → Oaxaca',
+    zoom: 7,
+    minZ: 7,
+    maxZ: 18,
+    west: -99.39,
+    south: 16.92,
+    east: -96.52,
+    north: 19.59,
+  },
   roma: {
     id: 'roma',
     title: 'Roma Norte',
