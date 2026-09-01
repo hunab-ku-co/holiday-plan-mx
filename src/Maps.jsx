@@ -8,6 +8,8 @@ const CASA_CLOSED = new Set([XMAS, NYD])
 const SUBS = ['a', 'b', 'c', 'd']
 const TILE = 256
 const CITY_MAX_Z = 11
+const VISIT_MIN_Z = 12
+const EAT_MIN_Z = 15
 
 function lonToX(lon, z) {
   return ((lon + 180) / 360) * 2 ** z
@@ -63,6 +65,31 @@ function isCentro(d) {
   return /centro|templo mayor/i.test(`${d.place} ${d.title}`)
 }
 
+function isMonte(d) {
+  if (!d || d.city !== 'OAX') return false
+  return d.tour === 'monte-alban' || /monte alb/i.test(`${d.place} ${d.title}`)
+}
+
+function isCrafts(d) {
+  if (!d || d.city !== 'OAX') return false
+  return d.tour === 'south-crafts' || /coyotepec|tilcajete|handicraft/i.test(`${d.place} ${d.title}`)
+}
+
+function isMezcal(d) {
+  if (!d || d.city !== 'OAX') return false
+  return d.tour === 'east-mezcal' || /mitla|\btule\b|mezcal/i.test(`${d.place} ${d.title}`)
+}
+
+function isHierve(d) {
+  if (!d || d.city !== 'OAX') return false
+  return /hierve/i.test(`${d.place} ${d.title} ${d.summary || ''}`)
+}
+
+function isPueblaCentro(d) {
+  if (!d || d.city !== 'PUE') return false
+  return (d.flags || []).includes('cholula-closed') || /centro/i.test(`${d.place} ${d.title}`)
+}
+
 function holidaysAt(byDate, city) {
   const holidays = []
   if (byDate[XMAS]?.city === city) holidays.push({ text: 'Christmas Day', tone: 'xmas' })
@@ -88,12 +115,32 @@ export function mapsFromDays(days) {
   })
   const pueDays = list.filter((d) => d.city === 'PUE')
   const cholulaDays = pueDays.filter((d) => !(d.flags || []).includes('cholula-closed'))
+  const pueCentroDays = pueDays.filter(isPueblaCentro)
   const oaxDays = list.filter((d) => d.city === 'OAX')
   const xmasDay = list.find((d) => d.theme === 'cdmx-xmas')
   const anthro = list.find(isAnthro)
   const centro = list.find(isCentro)
   const frida = list.find((d) => d.theme === 'frida')
+  const returnDays = list.filter((d) => d.theme === 'cdmx-return')
+  const monteDays = list.filter(isMonte)
+  const craftsDays = list.filter(isCrafts)
+  const mezcalDays = list.filter(isMezcal)
+  const hierveDays = list.filter(isHierve)
+  const restDays = (id) => list.filter((d) => d.restaurant === id)
   const pins = []
+
+  function pushPin(id, layer, src, place, chip, holidays = []) {
+    if (!src) return
+    pins.push({
+      id,
+      layer,
+      lat: src.lat,
+      lon: src.lon,
+      place,
+      chip: chip || '',
+      holidays,
+    })
+  }
 
   if (cdmxDays.length) {
     pins.push({
@@ -136,7 +183,7 @@ export function mapsFromDays(days) {
     if (byDate[XMAS]?.city === 'CDMX') holidays.push({ text: 'Christmas Day', tone: 'xmas' })
     pins.push({
       id: 'home',
-      layer: 'street',
+      layer: 'visit',
       lat: PINS.plazaRio.lat,
       lon: PINS.plazaRio.lon,
       place: 'HOME',
@@ -148,7 +195,7 @@ export function mapsFromDays(days) {
   if (anthro) {
     pins.push({
       id: 'anthro',
-      layer: 'street',
+      layer: 'visit',
       lat: PINS.anthropology.lat,
       lon: PINS.anthropology.lon,
       place: 'Anthropology',
@@ -161,7 +208,7 @@ export function mapsFromDays(days) {
     const holidays = xmasDay.date === XMAS ? [{ text: 'Christmas Day', tone: 'xmas' }] : []
     pins.push({
       id: 'jardin',
-      layer: 'street',
+      layer: 'visit',
       lat: PINS.jardinCentenario.lat,
       lon: PINS.jardinCentenario.lon,
       place: 'Jardín Centenario',
@@ -174,7 +221,7 @@ export function mapsFromDays(days) {
     const n = numOf(list, frida)
     pins.push({
       id: 'casa-azul',
-      layer: 'street',
+      layer: 'visit',
       lat: PINS.casaAzul.lat,
       lon: PINS.casaAzul.lon,
       place: 'Casa Azul',
@@ -186,7 +233,7 @@ export function mapsFromDays(days) {
   if (centro) {
     pins.push({
       id: 'templo',
-      layer: 'street',
+      layer: 'visit',
       lat: PINS.temploMayor.lat,
       lon: PINS.temploMayor.lon,
       place: 'Templo Mayor',
@@ -198,19 +245,19 @@ export function mapsFromDays(days) {
   if (pueDays.length && PINS.pueblaZocalo) {
     pins.push({
       id: 'puebla-zocalo',
-      layer: 'street',
+      layer: 'visit',
       lat: PINS.pueblaZocalo.lat,
       lon: PINS.pueblaZocalo.lon,
       place: 'Puebla Zócalo',
-      chip: chipOf(list, pueDays),
-      holidays: holidaysAt(byDate, 'PUE'),
+      chip: chipOf(list, pueCentroDays.length ? pueCentroDays : pueDays),
+      holidays: [],
     })
   }
 
   if (cholulaDays.length && PINS.cholula) {
     pins.push({
       id: 'cholula',
-      layer: 'street',
+      layer: 'visit',
       lat: PINS.cholula.lat,
       lon: PINS.cholula.lon,
       place: 'Cholula',
@@ -222,13 +269,105 @@ export function mapsFromDays(days) {
   if (oaxDays.length) {
     pins.push({
       id: 'santo',
-      layer: 'street',
+      layer: 'visit',
       lat: PINS.santoDomingo.lat,
       lon: PINS.santoDomingo.lon,
       place: 'Santo Domingo',
-      chip: chipOf(list, oaxDays),
-      holidays: holidaysAt(byDate, 'OAX'),
+      chip: '',
+      holidays: [],
     })
+  }
+
+  if (anthro && PINS.castillo) {
+    pushPin('castillo', 'visit', PINS.castillo, 'Castillo', formatDayChip([numOf(list, anthro)]))
+  }
+
+  if (centro && PINS.bellas) {
+    pushPin('bellas', 'visit', PINS.bellas, 'Bellas Artes', formatDayChip([numOf(list, centro)]))
+  }
+
+  if (frida && !CASA_CLOSED.has(frida.date) && PINS.anahuacalli) {
+    pushPin('anahuacalli', 'visit', PINS.anahuacalli, 'Anahuacalli', formatDayChip([numOf(list, frida)]))
+  }
+
+  if (returnDays.length && PINS.soumaya) {
+    pushPin('soumaya', 'visit', PINS.soumaya, 'Soumaya', chipOf(list, returnDays))
+  }
+
+  if (pueCentroDays.length && PINS.palafoxiana) {
+    pushPin('palafoxiana', 'visit', PINS.palafoxiana, 'Palafoxiana', chipOf(list, pueCentroDays))
+  }
+
+  if (cholulaDays.length && PINS.remedios) {
+    pushPin('remedios', 'visit', PINS.remedios, 'Remedios', chipOf(list, cholulaDays))
+  }
+
+  if (oaxDays.length && PINS.monteAlban) {
+    pushPin('monte-alban', 'visit', PINS.monteAlban, 'Monte Albán', chipOf(list, monteDays))
+  }
+
+  if (oaxDays.length && PINS.mitla) {
+    pushPin('mitla', 'visit', PINS.mitla, 'Mitla', chipOf(list, mezcalDays))
+  }
+
+  if (oaxDays.length && PINS.tule) {
+    pushPin('tule', 'visit', PINS.tule, 'Tule', chipOf(list, mezcalDays))
+  }
+
+  if (oaxDays.length && PINS.coyotepec) {
+    pushPin('coyotepec', 'visit', PINS.coyotepec, 'Coyotepec', chipOf(list, craftsDays))
+  }
+
+  if (oaxDays.length && PINS.tilcajete) {
+    pushPin('tilcajete', 'visit', PINS.tilcajete, 'Tilcajete', chipOf(list, craftsDays))
+  }
+
+  if (oaxDays.length && PINS.hierve) {
+    pushPin('hierve', 'visit', PINS.hierve, 'Hierve el Agua', chipOf(list, hierveDays))
+  }
+
+  if (PINS.rosetta) {
+    pushPin('rosetta', 'eat', PINS.rosetta, 'Rosetta', '')
+  }
+
+  const danzantesCoyoDays = restDays('danzantes-coyo')
+  if (PINS.danzantesCoyo) {
+    const holidays = danzantesCoyoDays.some((d) => d.date === XMAS)
+      ? [{ text: 'Christmas Day', tone: 'xmas' }]
+      : []
+    pushPin('danzantes-coyo', 'eat', PINS.danzantesCoyo, 'Los Danzantes', chipOf(list, danzantesCoyoDays), holidays)
+  }
+
+  const jacintaDays = restDays('comedor-jacinta')
+  if (PINS.jacinta) {
+    pushPin('jacinta', 'eat', PINS.jacinta, 'Comedor Jacinta', chipOf(list, jacintaDays))
+  }
+
+  const quintonilDays = restDays('quintonil')
+  if (PINS.quintonil) {
+    pushPin('quintonil', 'eat', PINS.quintonil, 'Quintonil', chipOf(list, quintonilDays))
+  }
+
+  const casaDays = restDays('casa-oax-roof')
+  if (PINS.casaOax) {
+    const holidays = []
+    if (casaDays.some((d) => d.date === NYE)) holidays.push({ text: 'New Year’s Eve', tone: 'nye' })
+    if (casaDays.some((d) => d.date === XMAS)) holidays.push({ text: 'Christmas Day', tone: 'xmas' })
+    pushPin('casa-oax', 'eat', PINS.casaOax, 'Casa Oaxaca', chipOf(list, casaDays), holidays)
+  }
+
+  const criolloDays = restDays('criollo')
+  if (PINS.criollo) {
+    pushPin('criollo', 'eat', PINS.criollo, 'Criollo', chipOf(list, criolloDays))
+  }
+
+  const danzantesOaxDays = restDays('danzantes-oax')
+  if (PINS.danzantesOax) {
+    pushPin('danzantes-oax', 'eat', PINS.danzantesOax, 'Los Danzantes', chipOf(list, danzantesOaxDays))
+  }
+
+  if (PINS.mauro) {
+    pushPin('mauro', 'eat', PINS.mauro, 'Bar Mauro', '')
   }
 
   return pins
@@ -303,10 +442,17 @@ function AreaMap({ area, pins }) {
         })
       }
     }
-    const cityLayer = z <= CITY_MAX_Z
     const laidPins = (pins || []).flatMap((p) => {
-      const isCity = p.layer === 'city'
-      if (cityLayer ? !isCity : isCity) return []
+      const layer = p.layer
+      const show =
+        layer === 'city'
+          ? z <= CITY_MAX_Z
+          : layer === 'visit'
+            ? z >= VISIT_MIN_Z
+            : layer === 'eat'
+              ? z >= EAT_MIN_Z
+              : false
+      if (!show) return []
       const x = ((lonToX(p.lon, z) - ox) / spanX) * 100
       const y = ((latToY(p.lat, z) - oy) / spanY) * 100
       if (x < -6 || x > 106 || y < -6 || y > 106) return []
@@ -502,7 +648,7 @@ function AreaMap({ area, pins }) {
           {model.pins.map((p) => (
             <div
               key={p.id}
-              className={`map-pin anchor-${p.anchor}`}
+              className={`map-pin layer-${p.layer} anchor-${p.anchor}`}
               style={{ left: `${p.x}%`, top: `${p.y}%` }}
             >
               <span className={`map-dot${p.holidays?.length ? ' hol' : ''}`} />
@@ -558,9 +704,9 @@ export default function Maps({ days }) {
     <section className="maps" aria-label="Trip map">
       <h2>Where this goes</h2>
       <p className="hint">
-        One map of the trip. Zoom out for the three cities, zoom in for streets. Pins follow the timeline of
-        the active scenario (A / B / C). Christmas Day / New Year’s Day mark where S &amp; V are those days, not
-        every restaurant.
+        One map of the trip. Zoom out for the three cities; zoom in for visits; further in for restaurants. Pins
+        follow the timeline of the active scenario (A / B / C). Christmas Day / New Year’s Day mark where
+        S &amp; V are those days, not every restaurant.
       </p>
       <div className="maps-grid">
         <figure className="map-card trip">

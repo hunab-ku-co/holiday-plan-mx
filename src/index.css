@@ -939,6 +939,25 @@ h2 {
   background: var(--gold);
   box-shadow: 0 0 0 1.5px var(--terracotta-deep);
 }
+.map-pin.layer-visit { z-index: 3; }
+.map-pin.layer-eat { z-index: 2; }
+.map-pin.layer-eat .map-dot {
+  width: 9px;
+  height: 9px;
+  border-width: 1.5px;
+}
+.map-pin.layer-eat .map-flag {
+  padding: 4px 6px 5px;
+  border-radius: 8px;
+  max-width: 10.5rem;
+}
+.map-pin.layer-eat .map-place,
+.map-pin.layer-eat .map-chip {
+  font-size: 0.62rem;
+}
+.map-pin.layer-eat .map-chip {
+  padding: 1px 6px;
+}
 .map-flag {
   position: absolute;
   left: 10px;
