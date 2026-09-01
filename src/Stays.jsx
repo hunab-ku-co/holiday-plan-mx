@@ -101,13 +101,13 @@ export default function Stays() {
       <div className="listings">
         <h3>Listings</h3>
         <p className="hint">
-          Price range is more than €50 and less than €120 per night. Two adults, 1 room, 24–26 Dec 2026 (2 nights). Card
+          Airbnb price range is more than €50 and less than €120 per day. Two adults, 1 room, 24–26 Dec 2026 (2 nights). Card
           quotes are Airbnb.com for those dates (1 Sep 2026). Booking.com search was blocked this pass (AWS WAF / JS
           challenge) — no Booking prices added. Ranked by reviews, then interior Roma safety, then walk to Colima.
           15:00–24:00 windows are tight if S lands 00:07 on 25 Dec — 24h desk or open-ended self check-in is the
           insurance; message the property. Walk times are street estimates, not OSM. Dropped (not shown as cards): Nido
-          Roma, Mint Roma Residence, Casa Cibeles — over €120 per night. Casa Oliva, Colima 71, Xoma, Caliza, ONTO —
-          over €200 per night. Colima Room Bugambilia check-in 14:00–21:00 — fails midnight. Unique Loft in Roma Norte —
+          Roma, Mint Roma Residence, Casa Cibeles — over €120 per day. Casa Oliva, Colima 71, Xoma, Caliza, ONTO —
+          over €200 per day. Colima Room Bugambilia check-in 14:00–21:00 — fails midnight. Unique Loft in Roma Norte —
           after 15:00 but no self/24h. Natural light 1BR check-in ends 22:00. Tanat Art Apartments check-in only
           15:00–18:00. Kukun Tonala 121 check-in ends 23:00 — borderline. Prices in MXN and euros, converted from
           Airbnb.com USD at Xe mid-market 1 USD = MXN 17.02 · €0.8625 (31 Aug 2026).

@@ -35,8 +35,8 @@ export const BOARD_CARDS = [
   },
   {
     id: 'stay-band',
-    title: 'Price range',
-    detail: 'Stays more than €50 and less than €120 per night. The Stays tab uses this range.',
+    title: 'Airbnb price range',
+    detail: 'More than €50 and less than €120 per day. The Stays tab uses this range.',
     city: '',
     kind: 'stay',
     defaultColumn: 'decided',
