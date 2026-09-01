@@ -36,7 +36,7 @@ export const BOARD_CARDS = [
   {
     id: 'stay-band',
     title: 'Price range',
-    detail: 'Stays more than €50 and less than €200 per night. The Stays tab uses this range.',
+    detail: 'Stays more than €50 and less than €120 per night. The Stays tab uses this range.',
     city: '',
     kind: 'stay',
     defaultColumn: 'decided',
