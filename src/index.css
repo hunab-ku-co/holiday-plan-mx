@@ -363,7 +363,7 @@ h2 {
 }
 .day.theme-arrival, .day.theme-depart { border-left: 4px solid var(--night); }
 .day.theme-cdmx-xmas { border-left: 4px solid var(--terracotta); }
-.day.theme-cdmx-museums, .day.theme-cdmx-return { border-left: 4px solid var(--gold); }
+.day.theme-cdmx-museums, .day.theme-cdmx-return, .day.theme-cdmx-roma { border-left: 4px solid var(--gold); }
 .day.theme-oaxaca { border-left: 4px solid var(--agave); }
 .day.theme-puebla { border-left: 4px solid #7a4e2d; }
 .day.theme-frida { border-left: 4px solid #a43d4a; }

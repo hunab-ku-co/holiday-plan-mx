@@ -28,7 +28,7 @@ export const BOARD_CARDS = [
     id: 'nye-dinner',
     title: 'Celebrate New Year’s',
     detail:
-      'Book a nice dinner. Proposal: Casa Oaxaca rooftop, then Centro on foot. 2026 menus are not published.',
+      'NYE stays in Oaxaca. Book a nice dinner. Proposal: Casa Oaxaca rooftop, then Centro on foot. Morning bus from Puebla the same day is tight. 2026 menus are not published.',
     city: 'Oaxaca',
     kind: 'policy',
     defaultColumn: 'decided',
@@ -40,6 +40,24 @@ export const BOARD_CARDS = [
     city: '',
     kind: 'stay',
     defaultColumn: 'decided',
+  },
+  {
+    id: 'roma-24-28',
+    title: 'Roma Norte 24–28 Dec, 4 nights',
+    detail:
+      'Nights 24, 25, 26, 27. Checkout and the CDMX → Puebla bus on 28 Dec. Late/self check-in for the midnight landing. This is decided — not 24–26.',
+    city: 'CDMX',
+    kind: 'policy',
+    defaultColumn: 'decided',
+  },
+  {
+    id: 'jan-cdmx-shrink',
+    title: 'January CDMX could shrink to 2 nights',
+    detail:
+      'Current plan is CDMX 5–8 Jan (3 nights 5, 6, 7). Maybe: bus in on 6 Jan, nights 6–7, fly 8, if Centro / Ciudadela can share the bus day. Not decided.',
+    city: 'CDMX',
+    kind: 'policy',
+    defaultColumn: 'maybe',
   },
 
   // Must-do visits — wording from trip.json mustDos. Skip NYE (covered by nye-dinner).
@@ -161,23 +179,23 @@ export const BOARD_CARDS = [
   // Booking cards — ids match src/data/decisions.js so Trip checkboxes stay in sync.
   {
     id: 'roma-stay',
-    title: 'Book Roma Norte 24–26 Dec',
-    detail: 'Two nights. Late/self check-in for the midnight landing. Shortlist is on the Stays tab; nothing is booked.',
+    title: 'Book Roma Norte 24–28 Dec, 4 nights',
+    detail: 'Four nights (24–27). Dates are decided; a listing is not. Late/self check-in for the midnight landing. Shortlist is on the Stays tab.',
     city: 'CDMX',
     kind: 'stay',
     defaultColumn: 'maybe',
   },
   {
     id: 'puebla-stay',
-    title: 'Book Puebla/Cholula 26–30 Dec, 4 nights',
-    detail: 'Urgency now. Overnight stay, not a day trip. Shortlist not on the Stays tab yet — do not invent a listing.',
+    title: 'Book Puebla/Cholula 28–31 Dec, 3 nights',
+    detail: 'Urgency now. Three nights (28, 29, 30); was 4 so NYE stays in Oaxaca. Overnight stay, not a day trip. Shortlist not on the Stays tab yet — do not invent a listing.',
     city: 'Puebla',
     kind: 'stay',
     defaultColumn: 'maybe',
   },
   {
     id: 'oax-stay',
-    title: 'Book Oaxaca Centro/Jalatlaco 30 Dec–5 Jan',
+    title: 'Book Oaxaca Centro/Jalatlaco 31 Dec–5 Jan',
     detail: 'Through NYE. Peak week. Centro/Jalatlaco inventory this far out actually sells out.',
     city: 'Oaxaca',
     kind: 'stay',
@@ -185,8 +203,8 @@ export const BOARD_CARDS = [
   },
   {
     id: 'ado-seats',
-    title: 'Book three buses: CDMX→Puebla 26 Dec, Puebla→Oaxaca 30 Dec, Oaxaca→TAPO 5 Jan',
-    detail: 'Locked: bus, not flights. Christmas 2026 fares were not retrieved. Book on ado.com.mx; Estrella Roja for the Puebla leg. Overnight vs day still open on the long Oaxaca legs. Details on the CDMX–Oaxaca tab.',
+    title: 'Book three buses: CDMX→Puebla 28 Dec, Puebla→Oaxaca 31 Dec, Oaxaca→TAPO 5 Jan',
+    detail: 'Locked: bus, not flights. Fares were not retrieved. Book on ado.com.mx; Estrella Roja for the Puebla leg. 31 Dec is a morning bus so NYE dinner in Oaxaca is possible — tight, do not invent times. Overnight vs day still open on 5 Jan. Details on the CDMX–Oaxaca tab.',
     city: '',
     kind: 'move',
     defaultColumn: 'maybe',

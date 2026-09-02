@@ -208,7 +208,7 @@ function anthroDay(date) {
     research: [{ label: 'INAH 2026–27 holiday circular', state: 'Not yet published.' }],
     restaurant: 'orinoco',
     tour: 'anthropology',
-    hotel: 'las-alcobas',
+    hotel: date.startsWith('2026-12') ? '' : 'las-alcobas',
   })
 }
 
@@ -221,7 +221,7 @@ function centroDay(date) {
     altitude: 2240,
     theme: 'cdmx-museums',
     summary:
-      '6 Jan 2027 is Wednesday, Día de Reyes — not a federal rest day. Templo Mayor Tue–Sun 09:00–17:00, expected open. Bellas Artes museum same-day taquilla only. Palacio Postal is a different building.',
+      '6 Jan 2027 is Wednesday, Día de Reyes — not a federal rest day. Templo Mayor Tue–Sun 09:00–17:00, expected open. Bellas Artes museum same-day taquilla only. Do not stack Castillo; Anthropology has its own date. Palacio Postal is a different building.',
     items: [
       { kind: 'see', title: 'Templo Mayor', detail: 'Tue–Sun 09:00–17:00. MXN 210 · €11 INAH (older SIC $100 listings are stale). Includes the archaeological zone. Original Coyolxauhqui in the museum.' },
       { kind: 'see', title: 'Palacio de Bellas Artes museum', detail: 'Tue–Sun 10:00–18:00, last entry 17:30. MXN 95 · €5, same-day taquilla, no online. Sun free. Concert hall is a separate ticket. 2024–25 INBAL closed 25 Dec and 1 Jan; 24 and 31 Dec closed 14:00.' },
@@ -292,9 +292,31 @@ function fridaDay(date) {
   })
 }
 
+
+function extraCdmxDay(date) {
+  return day({
+    date,
+    title: 'Roma / Condesa',
+    place: 'Roma Norte · Condesa',
+    city: 'CDMX',
+    altitude: 2240,
+    theme: 'cdmx-roma',
+    summary:
+      'Extra CDMX day in Roma and Condesa. Not Frida — Casa Azul stays 7 Jan. Walk the neighbourhood. Do not invent restaurant hours for 27 Dec 2026; holiday lists are not published.',
+    items: [
+      { kind: 'see', title: 'Roma Norte and Condesa on foot', detail: 'Colima cluster, Álvaro Obregón, Parque México if energy. This is not a museum day and not a travel day.' },
+      { kind: 'eat', title: 'Neighbourhood food', detail: 'Tacos in Roma–Condesa fit a normal evening (not Christmas, not Frida). 27 Dec 2026 hours are not published — confirm that week. Do not treat regular weekly hours as confirmation.' },
+      { kind: 'note', title: 'Frida is not today', detail: 'Casa Azul timed tickets stay on 7 Jan. Do not stack Coyoacán museums onto this extra CDMX day.' },
+    ],
+    research: [{ label: '27 Dec 2026 restaurant hours', state: 'Not published. Confirm that week.' }],
+    restaurant: 'orinoco',
+    hotel: '',
+  })
+}
+
 function pueblaStayResearch() {
   return [
-    { label: 'Puebla stay 26–30 Dec not shortlisted yet', state: 'No hotel id on this card. Not on the Stays tab yet — do not invent a listing.' },
+    { label: 'Puebla stay 28–31 Dec not shortlisted yet', state: 'No hotel id on this card. Not on the Stays tab yet — do not invent a listing. Three nights (was 4) so NYE stays in Oaxaca.' },
     { label: 'Cholula tunnel reopening', state: 'Still closed as of 29 Jun 2026.' },
   ]
 }
@@ -309,44 +331,35 @@ function pueblaDay(date) {
   let items
   let flags = []
 
-  if (date === '2026-12-26') {
-    title = 'Puebla · travel + light Cholula'
+  if (date === '2026-12-28') {
+    title = 'Puebla · travel + Centro'
+    place = 'Puebla Centro'
     summary =
-      'Bus CDMX → Puebla. Estrella Roja TAPO / Cholula, ~2–2.5 h — Christmas fare not retrieved. Travel day belongs here. Light Cholula if energy (INAH open Wed–Sun). First of four nights in Puebla/Cholula; hotel not shortlisted yet.'
+      'Bus CDMX → Puebla. Estrella Roja TAPO / Cholula, ~2–2.5 h — fare not retrieved. Travel day belongs here. Cholula INAH is closed Monday; Palafoxiana closed Monday. Centro-only after the bus. First of three nights (the stay shrank from 4 so NYE stays in Oaxaca). Hotel not shortlisted yet.'
     items = [
-      { kind: 'move', title: 'CDMX → Puebla', detail: 'Estrella Roja TAPO ↔ Cholula 12 Poniente is the cleanest if Cholula first. ~2–2.5 h. Uber Puebla–Cholula ~24 min. Do not invent fares. Book Estrella Roja / ado.com.mx.' },
-      { kind: 'see', title: 'Light Cholula if energy', detail: 'Wed–Sun 09:00–17:00. One ticket: ceremonial area + Museo de Sitio. Foreigner MXN 210 · €11. Tunnels still closed. Church of Remedios on top is separate, 07:00–19:00, stairs. Keep it light after the bus.' },
-      { kind: 'stay', title: 'Overnight — first of four', detail: 'Puebla stay 26–30 Dec not shortlisted yet. No invented hotel id.' },
+      { kind: 'move', title: 'CDMX → Puebla', detail: 'Estrella Roja TAPO / Cholula, ~2–2.5 h. Do not invent fares. Book Estrella Roja / ado.com.mx.' },
+      { kind: 'note', title: 'Cholula closed today', detail: 'Wed–Sun 09:00–17:00 only. Tunnels cerrado al público hasta nuevo aviso (still as of 29 Jun 2026). Expected Centro time, not a day-trip failure. Palafoxiana closed Mon.' },
+      { kind: 'see', title: 'Puebla Centro', detail: 'Zócalo, cathedral, Capilla del Rosario. Palafoxiana closed Mon. Mole / cemitas. First of three nights (was 4) so NYE stays in Oaxaca. Hotel still not shortlisted.' },
     ]
-    flags = ['travel-day']
-  } else if (date === '2026-12-27') {
-    title = 'Cholula full day'
-    summary =
-      'Cholula INAH is open Sunday. Full day on the zone and site museum. Tunnels still closed (cerrado al público hasta nuevo aviso, still as of 29 Jun 2026). Overnight in Puebla — this is not a day trip.'
-    items = [
-      { kind: 'see', title: 'Zona Arqueológica de Cholula', detail: 'One ticket: ceremonial area + Museo de Sitio. Foreigner MXN 210 · €11. Tunnels closed. Church of Remedios on top is separate, 07:00–19:00, stairs, volcano views.' },
-      { kind: 'see', title: 'Sunday cathedral window only if energy left', detail: 'Puebla cathedral tourist visit Sunday 15:00–16:45 is crowded and fragile. Skip Museo Amparo on a combo day. Palafoxiana Fri–Sun 10–18.' },
-    ]
-  } else if (date === '2026-12-28') {
+    flags = ['travel-day', 'cholula-closed']
+  } else if (date === '2026-12-29') {
     title = 'Puebla Centro (Cholula closed)'
     place = 'Puebla Centro'
     summary =
-      'Cholula INAH is closed Monday. Palafoxiana is also closed Monday. Centro-only is the plan — not a reason to move the whole stay. Puebla sits at ~2,140 m, not a descent that helps. Overnight.'
+      'Cholula INAH is closed Tuesday. Palafoxiana is open Tue–Thu 10–17. Expected Centro time — not a reason to move the stay. Overnight.'
     items = [
-      { kind: 'note', title: 'Cholula closed today', detail: 'Wed–Sun 09:00–17:00 only. Tunnels cerrado al público hasta nuevo aviso (still as of 29 Jun 2026). Expected Centro time, not a day-trip failure.' },
-      { kind: 'see', title: 'Puebla Centro', detail: 'Zócalo, cathedral, Capilla del Rosario. Palafoxiana closed Mon. Mole / cemitas. Hotel still not shortlisted.' },
+      { kind: 'note', title: 'Cholula closed today', detail: 'Closed Mon and Tue. Tunnels closed anyway. Centro is the plan for 28–29 Dec; this is expected.' },
+      { kind: 'see', title: 'Palafoxiana + Centro', detail: 'Biblioteca Palafoxiana Tue–Thu 10–17. Zócalo, Rosario if not yet. Pack for Cholula Wednesday, then a Puebla → Oaxaca bus Thursday morning.' },
     ]
     flags = ['cholula-closed']
-  } else if (date === '2026-12-29') {
-    title = 'Puebla Centro'
-    place = 'Puebla Centro'
+  } else if (date === '2026-12-30') {
+    title = 'Cholula full day'
     summary =
-      'Cholula INAH is closed Tuesday. Palafoxiana is open Tue–Thu 10–17. Last full day in Puebla; bus to Oaxaca Wednesday morning. Overnight.'
+      'Cholula INAH is open Wednesday. Full day on the zone and site museum. Tunnels still closed (cerrado al público hasta nuevo aviso, still as of 29 Jun 2026). Last night in Puebla; Thursday morning bus to Oaxaca.'
     items = [
-      { kind: 'note', title: 'Cholula closed today', detail: 'Closed Mon and Tue. Tunnels closed anyway. Centro is the plan for 28–29 Dec.' },
-      { kind: 'see', title: 'Palafoxiana + Centro', detail: 'Biblioteca Palafoxiana Tue–Thu 10–17. Zócalo, Rosario if not yet. Pack for a Puebla → Oaxaca bus in the morning.' },
+      { kind: 'see', title: 'Zona Arqueológica de Cholula', detail: 'One ticket: ceremonial area + Museo de Sitio. Foreigner MXN 210 · €11. Tunnels closed. Church of Remedios on top is separate, 07:00–19:00, stairs, volcano views.' },
+      { kind: 'see', title: 'Remedios if energy', detail: 'Stairs, volcano views. Palafoxiana Wed 10–17 if still needed. Skip Museo Amparo on a combo day.' },
     ]
-    flags = ['cholula-closed']
   } else {
     title = closed ? 'Puebla Centro (Cholula closed)' : 'Cholula + Puebla Centro'
     place = closed ? 'Puebla Centro' : 'Cholula / Puebla'
@@ -382,18 +395,19 @@ function pueblaDay(date) {
 }
 
 function oaxacaArrival(date, christmas) {
-  const fromPuebla = date === '2026-12-30'
+  const fromPuebla = date === '2026-12-31'
+  const nyeArrive = fromPuebla
   return day({
     date,
-    title: christmas ? 'Oaxaca · Christmas' : 'Oaxaca · Centro',
+    title: christmas ? 'Oaxaca · Christmas' : nyeArrive ? 'Oaxaca · travel + NYE' : 'Oaxaca · Centro',
     place: 'Oaxaca Centro',
     city: 'OAX',
     altitude: 1542,
     theme: 'oaxaca',
     summary: christmas
       ? 'As soon as a midnight landing is humane: late morning rest, then CDMX → Oaxaca by bus. Christmas dinner at 1,542 m. ADO TAPO → ADO Oaxaca first-class, 6–7 h typical. Day or overnight still open; Christmas fare not retrieved. 2026 menus are not published. Levadura is open on a Friday but this is an arrival day — save it. Casa Oaxaca or Los Danzantes, confirm that week.'
-      : fromPuebla
-        ? 'Puebla → Oaxaca by bus, not TAPO. CAPU → Oaxaca is real (~4.5–5.5 h). Overnight vs day still open; Christmas fare not retrieved. Arrival day is Centro walking, not Levadura (save Saturday 2 Jan 19:00). Stay Centro or Jalatlaco. Pool hotels after the later Monte Albán day.'
+      : nyeArrive
+        ? 'Puebla → Oaxaca by bus in the morning, not TAPO. CAPU → Oaxaca is real (~4.5–5.5 h). Fare not retrieved. Do not invent clocks. Travel morning plus NYE dinner the same evening is tight. Proposal: Casa Oaxaca rooftop, then walk Santo Domingo and the Zócalo. 2026 menus are not published. Stay Centro or Jalatlaco.'
         : 'CDMX → Oaxaca by bus. ADO TAPO → ADO Oaxaca first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Day or overnight still open; Christmas fare not retrieved. Stay Centro or Jalatlaco. Pool hotels after the later Monte Albán day.',
     items: christmas
       ? [
@@ -401,11 +415,11 @@ function oaxacaArrival(date, christmas) {
           { kind: 'eat', title: 'Christmas dinner in Oaxaca', detail: 'Casa Oaxaca rooftop or Los Danzantes. Levadura is a Friday service day but too ambitious after a travel day. Menus not published.' },
           { kind: 'stay', title: 'Centro or Jalatlaco', detail: 'Otro (facing Santo Domingo), Escondido, Quinta Real (skip a locked gala), Casa Oaxaca Hotel, Siglo 17, Los Pilares, City Centro Marriott.' },
         ]
-      : fromPuebla
+      : nyeArrive
         ? [
-            { kind: 'move', title: 'Puebla → Oaxaca', detail: 'Not TAPO–Oaxaca. CAPU → Oaxaca is real (~4.5–5.5 h). Overnight vs day still open; Christmas fare not retrieved. ADO Oaxaca station is close to Centro (~10 min taxi / ~20 min walk). Details on the CDMX–Oaxaca tab.' },
-            { kind: 'see', title: 'Centro, Santo Domingo, light walking', detail: 'Arrival day is not Monte Albán and not Levadura. Jalatlaco dinner keeps it close to a pool hotel.' },
-            { kind: 'eat', title: 'Asador Bacanora or Tierra del Sol', detail: 'Levadura is a Saturday booking (2 Jan 19:00), not tonight. Proposal: Bacanora in Jalatlaco.' },
+            { kind: 'move', title: 'Puebla → Oaxaca', detail: 'Not TAPO–Oaxaca. CAPU → Oaxaca is real (~4.5–5.5 h). Morning bus so there is an evening in Oaxaca. Do not invent board clocks. Fare not retrieved. ADO Oaxaca station is close to Centro (~10 min taxi / ~20 min walk). Details on the CDMX–Oaxaca tab.' },
+            { kind: 'eat', title: 'NYE rooftop, then the plaza on foot', detail: 'Proposal: Casa Oaxaca rooftop, then walk to Santo Domingo and the Zócalo. Travel morning + dinner is tight — say so, do not invent times. Menus for 2026 are not published. Backup: Los Danzantes. Do not lock a hotel gala. Levadura is Saturday 2 Jan 19:00, not tonight.' },
+            { kind: 'note', title: 'Stay in Oaxaca tonight', detail: 'The playground will warn if NYE is moved out of Oaxaca.' },
           ]
         : [
             { kind: 'move', title: 'CDMX → Oaxaca', detail: 'ADO TAPO → ADO Oaxaca first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Day or overnight still open; Christmas fare not retrieved. Details on the CDMX–Oaxaca tab.' },
@@ -413,13 +427,13 @@ function oaxacaArrival(date, christmas) {
             { kind: 'eat', title: 'Asador Bacanora or Tierra del Sol', detail: 'Levadura is closed Sunday. Proposal: Bacanora in Jalatlaco.' },
           ],
     research: [
-      { label: fromPuebla ? 'Puebla → Oaxaca / CAPU Christmas inventory' : 'ADO TAPO–Oaxaca Christmas inventory', state: 'Book now; dated fares not retrieved.' },
+      { label: fromPuebla ? 'Puebla → Oaxaca / CAPU inventory 31 Dec' : 'ADO TAPO–Oaxaca Christmas inventory', state: 'Book now; dated fares not retrieved.' },
       { label: 'NYE and Christmas 2026 menus', state: 'Not yet published. Watch October–November.' },
       { label: 'Winter Expo-Venta de Alebrijes 2026–27', state: 'Not listed yet. Last winter: 19 Dec 2025–4 Jan 2026, Galera Municipal, San Martín Tilcajete, 10:00–18:00.' },
     ],
     hotel: 'otro',
-    restaurant: christmas ? 'casa-oax-roof' : 'bacanora',
-    flags: ['travel-day', 'altitude-easier'],
+    restaurant: christmas || nyeArrive ? 'casa-oax-roof' : 'bacanora',
+    flags: nyeArrive ? ['travel-day', 'nye', 'altitude-easier'] : ['travel-day', 'altitude-easier'],
   })
 }
 
@@ -654,18 +668,18 @@ export function authoredA() {
   return [
     arrivalDay(),
     xmasCdmx(),
-    pueblaDay('2026-12-26'),
-    pueblaDay('2026-12-27'),
+    anthroDay('2026-12-26'),
+    extraCdmxDay('2026-12-27'),
     pueblaDay('2026-12-28'),
     pueblaDay('2026-12-29'),
-    levaduraOverlay(oaxacaArrival('2026-12-30', false)),
-    levaduraOverlay(nyeDay()),
+    pueblaDay('2026-12-30'),
+    levaduraOverlay(oaxacaArrival('2026-12-31', false)),
     levaduraOverlay(recoveryDay()),
     levaduraOverlay(monteAlban('2027-01-02')),
     levaduraOverlay(craftsDay('2027-01-03')),
     levaduraOverlay(oaxacaFinale('2027-01-04')),
     polancoReturn('2027-01-05', true),
-    anthroDay('2027-01-06'),
+    centroDay('2027-01-06'),
     fridaDay('2027-01-07'),
     departDay(),
   ]
@@ -687,7 +701,7 @@ const BLOCK_DAYS = {
   'cdmx-xmas': 1,
   'cdmx-museums': 2,
   oaxaca: 0,
-  puebla: 4,
+  puebla: 3,
   frida: 1,
 }
 
@@ -801,7 +815,11 @@ export function warningsFor(days, scenario) {
   const oaxNights = days.filter((d) => d.city === 'OAX' && d.theme !== 'depart').length
   const pueblaNights = days.filter((d) => d.city === 'PUE').length
   if (scenario === 'A') {
-    out.push({ level: 'info', text: `Baseline: Roma 24–26 Dec at ~2,240 m, then Puebla 26–30 Dec (${pueblaNights} nights at ~2,140 m — not a descent that helps), then Oaxaca (${oaxNights} nights at 1,542 m). Scenario B still moves Christmas to Oaxaca.` })
+    out.push({ level: 'info', text: `Baseline: Roma 24–28 Dec at ~2,240 m, then Puebla 28–31 Dec (${pueblaNights} nights at ~2,140 m — not a descent that helps; shrank from 4 so NYE stays in Oaxaca), then Oaxaca (${oaxNights} nights at 1,542 m). Scenario B still moves Christmas to Oaxaca.` })
+  }
+  const pueblaClosed = days.filter((d) => d.city === 'PUE' && (d.flags || []).includes('cholula-closed'))
+  if (pueblaClosed.length) {
+    out.push({ level: 'info', text: 'Cholula INAH is closed Monday and Tuesday. Those Puebla days are expected Centro time, not a reason to move the stay. Palafoxiana closed Mon; Tue–Thu 10–17.' })
   }
   if (scenario === 'B') {
     out.push({ level: 'info', text: 'Altitude reverse: Christmas and NYE in Oaxaca. 6 Jan is Anthropology (the day that moved); Centro / Templo Mayor is the piece that no longer has its own date — steal an hour from 6 Jan only if energy is high, do not stack a full Castillo.' })

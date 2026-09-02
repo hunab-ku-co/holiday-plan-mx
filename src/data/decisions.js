@@ -4,8 +4,8 @@
 export const DECISIONS = [
   {
     id: 'roma-stay',
-    title: 'Book Roma Norte 24–26 Dec',
-    detail: 'Two nights. Late/self check-in for the midnight landing. Shortlist is on the Stays tab; nothing is booked.',
+    title: 'Book Roma Norte 24–28 Dec, 4 nights',
+    detail: 'Four nights (24–27). Dates are decided; a listing is not. Late/self check-in for the midnight landing. Shortlist is on the Stays tab.',
     kind: 'stay',
     urgency: 'now',
     tab: 'stays',
@@ -13,15 +13,15 @@ export const DECISIONS = [
   },
   {
     id: 'puebla-stay',
-    title: 'Book Puebla/Cholula 26–30 Dec, 4 nights',
-    detail: 'Urgency now. Overnight stay, not a day trip. Shortlist not on the Stays tab yet — do not invent a listing.',
+    title: 'Book Puebla/Cholula 28–31 Dec, 3 nights',
+    detail: 'Urgency now. Three nights (28, 29, 30); was 4 so NYE stays in Oaxaca. Overnight stay, not a day trip. Shortlist not on the Stays tab yet — do not invent a listing.',
     kind: 'stay',
     urgency: 'now',
     match: { theme: 'puebla' },
   },
   {
     id: 'oax-stay',
-    title: 'Book Oaxaca Centro/Jalatlaco 30 Dec–5 Jan',
+    title: 'Book Oaxaca Centro/Jalatlaco 31 Dec–5 Jan',
     detail: 'Through NYE. Peak week. Centro/Jalatlaco inventory this far out actually sells out.',
     kind: 'stay',
     urgency: 'now',
@@ -29,8 +29,8 @@ export const DECISIONS = [
   },
   {
     id: 'ado-seats',
-    title: 'Book three buses: CDMX→Puebla 26 Dec, Puebla→Oaxaca 30 Dec, Oaxaca→TAPO 5 Jan',
-    detail: 'Locked: bus, not flights. Christmas 2026 fares were not retrieved. Book on ado.com.mx; Estrella Roja for the Puebla leg. Overnight vs day still open on the long Oaxaca legs. Details on the CDMX–Oaxaca tab.',
+    title: 'Book three buses: CDMX→Puebla 28 Dec, Puebla→Oaxaca 31 Dec, Oaxaca→TAPO 5 Jan',
+    detail: 'Locked: bus, not flights. Fares were not retrieved. Book on ado.com.mx; Estrella Roja for the Puebla leg. 31 Dec is a morning bus so NYE dinner in Oaxaca is possible — tight, do not invent times. Overnight vs day still open on 5 Jan. Details on the CDMX–Oaxaca tab.',
     kind: 'move',
     urgency: 'now',
     tab: 'oaxaca',

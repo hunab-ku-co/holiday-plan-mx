@@ -17,9 +17,9 @@ No flight numbers, PNR, ticket codes, passport numbers, phone numbers, tokens, o
 Dates, local times, and airport codes are allowed.
 
 ## Scenarios
-A baseline: Christmas in Roma Norte, Puebla 26–30 Dec (4 nights), Oaxaca for NYE, back 5 Jan, Frida 7 Jan.
+A baseline: Roma Norte 24–28 Dec (4 nights), Puebla 28–31 Dec (3 nights), Oaxaca 31 Dec–5 Jan for NYE, back 5 Jan, Frida 7 Jan.
 B altitude reverse: Oaxaca as soon as humane after the airport hotel, Christmas and NYE at 1542 m.
-Playground reorders chapters and regenerates dates with closure warnings. Puebla is four overnight days.
+Playground reorders chapters and regenerates dates with closure warnings. Puebla is three overnight days. Extra CDMX days are absorbed in authored A.
 
 ## Commands
 
