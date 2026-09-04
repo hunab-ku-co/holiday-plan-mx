@@ -117,7 +117,12 @@ export function mapsFromDays(days) {
   const cholulaDays = pueDays.filter((d) => !(d.flags || []).includes('cholula-closed'))
   const pueCentroDays = pueDays.filter(isPueblaCentro)
   const oaxDays = list.filter((d) => d.city === 'OAX')
-  const xmasDay = list.find((d) => d.theme === 'cdmx-xmas')
+  // Jardín Centenario pin follows the Coyoacán plazas day (not Frida, not Christmas Roma).
+  const coyoWalkDay = list.find(
+    (d) =>
+      d.theme === 'cdmx-coyo' ||
+      (d.theme !== 'frida' && /coyoac[aá]n/i.test(`${d.place} ${d.title}`) && /plaza|jard[ií]n|walk/i.test(`${d.title} ${d.summary || ''}`)),
+  )
   const anthro = list.find(isAnthro)
   const centro = list.find(isCentro)
   const frida = list.find((d) => d.theme === 'frida')
@@ -204,16 +209,16 @@ export function mapsFromDays(days) {
     })
   }
 
-  if (xmasDay) {
-    const holidays = xmasDay.date === XMAS ? [{ text: 'Christmas Day', tone: 'xmas' }] : []
+  if (coyoWalkDay) {
+    // Christmas Day holiday chip stays on 25 Dec CDMX (HOME / city), not on this Coyoacán pin.
     pins.push({
       id: 'jardin',
       layer: 'visit',
       lat: PINS.jardinCentenario.lat,
       lon: PINS.jardinCentenario.lon,
       place: 'Jardín Centenario',
-      chip: formatDayChip([numOf(list, xmasDay)]),
-      holidays,
+      chip: formatDayChip([numOf(list, coyoWalkDay)]),
+      holidays: [],
     })
   }
 

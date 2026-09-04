@@ -86,9 +86,17 @@ export const BOARD_CARDS = [
     defaultColumn: 'maybe',
   },
   {
+    id: 'xmas-roma',
+    title: 'Christmas Day mild in Roma / Condesa — no museums, no travel',
+    detail: 'Must-do in CDMX. First 48 h at altitude; Casa Azul closed 25 Dec. Dinner fork: Los Danzantes if open / Au Pied de Cochon.',
+    city: 'CDMX',
+    kind: 'visit',
+    defaultColumn: 'maybe',
+  },
+  {
     id: 'coyoacan',
-    title: 'Coyoacán on foot — plazas, not a museum stack on 25 Dec',
-    detail: 'Must-do in CDMX.',
+    title: 'Coyoacán plazas walk on 27 Dec — not Frida (Casa Azul stays 7 Jan)',
+    detail: 'Must-do in CDMX. Mild walk day: Jardín Centenario, not a museum stack.',
     city: 'CDMX',
     kind: 'visit',
     defaultColumn: 'maybe',
@@ -96,7 +104,7 @@ export const BOARD_CARDS = [
   {
     id: 'roma-tacos',
     title: 'Tacos in Roma–Condesa on a normal evening, not Christmas or Frida day',
-    detail: 'Must-do in CDMX.',
+    detail: 'Must-do in CDMX. Fits after Anthropology on 26 Dec — not Christmas Day.',
     city: 'CDMX',
     kind: 'eat',
     defaultColumn: 'maybe',

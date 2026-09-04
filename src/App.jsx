@@ -340,7 +340,7 @@ export default function App() {
           {(showPlay || state.scenario === 'C') && (
             <>
               <p className="hint">
-                Arrival 24 Dec and the 8 Jan homebound day stay locked. Extra CDMX days (26–27 Dec) live on baseline A, not as a playground chapter. Oaxaca stretches to fill leftover days. Puebla is three overnight days, not a day trip. Default order: CDMX Christmas → Puebla → Oaxaca → museums → Frida.
+                Arrival 24 Dec and the 8 Jan homebound day stay locked. Baseline A keeps Christmas mild in Roma/Condesa (25), Anthropology (26), and Coyoacán plazas (27) — not as playground chapters. Oaxaca stretches to fill leftover days. Puebla is three overnight days, not a day trip. Default order: CDMX Christmas → Puebla → Oaxaca → museums → Frida.
               </p>
               <ul className="blocks">
                 {normalizeOrder(state.order, state.includePuebla).map((id, i, arr) => {

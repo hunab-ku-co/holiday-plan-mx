@@ -160,20 +160,20 @@ function departDay() {
 function xmasCdmx() {
   return day({
     date: '2026-12-25',
-    title: 'Christmas Day · Coyoacán',
-    place: 'Coyoacán',
+    title: 'Christmas Day · Roma / Condesa',
+    place: 'Roma Norte · Condesa',
     city: 'CDMX',
     altitude: 2240,
     theme: 'cdmx-xmas',
     summary:
-      'No museums on 25 Dec. Do not stack Cholula stairs or Chapultepec hills — first 48 h at altitude, mild only. Daytime Coyoacán on foot. Dinner: confirm Los Danzantes that week; if closed, Uber to Au Pied de Cochon in Polanco (the only kitchen that officially never closes).',
+      'No museums on 25 Dec. No travel — locked in CDMX. Do not stack Cholula stairs or Chapultepec hills — first 48 h at altitude, mild neighbourhood day only. Walk Roma Norte and Condesa. Casa Azul is closed. Dinner fork stays: confirm Los Danzantes that week; if closed, Uber to Au Pied de Cochon in Polanco (the only kitchen that officially never closes). Do not invent 25 Dec restaurant hours.',
     items: [
-      { kind: 'see', title: 'Coyoacán plazas, not museums', detail: 'Casa Azul is closed. Keep it a walk: Jardín Centenario, coffee at El Jarocho, no ticketed indoor agenda.' },
-      { kind: 'eat', title: 'Dinner fork', detail: 'Los Danzantes Coyoacán if they confirm open. Otherwise Au Pied de Cochon, Campos Elíseos 218 — 24 h / 365. 2026 25 Dec menus are not published. Hotel brunches were the 2025 pattern, not a dinner plan.' },
+      { kind: 'see', title: 'Roma Norte and Condesa on foot', detail: 'Colima cluster, Álvaro Obregón, Parque México if energy. Mild only — first 48 h at altitude. Not a museum day and not a travel day. Casa Azul is closed 25 Dec.' },
+      { kind: 'eat', title: 'Dinner fork', detail: 'Los Danzantes Coyoacán if they confirm open. Otherwise Au Pied de Cochon, Campos Elíseos 218 — 24 h / 365. 2026 25 Dec menus and neighbourhood hours are not published — do not invent them. Hotel brunches were the 2025 pattern, not a dinner plan.' },
       { kind: 'note', title: 'Nochebuena was last night', detail: 'Do not book 25 Dec on Eve-only data from Hacienda de los Morales, St. Regis, or Ritz-Carlton Samos.' },
     ],
     research: [
-      { label: '25 Dec 2026 restaurant open/closed lists', state: 'Not yet published.' },
+      { label: '25 Dec 2026 restaurant open/closed lists', state: 'Not yet published. Do not invent hours.' },
       { label: 'Los Danzantes Coyoacán holiday hours', state: 'Confirm that week.' },
     ],
     restaurant: 'danzantes-coyo',
@@ -193,7 +193,7 @@ function anthroDay(date) {
     theme: 'cdmx-museums',
     summary: baseline
       ? 'Wednesday 6 Jan is a normal INAH day (Día de Reyes is not a federal rest day). Anthropology 09:00–18:00, Sun Stone in Sala Mexica. Templo / Centro no longer has its own date — steal an hour only if energy is high. Do not stack Castillo + Templo. Castillo is at least 1.5 h inside up a paved ramp with no elevator.'
-      : 'A normal INAH day if it is Tue–Sun. Anthropology 09:00–18:00, Sun Stone in Sala Mexica. Castillo is at least 1.5 h inside up a paved ramp with no elevator — highlights only, do not stack the full castle on the same ticketed day.',
+      : 'Saturday 26 Dec 2026 is a regular open day (Tue–Sun). Official hours Tue–Sun 09:00–18:00 from mna.inah.gob.mx (fetched 4 Sep 2026). Sun Stone in Sala Mexica. Castillo is at least 1.5 h inside up a paved ramp with no elevator — highlights only, do not stack the full castle on the same ticketed day. 2026–27 Christmas circular not yet published — reconfirm closer in.',
     items: baseline
       ? [
           { kind: 'see', title: 'Museo Nacional de Antropología', detail: 'Tue–Sun 09:00–18:00, closed Mon. MXN 210 · €11 general. Tickets: ventadeboletosenlinea.inah.gob.mx. 6 Jan 2027 is Wednesday. 2024–25 the museum stayed open 24, 25, 31 Dec and 1 Jan — still reconfirm 2026–27 circulars.' },
@@ -201,11 +201,21 @@ function anthroDay(date) {
           { kind: 'eat', title: 'Tacos Roma–Condesa in the evening', detail: 'Orinoco or El Califa. Skip tacos on 25 Dec and on Frida day.' },
         ]
       : [
-          { kind: 'see', title: 'Museo Nacional de Antropología', detail: 'Tue–Sun 09:00–18:00, closed Mon. MXN 210 · €11 general. Tickets: ventadeboletosenlinea.inah.gob.mx. 2024–25 the museum stayed open 24, 25, 31 Dec and 1 Jan — still reconfirm 2026–27 circulars.' },
+          { kind: 'see', title: 'Museo Nacional de Antropología', detail: 'Official hours Tue–Sun 09:00–18:00, closed Mon — mna.inah.gob.mx (fetched 4 Sep 2026). MXN 210 · €11 general. 26 Dec 2026 is Saturday, so a regular open day. Tickets: ventadeboletosenlinea.inah.gob.mx. 2026–27 Christmas circular not yet published — reconfirm closer in. 2024–25 the museum stayed open 24, 25, 31 Dec and 1 Jan.' },
           { kind: 'see', title: 'Castillo de Chapultepec — highlights only', detail: 'Tue–Sun 09:00–17:00. MXN 210 · €11. If energy is low at altitude, skip the castle and keep Anthropology.' },
           { kind: 'eat', title: 'Tacos Roma–Condesa in the evening', detail: 'Orinoco or El Califa. Skip tacos on 25 Dec and on Frida day.' },
         ],
-    research: [{ label: 'INAH 2026–27 holiday circular', state: 'Not yet published.' }],
+    research: baseline
+      ? [
+          { label: 'MNA official hours (mna.inah.gob.mx)', state: 'Tue–Sun 09:00–18:00, closed Mon — fetched 4 Sep 2026. https://mna.inah.gob.mx/' },
+          { label: 'INAH online tickets', state: 'https://ventadeboletosenlinea.inah.gob.mx/' },
+          { label: 'INAH 2026–27 holiday circular', state: 'Not yet published — reconfirm closer in.' },
+        ]
+      : [
+          { label: 'MNA official hours (mna.inah.gob.mx)', state: 'Tue–Sun 09:00–18:00, closed Mon — fetched 4 Sep 2026. https://mna.inah.gob.mx/' },
+          { label: 'INAH online tickets', state: 'https://ventadeboletosenlinea.inah.gob.mx/' },
+          { label: 'INAH 2026–27 Christmas circular', state: 'Not yet published — reconfirm closer in. 26 Dec 2026 is Saturday (regular open day).' },
+        ],
     restaurant: 'orinoco',
     tour: 'anthropology',
     hotel: date.startsWith('2026-12') ? '' : 'las-alcobas',
@@ -293,6 +303,27 @@ function fridaDay(date) {
 }
 
 
+function coyoacanWalkDay(date) {
+  return day({
+    date,
+    title: 'Coyoacán plazas',
+    place: 'Coyoacán',
+    city: 'CDMX',
+    altitude: 2240,
+    theme: 'cdmx-coyo',
+    summary:
+      'Mild Coyoacán walk day — plazas, not a museum stack. Not Frida: Casa Azul stays 7 Jan. Jardín Centenario, coffee at El Jarocho, no ticketed indoor agenda. Do not invent restaurant hours.',
+    items: [
+      { kind: 'see', title: 'Coyoacán plazas, not museums', detail: 'Keep it a walk: Jardín Centenario, Plaza Hidalgo, coffee at El Jarocho. No Casa Azul today — timed tickets stay on 7 Jan.' },
+      { kind: 'eat', title: 'Light Coyoacán food', detail: 'Walk-up coffee or a plaza bite if open. Holiday and Sunday lists for 27 Dec 2026 are not published — confirm that week. Do not treat regular weekly hours as confirmation.' },
+      { kind: 'note', title: 'Frida is not today', detail: 'Casa Azul timed tickets stay on 7 Jan. Do not stack Coyoacán museums onto this walk day.' },
+    ],
+    research: [{ label: '27 Dec 2026 Coyoacán restaurant hours', state: 'Not published. Confirm that week.' }],
+    restaurant: 'jarocho',
+    hotel: '',
+  })
+}
+
 function extraCdmxDay(date) {
   return day({
     date,
@@ -302,13 +333,13 @@ function extraCdmxDay(date) {
     altitude: 2240,
     theme: 'cdmx-roma',
     summary:
-      'Extra CDMX day in Roma and Condesa. Not Frida — Casa Azul stays 7 Jan. Walk the neighbourhood. Do not invent restaurant hours for 27 Dec 2026; holiday lists are not published.',
+      'Extra CDMX day in Roma and Condesa. Not Frida — Casa Azul stays 7 Jan. Walk the neighbourhood. Do not invent restaurant hours; holiday lists are not published.',
     items: [
       { kind: 'see', title: 'Roma Norte and Condesa on foot', detail: 'Colima cluster, Álvaro Obregón, Parque México if energy. This is not a museum day and not a travel day.' },
-      { kind: 'eat', title: 'Neighbourhood food', detail: 'Tacos in Roma–Condesa fit a normal evening (not Christmas, not Frida). 27 Dec 2026 hours are not published — confirm that week. Do not treat regular weekly hours as confirmation.' },
+      { kind: 'eat', title: 'Neighbourhood food', detail: 'Tacos in Roma–Condesa fit a normal evening (not Christmas, not Frida). Hours are not published — confirm that week. Do not treat regular weekly hours as confirmation.' },
       { kind: 'note', title: 'Frida is not today', detail: 'Casa Azul timed tickets stay on 7 Jan. Do not stack Coyoacán museums onto this extra CDMX day.' },
     ],
-    research: [{ label: '27 Dec 2026 restaurant hours', state: 'Not published. Confirm that week.' }],
+    research: [{ label: 'Restaurant hours for this date', state: 'Not published. Confirm that week.' }],
     restaurant: 'orinoco',
     hotel: '',
   })
@@ -669,7 +700,7 @@ export function authoredA() {
     arrivalDay(),
     xmasCdmx(),
     anthroDay('2026-12-26'),
-    extraCdmxDay('2026-12-27'),
+    coyoacanWalkDay('2026-12-27'),
     pueblaDay('2026-12-28'),
     pueblaDay('2026-12-29'),
     pueblaDay('2026-12-30'),
