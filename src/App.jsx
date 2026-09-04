@@ -323,10 +323,11 @@ export default function App() {
         <section className="puebla-slots">
           <h2>Puebla · locked dates</h2>
           <p className="hint">
-            Baseline A sleeps Puebla 28–31 Dec (3 nights; was 4 so NYE stays in Oaxaca). Centro Monday 28 (travel from
-            CDMX; Cholula closed) and Tuesday 29 (Cholula closed; Palafoxiana Tue–Thu 10–17). Wednesday 30 is the Cholula
-            full day (tunnels still closed). Bus CDMX → Puebla 28 Dec; leave Thursday 31 morning for Oaxaca. Hotel not
-            shortlisted yet.
+            Baseline A sleeps Puebla 27–30 Dec (3 nights 27–29). Sunday 27 is travel from CDMX (Centro after the bus).
+            Monday 28 and Tuesday 29: Cholula closed — expected Centro time (Palafoxiana closed Mon; Tue–Thu 10–17).
+            Wednesday 30 is travel to Oaxaca: optional Cholula morning (only clean window; tunnels still closed), then
+            CAPU → Oaxaca. Bus CDMX → Puebla 27 Dec. Hotel not shortlisted yet. Dec Coyoacán walk was dropped so
+            Puebla can start 27.
           </p>
         </section>
 
@@ -340,7 +341,7 @@ export default function App() {
           {(showPlay || state.scenario === 'C') && (
             <>
               <p className="hint">
-                Arrival 24 Dec and the 8 Jan homebound day stay locked. Baseline A keeps Christmas mild in Roma/Condesa (25), Anthropology (26), and Coyoacán plazas (27) — not as playground chapters. Oaxaca stretches to fill leftover days. Puebla is three overnight days, not a day trip. Default order: CDMX Christmas → Puebla → Oaxaca → museums → Frida.
+                Arrival 24 Dec and the 8 Jan homebound day stay locked. Baseline A keeps Christmas mild in Roma/Condesa (25) and Anthropology (26); Puebla starts 27 (Dec Coyoacán plazas walk dropped — Frida stays 7 Jan). Oaxaca stretches to fill leftover days. Puebla is three overnight days, not a day trip. Default order: CDMX Christmas → Puebla → Oaxaca → museums → Frida.
               </p>
               <ul className="blocks">
                 {normalizeOrder(state.order, state.includePuebla).map((id, i, arr) => {

@@ -5,12 +5,24 @@
     "travelers": "S & V",
     "start": "2026-12-24",
     "end": "2027-01-08",
-    "blurb": "A winter-holiday dossier for two. S lands MEX around midnight on 24 Dec (possibly just after midnight on the 25th). V is already on the trip. Order is CDMX (Roma 24–28 Dec, 4 nights) → Puebla (28–31 Dec, 3 nights) → Oaxaca (31 Dec–5 Jan) → CDMX (5–8 Jan); home on 8 Jan."
+    "blurb": "A winter-holiday dossier for two. S lands MEX around midnight on 24 Dec (possibly just after midnight on the 25th). V is already on the trip. Order is CDMX (Roma 24–27 Dec, 3 nights) → Puebla (27–30 Dec, 3 nights) → Oaxaca (30 Dec–5 Jan) → CDMX (5–8 Jan); home on 8 Jan."
   },
   "altitudes": [
-    { "place": "CDMX / MEX", "m": 2240, "note": "Sleeping altitude. Landing here is unavoidable." },
-    { "place": "Puebla / Cholula", "m": 2140, "note": "Only ~100 m lower — not a descent that helps." },
-    { "place": "Oaxaca de Juárez", "m": 1542, "note": "The easier sleep. Sooner is kinder after MEX." }
+    {
+      "place": "CDMX / MEX",
+      "m": 2240,
+      "note": "Sleeping altitude. Landing here is unavoidable."
+    },
+    {
+      "place": "Puebla / Cholula",
+      "m": 2140,
+      "note": "Only ~100 m lower — not a descent that helps."
+    },
+    {
+      "place": "Oaxaca de Juárez",
+      "m": 1542,
+      "note": "The easier sleep. Sooner is kinder after MEX."
+    }
   ],
   "homeLeg": {
     "date": "2027-01-08",
@@ -22,7 +34,7 @@
       "Templo Mayor + original Coyolxauhqui",
       "Casa Azul timed ticket (no door sales) + Anahuacalli the same ticket",
       "Christmas Day mild in Roma / Condesa — no museums, no travel",
-      "Coyoacán plazas walk on 27 Dec — not Frida (Casa Azul stays 7 Jan)",
+      "Coyoacán museum day is Frida 7 Jan — Dec plazas walk dropped so Puebla can start 27",
       "Tacos in Roma–Condesa on a normal evening, not Christmas or Frida day"
     ],
     "oaxaca": [
@@ -43,84 +55,410 @@
     {
       "rank": 0,
       "title": "Superseded",
-      "why": "Day-trip ranking retired. Baseline A is an overnight Puebla stay 28–31 Dec (3 nights; was 4 so NYE stays in Oaxaca). Not shown on the Trip tab."
+      "why": "Day-trip ranking retired. Baseline A is an overnight Puebla stay 27–30 Dec (3 nights 27–29; bus to Oaxaca on 30). Not shown on the Trip tab."
     }
   ],
   "hotels": [
-    { "id": "hilton-t1", "city": "MEX", "name": "Hilton Mexico City Airport", "note": "Inside T1, Gate 8, 3rd level. 24 h. Shuttle hotel → T2. Match S’s terminal.", "url": "https://www.hilton.com/en/hotels/mexahhf-hilton-mexico-city-airport/hotel-location/" },
-    { "id": "courtyard-t1", "city": "MEX", "name": "Courtyard by Marriott Mexico City Airport", "note": "T1 pedestrian skybridge, 24 h, free shuttle to T2." },
-    { "id": "camino-t1", "city": "MEX", "name": "Camino Real Aeropuerto Mexico", "note": "Covered bridge to T1 Gate B, 24 h T2 shuttle." },
-    { "id": "nh-t2", "city": "MEX", "name": "NH Collection Mexico City Airport T2", "note": "Inside T2, elevator. Best if S lands T2." },
-    { "id": "las-alcobas", "city": "CDMX", "name": "Las Alcobas", "note": "Masaryk 390, steps to Parque Lincoln. Adults 13+." },
-    { "id": "kimpton-virgilio", "city": "CDMX", "name": "Kimpton Virgilio Polanco", "note": "Polanquito." },
-    { "id": "hyatt-campos", "city": "CDMX", "name": "Hyatt Regency Mexico City", "note": "Campos Elíseos 204, park edge." },
-    { "id": "jw-polanco", "city": "CDMX", "name": "JW Marriott Mexico City Polanco", "note": "Andrés Bello 29." },
-    { "id": "intercont-polanco", "city": "CDMX", "name": "InterContinental Presidente", "note": "Campos Elíseos 218 — Au Pied de Cochon on site." },
-    { "id": "w-polanco", "city": "CDMX", "name": "W Mexico City", "note": "Campos Elíseos 252." },
-    { "id": "uliv-lincoln", "city": "CDMX", "name": "ULIV Parque Lincoln", "note": "Montes Urales 755, apartment-hotel." },
-    { "id": "camino-polanco", "city": "CDMX", "name": "Camino Real Polanco", "note": "Park-edge cluster." },
-    { "id": "otro", "city": "OAX", "name": "Otro Oaxaca", "note": "Macedonio Alcalá 505, facing Santo Domingo. Rooftop pool + spa. Best special pick.", "url": "https://www.otrooaxaca.com/en/" },
-    { "id": "quinta-real", "city": "OAX", "name": "Quinta Real Oaxaca", "note": "5 de Mayo 300. Convent, pool. Skip a locked NYE gala." },
-    { "id": "escondido", "city": "OAX", "name": "Escondido Oaxaca", "note": "Morelos 401. 12 rooms, rooftop pool." },
-    { "id": "casa-oax-hotel", "city": "OAX", "name": "Casa Oaxaca Hotel", "note": "7 rooms. Book immediately. 30-day high-season cancel." },
-    { "id": "siglo-17", "city": "OAX", "name": "Siglo 17", "note": "Rooftop pool, near Zócalo." },
-    { "id": "majagua", "city": "OAX", "name": "Majagua", "note": "Pino Suárez 519, adults-only." },
-    { "id": "los-pilares", "city": "OAX", "name": "Los Pilares", "note": "Curtidurías 721-A, Jalatlaco, plunge pool. 15–20 min walk to Santo Domingo." },
-    { "id": "marriott-jalatlaco", "city": "OAX", "name": "City Centro by Marriott", "note": "Aldama 410, Jalatlaco, rooftop pool." }
+    {
+      "id": "hilton-t1",
+      "city": "MEX",
+      "name": "Hilton Mexico City Airport",
+      "note": "Inside T1, Gate 8, 3rd level. 24 h. Shuttle hotel → T2. Match S’s terminal.",
+      "url": "https://www.hilton.com/en/hotels/mexahhf-hilton-mexico-city-airport/hotel-location/"
+    },
+    {
+      "id": "courtyard-t1",
+      "city": "MEX",
+      "name": "Courtyard by Marriott Mexico City Airport",
+      "note": "T1 pedestrian skybridge, 24 h, free shuttle to T2."
+    },
+    {
+      "id": "camino-t1",
+      "city": "MEX",
+      "name": "Camino Real Aeropuerto Mexico",
+      "note": "Covered bridge to T1 Gate B, 24 h T2 shuttle."
+    },
+    {
+      "id": "nh-t2",
+      "city": "MEX",
+      "name": "NH Collection Mexico City Airport T2",
+      "note": "Inside T2, elevator. Best if S lands T2."
+    },
+    {
+      "id": "las-alcobas",
+      "city": "CDMX",
+      "name": "Las Alcobas",
+      "note": "Masaryk 390, steps to Parque Lincoln. Adults 13+."
+    },
+    {
+      "id": "kimpton-virgilio",
+      "city": "CDMX",
+      "name": "Kimpton Virgilio Polanco",
+      "note": "Polanquito."
+    },
+    {
+      "id": "hyatt-campos",
+      "city": "CDMX",
+      "name": "Hyatt Regency Mexico City",
+      "note": "Campos Elíseos 204, park edge."
+    },
+    {
+      "id": "jw-polanco",
+      "city": "CDMX",
+      "name": "JW Marriott Mexico City Polanco",
+      "note": "Andrés Bello 29."
+    },
+    {
+      "id": "intercont-polanco",
+      "city": "CDMX",
+      "name": "InterContinental Presidente",
+      "note": "Campos Elíseos 218 — Au Pied de Cochon on site."
+    },
+    {
+      "id": "w-polanco",
+      "city": "CDMX",
+      "name": "W Mexico City",
+      "note": "Campos Elíseos 252."
+    },
+    {
+      "id": "uliv-lincoln",
+      "city": "CDMX",
+      "name": "ULIV Parque Lincoln",
+      "note": "Montes Urales 755, apartment-hotel."
+    },
+    {
+      "id": "camino-polanco",
+      "city": "CDMX",
+      "name": "Camino Real Polanco",
+      "note": "Park-edge cluster."
+    },
+    {
+      "id": "otro",
+      "city": "OAX",
+      "name": "Otro Oaxaca",
+      "note": "Macedonio Alcalá 505, facing Santo Domingo. Rooftop pool + spa. Best special pick.",
+      "url": "https://www.otrooaxaca.com/en/"
+    },
+    {
+      "id": "quinta-real",
+      "city": "OAX",
+      "name": "Quinta Real Oaxaca",
+      "note": "5 de Mayo 300. Convent, pool. Skip a locked NYE gala."
+    },
+    {
+      "id": "escondido",
+      "city": "OAX",
+      "name": "Escondido Oaxaca",
+      "note": "Morelos 401. 12 rooms, rooftop pool."
+    },
+    {
+      "id": "casa-oax-hotel",
+      "city": "OAX",
+      "name": "Casa Oaxaca Hotel",
+      "note": "7 rooms. Book immediately. 30-day high-season cancel."
+    },
+    {
+      "id": "siglo-17",
+      "city": "OAX",
+      "name": "Siglo 17",
+      "note": "Rooftop pool, near Zócalo."
+    },
+    {
+      "id": "majagua",
+      "city": "OAX",
+      "name": "Majagua",
+      "note": "Pino Suárez 519, adults-only."
+    },
+    {
+      "id": "los-pilares",
+      "city": "OAX",
+      "name": "Los Pilares",
+      "note": "Curtidurías 721-A, Jalatlaco, plunge pool. 15–20 min walk to Santo Domingo."
+    },
+    {
+      "id": "marriott-jalatlaco",
+      "city": "OAX",
+      "name": "City Centro by Marriott",
+      "note": "Aldama 410, Jalatlaco, rooftop pool."
+    }
   ],
   "restaurants": [
-    { "id": "pied-de-cochon", "city": "CDMX", "name": "Au Pied de Cochon", "note": "Polanco, Presidente InterContinental, Campos Elíseos 218. Officially 24 h / 365 — the only kitchen that promises 25 Dec. OpenTable, typically over MXN 500.", "url": "https://aupieddecochon.com.mx/" },
-    { "id": "danzantes-coyo", "city": "CDMX", "name": "Los Danzantes Coyoacán", "note": "Parque Centenario 12. Christmas dinner fork if they confirm open (otherwise Au Pied de Cochon). Also useful after a Coyoacán afternoon. Holiday hours unknown — confirm that week." },
-    { "id": "corazon-maguey", "city": "CDMX", "name": "Corazón de Maguey", "note": "Plaza Jardín Centenario 9A. Geography for a Coyoacán walk day (27 Dec in baseline A). Confirm hours that week — do not invent them." },
-    { "id": "comedor-jacinta", "city": "CDMX", "name": "Comedor Jacinta", "note": "Virgilio 40. Bib Gourmand, walk from Lincoln. Polanco dinner after the 5 Jan return." },
-    { "id": "chapulin", "city": "CDMX", "name": "Chapulín", "note": "Campos Elíseos 218." },
-    { "id": "quintonil", "city": "CDMX", "name": "Quintonil", "note": "Newton 55. Tasting MXN 6090 · €309, Sunday closed, website reservations only. Thu 7 Jan is a service day." },
-    { "id": "el-cardenal", "city": "CDMX", "name": "El Cardenal Palma", "note": "Palma 23. Lunch only 08:00–18:30. Centro lunch on 6 Jan (Templo / Bellas Artes day)." },
-    { "id": "azul-historico", "city": "CDMX", "name": "Azul Histórico", "note": "Isabel la Católica 30. 13:00–23:00 daily, Resy." },
-    { "id": "cafe-tacuba", "city": "CDMX", "name": "Café de Tacuba", "note": "Tacuba 28. 08:00–22:30." },
-    { "id": "sud-777", "city": "CDMX", "name": "Sud 777", "note": "Jardines del Pedregal — better geography after Coyoacán / Anahuacalli." },
-    { "id": "orinoco", "city": "CDMX", "name": "Orinoco", "note": "Tacos. After Anthropology on 26 Dec. Skip 25 Dec (Christmas Roma / Condesa) and 7 Jan (Frida)." },
-    { "id": "califa", "city": "CDMX", "name": "El Califa", "note": "Tacos Roma–Condesa. Same window as Orinoco." },
-    { "id": "jarocho", "city": "CDMX", "name": "Café El Jarocho", "note": "Walk-up coffee, Coyoacán." },
-    { "id": "bacanora", "city": "OAX", "name": "Asador Bacanora", "note": "Jalatlaco, 5 de Mayo 614. 15–20 min walk from Centro. Useful when arrival is not NYE. Baseline 31 Dec is Casa Oaxaca rooftop, not Bacanora." },
-    { "id": "tierra-sol", "city": "OAX", "name": "Tierra del Sol", "note": "Watch-list. Useful 1 Jan if markets are thin." },
-    { "id": "danzantes-oax", "city": "OAX", "name": "Los Danzantes Oaxaca", "note": "Andador. NYE backup. Confirm that week.", "url": "https://losdanzantesoaxaca.com.mx/reservaciones/" },
-    { "id": "levadura", "city": "OAX", "name": "Levadura de Olla", "note": "Closed Sun & Mon — cannot be 27 Dec or 4 Jan. Book Sat 2 Jan 19:00 now (moved off Tue 29 Dec; that night is Puebla). No under-12.", "url": "https://levaduradeolla.mx/reserva-aqui/" },
-    { "id": "alfonsina", "city": "OAX", "name": "Alfonsina", "note": "San Juan Bautista La Raya, not Centro. Lunch on a non-Sunday south-valley day. Sunday 3 Jan is a worse fit.", "url": "https://www.alfonsina.mx/" },
-    { "id": "origen", "city": "OAX", "name": "Origen", "note": "Dinner alternative to Alfonsina when the south-valley day is Sunday. NYE watch-list." },
-    { "id": "casa-oax-roof", "city": "OAX", "name": "Casa Oaxaca rooftop", "note": "Constitución 104-A, 2 min to the plaza. NYE proposal ~19:00–20:00 then walk Santo Domingo / Zócalo. Mon–Sat 13:00–23:00, Sun 13:00–21:00.", "url": "https://casaoaxacaelrestaurante.com/home/" },
-    { "id": "criollo", "city": "OAX", "name": "Criollo", "note": "Dinner Mon–Sat 18:00–21:00. Last night Mon 4 Jan at 18:00. OpenTable. Levadura is closed that Monday.", "url": "https://www.opentable.com/" },
-    { "id": "pitiona", "city": "OAX", "name": "Pitiona", "note": "NYE watch-list. Saturday 2 Jan is Levadura, not a leftover." },
-    { "id": "in-situ", "city": "OAX", "name": "In Situ", "note": "Mezcal bar. One directory lists Sunday close; 1 Jan is Friday — ask 31 Dec." },
-    { "id": "terranova", "city": "OAX", "name": "Terranova Zócalo", "note": "Claims 365 days, 08:00–midnight. 1 Jan recovery breakfast if the hotel is quiet." }
+    {
+      "id": "pied-de-cochon",
+      "city": "CDMX",
+      "name": "Au Pied de Cochon",
+      "note": "Polanco, Presidente InterContinental, Campos Elíseos 218. Officially 24 h / 365 — the only kitchen that promises 25 Dec. OpenTable, typically over MXN 500.",
+      "url": "https://aupieddecochon.com.mx/"
+    },
+    {
+      "id": "danzantes-coyo",
+      "city": "CDMX",
+      "name": "Los Danzantes Coyoacán",
+      "note": "Parque Centenario 12. Christmas dinner fork if they confirm open (otherwise Au Pied de Cochon). Also useful after a Coyoacán afternoon. Holiday hours unknown — confirm that week."
+    },
+    {
+      "id": "corazon-maguey",
+      "city": "CDMX",
+      "name": "Corazón de Maguey",
+      "note": "Plaza Jardín Centenario 9A. Geography for a Coyoacán afternoon (Frida 7 Jan in baseline A; Dec plazas walk was dropped so Puebla can start 27). Confirm hours that week — do not invent them."
+    },
+    {
+      "id": "comedor-jacinta",
+      "city": "CDMX",
+      "name": "Comedor Jacinta",
+      "note": "Virgilio 40. Bib Gourmand, walk from Lincoln. Polanco dinner after the 5 Jan return."
+    },
+    {
+      "id": "chapulin",
+      "city": "CDMX",
+      "name": "Chapulín",
+      "note": "Campos Elíseos 218."
+    },
+    {
+      "id": "quintonil",
+      "city": "CDMX",
+      "name": "Quintonil",
+      "note": "Newton 55. Tasting MXN 6090 · €309, Sunday closed, website reservations only. Thu 7 Jan is a service day."
+    },
+    {
+      "id": "el-cardenal",
+      "city": "CDMX",
+      "name": "El Cardenal Palma",
+      "note": "Palma 23. Lunch only 08:00–18:30. Centro lunch on 6 Jan (Templo / Bellas Artes day)."
+    },
+    {
+      "id": "azul-historico",
+      "city": "CDMX",
+      "name": "Azul Histórico",
+      "note": "Isabel la Católica 30. 13:00–23:00 daily, Resy."
+    },
+    {
+      "id": "cafe-tacuba",
+      "city": "CDMX",
+      "name": "Café de Tacuba",
+      "note": "Tacuba 28. 08:00–22:30."
+    },
+    {
+      "id": "sud-777",
+      "city": "CDMX",
+      "name": "Sud 777",
+      "note": "Jardines del Pedregal — better geography after Coyoacán / Anahuacalli."
+    },
+    {
+      "id": "orinoco",
+      "city": "CDMX",
+      "name": "Orinoco",
+      "note": "Tacos. After Anthropology on 26 Dec. Skip 25 Dec (Christmas Roma / Condesa) and 7 Jan (Frida)."
+    },
+    {
+      "id": "califa",
+      "city": "CDMX",
+      "name": "El Califa",
+      "note": "Tacos Roma–Condesa. Same window as Orinoco."
+    },
+    {
+      "id": "jarocho",
+      "city": "CDMX",
+      "name": "Café El Jarocho",
+      "note": "Walk-up coffee, Coyoacán."
+    },
+    {
+      "id": "bacanora",
+      "city": "OAX",
+      "name": "Asador Bacanora",
+      "note": "Jalatlaco, 5 de Mayo 614. 15–20 min walk from Centro. Useful on the 30 Dec arrival from Puebla. Baseline 31 Dec NYE is Casa Oaxaca rooftop, not Bacanora."
+    },
+    {
+      "id": "tierra-sol",
+      "city": "OAX",
+      "name": "Tierra del Sol",
+      "note": "Watch-list. Useful 1 Jan if markets are thin."
+    },
+    {
+      "id": "danzantes-oax",
+      "city": "OAX",
+      "name": "Los Danzantes Oaxaca",
+      "note": "Andador. NYE backup. Confirm that week.",
+      "url": "https://losdanzantesoaxaca.com.mx/reservaciones/"
+    },
+    {
+      "id": "levadura",
+      "city": "OAX",
+      "name": "Levadura de Olla",
+      "note": "Closed Sun & Mon — cannot be 27 Dec or 4 Jan. Book Sat 2 Jan 19:00 now (moved off Tue 29 Dec; that night is Puebla). No under-12.",
+      "url": "https://levaduradeolla.mx/reserva-aqui/"
+    },
+    {
+      "id": "alfonsina",
+      "city": "OAX",
+      "name": "Alfonsina",
+      "note": "San Juan Bautista La Raya, not Centro. Lunch on a non-Sunday south-valley day. Sunday 3 Jan is a worse fit.",
+      "url": "https://www.alfonsina.mx/"
+    },
+    {
+      "id": "origen",
+      "city": "OAX",
+      "name": "Origen",
+      "note": "Dinner alternative to Alfonsina when the south-valley day is Sunday. NYE watch-list."
+    },
+    {
+      "id": "casa-oax-roof",
+      "city": "OAX",
+      "name": "Casa Oaxaca rooftop",
+      "note": "Constitución 104-A, 2 min to the plaza. NYE proposal ~19:00–20:00 then walk Santo Domingo / Zócalo. Mon–Sat 13:00–23:00, Sun 13:00–21:00.",
+      "url": "https://casaoaxacaelrestaurante.com/home/"
+    },
+    {
+      "id": "criollo",
+      "city": "OAX",
+      "name": "Criollo",
+      "note": "Dinner Mon–Sat 18:00–21:00. Last night Mon 4 Jan at 18:00. OpenTable. Levadura is closed that Monday.",
+      "url": "https://www.opentable.com/"
+    },
+    {
+      "id": "pitiona",
+      "city": "OAX",
+      "name": "Pitiona",
+      "note": "NYE watch-list. Saturday 2 Jan is Levadura, not a leftover."
+    },
+    {
+      "id": "in-situ",
+      "city": "OAX",
+      "name": "In Situ",
+      "note": "Mezcal bar. One directory lists Sunday close; 1 Jan is Friday — ask 31 Dec."
+    },
+    {
+      "id": "terranova",
+      "city": "OAX",
+      "name": "Terranova Zócalo",
+      "note": "Claims 365 days, 08:00–midnight. 1 Jan recovery breakfast if the hotel is quiet."
+    }
   ],
   "tours": [
-    { "id": "monte-alban", "city": "OAX", "name": "Monte Albán private driver at 08:00", "note": "Daily 08:00–17:00, last access 16:00, MXN 210 · €11. ~2–3 h on site, 8 km west. Sun and stairs, not extra altitude vs CDMX." },
-    { "id": "south-crafts", "city": "OAX", "name": "South valley handicrafts", "note": "Coyotepec (barro negro) → Jalieza (backstrap) → lunch → Tilcajete (alebrijes; Jacobo y María Ángeles). Not five villages. Atzompa pairs with Monte Albán instead." },
-    { "id": "east-mezcal", "city": "OAX", "name": "East valley mezcal", "note": "Tule → optional Teotitlán → Mitla (INAH daily 08:00–17:00 last 16:30, MXN 210 · €11) → two palenques toward Matatlán. Guide Juan Montes-Lara a usual pick. Buy bottles at the palenque you like." },
-    { "id": "real-minero", "city": "OAX", "name": "Real Minero (south, not with Mitla)", "note": "Santa Catarina Minas. 3 h reserved visit Mon–Fri 10:00 & 15:00, Sat 10:00 with 48 h notice, closed Sun, MXN 750 · €38, max 25. Do not combine with Mitla." },
-    { "id": "hierve", "city": "OAX", "name": "Hierve el Agua", "note": "~1.5–1 h 45 drive. Hours conflict 07:00–18:00 vs 09:00–17:00. Upper pools, can shut with little warning. Private and early or skip." },
-    { "id": "casa-crespo", "city": "OAX", "name": "Casa Crespo cooking class", "note": "Public Tue–Sun 10:00 MXN 1350 · €68 (Sunday published). Private 4 h MXN 6650 · €337 for 1–2. Fits Sun 3 Jan.", "url": "https://casacrespo.com/cooking-classes/" },
-    { "id": "frida", "city": "CDMX", "name": "Casa Azul timed ticket", "note": "Tickets only at boletos.museofridakahlo.org.mx — no door sales. Closed 25 Dec and 1 Jan 2027. Reduced 24 and 31 Dec. Ticket includes courtesy Anahuacalli (15–20 min drive, not walkable).", "url": "https://boletos.museofridakahlo.org.mx/" },
-    { "id": "anahuacalli", "city": "CDMX", "name": "Anahuacalli", "note": "Tue–Sun 11:00–17:30. Calle Museo 150, San Pablo Tepetlapa. Same ticket as Casa Azul." },
-    { "id": "anthropology", "city": "CDMX", "name": "Museo Nacional de Antropología", "note": "Official hours Tue–Sun 09:00–18:00, closed Mon — mna.inah.gob.mx (fetched 4 Sep 2026). MXN 210 · €11. Baseline A is Saturday 26 Dec (regular open day). 2026–27 Christmas circular not yet published — reconfirm closer in. Tickets: ventadeboletosenlinea.inah.gob.mx. 6 Jan is Centro / Templo / Bellas Artes instead. Do not stack Castillo + Templo.", "url": "https://mna.inah.gob.mx/" },
-    { "id": "castillo", "city": "CDMX", "name": "Castillo de Chapultepec highlights", "note": "Tue–Sun 09:00–17:00. MXN 210 · €11. Paved ramp 10–20 min, no elevator. Highlights only if paired with Anthropology." },
-    { "id": "templo", "city": "CDMX", "name": "Templo Mayor", "note": "Tue–Sun 09:00–17:00. MXN 210 · €11 INAH. 6 Jan 2027 (Día de Reyes) expected open. 2024–25 closed 25 Dec and 1 Jan only." },
-    { "id": "bellas", "city": "CDMX", "name": "Palacio de Bellas Artes museum", "note": "Tue–Sun 10:00–18:00, last entry 17:30. MXN 95 · €5 same-day taquilla only. Sun free. Concert hall is separate." },
-    { "id": "soumaya", "city": "CDMX", "name": "Museo Soumaya Plaza Carso", "note": "Every day 10:30–18:30, free. Light add-on 5 Jan (Tuesday)." },
-    { "id": "cholula", "city": "PUE", "name": "Cholula archaeological zone", "note": "Wed–Sun 09:00–17:00. Closed Mon AND Tue. Foreigner MXN 210 · €11. Tunnels closed until further notice (still as of 29 Jun 2026). Church on top is separate, 07:00–19:00." }
+    {
+      "id": "monte-alban",
+      "city": "OAX",
+      "name": "Monte Albán private driver at 08:00",
+      "note": "Daily 08:00–17:00, last access 16:00, MXN 210 · €11. ~2–3 h on site, 8 km west. Sun and stairs, not extra altitude vs CDMX."
+    },
+    {
+      "id": "south-crafts",
+      "city": "OAX",
+      "name": "South valley handicrafts",
+      "note": "Coyotepec (barro negro) → Jalieza (backstrap) → lunch → Tilcajete (alebrijes; Jacobo y María Ángeles). Not five villages. Atzompa pairs with Monte Albán instead."
+    },
+    {
+      "id": "east-mezcal",
+      "city": "OAX",
+      "name": "East valley mezcal",
+      "note": "Tule → optional Teotitlán → Mitla (INAH daily 08:00–17:00 last 16:30, MXN 210 · €11) → two palenques toward Matatlán. Guide Juan Montes-Lara a usual pick. Buy bottles at the palenque you like."
+    },
+    {
+      "id": "real-minero",
+      "city": "OAX",
+      "name": "Real Minero (south, not with Mitla)",
+      "note": "Santa Catarina Minas. 3 h reserved visit Mon–Fri 10:00 & 15:00, Sat 10:00 with 48 h notice, closed Sun, MXN 750 · €38, max 25. Do not combine with Mitla."
+    },
+    {
+      "id": "hierve",
+      "city": "OAX",
+      "name": "Hierve el Agua",
+      "note": "~1.5–1 h 45 drive. Hours conflict 07:00–18:00 vs 09:00–17:00. Upper pools, can shut with little warning. Private and early or skip."
+    },
+    {
+      "id": "casa-crespo",
+      "city": "OAX",
+      "name": "Casa Crespo cooking class",
+      "note": "Public Tue–Sun 10:00 MXN 1350 · €68 (Sunday published). Private 4 h MXN 6650 · €337 for 1–2. Fits Sun 3 Jan.",
+      "url": "https://casacrespo.com/cooking-classes/"
+    },
+    {
+      "id": "frida",
+      "city": "CDMX",
+      "name": "Casa Azul timed ticket",
+      "note": "Tickets only at boletos.museofridakahlo.org.mx — no door sales. Closed 25 Dec and 1 Jan 2027. Reduced 24 and 31 Dec. Ticket includes courtesy Anahuacalli (15–20 min drive, not walkable).",
+      "url": "https://boletos.museofridakahlo.org.mx/"
+    },
+    {
+      "id": "anahuacalli",
+      "city": "CDMX",
+      "name": "Anahuacalli",
+      "note": "Tue–Sun 11:00–17:30. Calle Museo 150, San Pablo Tepetlapa. Same ticket as Casa Azul."
+    },
+    {
+      "id": "anthropology",
+      "city": "CDMX",
+      "name": "Museo Nacional de Antropología",
+      "note": "Official hours Tue–Sun 09:00–18:00, closed Mon — mna.inah.gob.mx (fetched 4 Sep 2026). MXN 210 · €11. Baseline A is Saturday 26 Dec (regular open day). 2026–27 Christmas circular not yet published — reconfirm closer in. Tickets: ventadeboletosenlinea.inah.gob.mx. 6 Jan is Centro / Templo / Bellas Artes instead. Do not stack Castillo + Templo.",
+      "url": "https://mna.inah.gob.mx/"
+    },
+    {
+      "id": "castillo",
+      "city": "CDMX",
+      "name": "Castillo de Chapultepec highlights",
+      "note": "Tue–Sun 09:00–17:00. MXN 210 · €11. Paved ramp 10–20 min, no elevator. Highlights only if paired with Anthropology."
+    },
+    {
+      "id": "templo",
+      "city": "CDMX",
+      "name": "Templo Mayor",
+      "note": "Tue–Sun 09:00–17:00. MXN 210 · €11 INAH. 6 Jan 2027 (Día de Reyes) expected open. 2024–25 closed 25 Dec and 1 Jan only."
+    },
+    {
+      "id": "bellas",
+      "city": "CDMX",
+      "name": "Palacio de Bellas Artes museum",
+      "note": "Tue–Sun 10:00–18:00, last entry 17:30. MXN 95 · €5 same-day taquilla only. Sun free. Concert hall is separate."
+    },
+    {
+      "id": "soumaya",
+      "city": "CDMX",
+      "name": "Museo Soumaya Plaza Carso",
+      "note": "Every day 10:30–18:30, free. Light add-on 5 Jan (Tuesday)."
+    },
+    {
+      "id": "cholula",
+      "city": "PUE",
+      "name": "Cholula archaeological zone",
+      "note": "Wed–Sun 09:00–17:00. Closed Mon AND Tue. Foreigner MXN 210 · €11. Tunnels closed until further notice (still as of 29 Jun 2026). Church on top is separate, 07:00–19:00."
+    }
   ],
   "playgroundBlocks": [
-    { "id": "cdmx-xmas", "label": "CDMX Christmas", "days": 1, "hint": "25 Dec Roma / Condesa, mild. Museums shut. No travel. Nochebuena was the 24th. Coyoacán plazas move to 27 Dec." },
-    { "id": "cdmx-museums", "label": "CDMX museums", "days": 2, "hint": "In baseline A, Anthropology is 26 Dec (Chapultepec); Centro / Templo / Bellas Artes is 6 Jan. Playground still uses two museum days after Oaxaca." },
-    { "id": "oaxaca", "label": "Oaxaca", "days": 0, "hint": "Absorbs leftover days. NYE belongs here. Buses: CDMX→Puebla 28 Dec, Puebla→Oaxaca 31 Dec, Oaxaca→TAPO 5 Jan; details on the tab." },
-    { "id": "puebla", "label": "Puebla / Cholula", "days": 3, "hint": "Three overnight days in Puebla/Cholula (was 4 — shrink so NYE stays in Oaxaca). Cholula closed Mon & Tue — those become Centro days. Full Cholula day is Wednesday 30." },
-    { "id": "frida", "label": "Frida + Coyoacán", "days": 1, "hint": "Timed tickets. Closed 25 Dec and 1 Jan. Includes Anahuacalli." }
+    {
+      "id": "cdmx-xmas",
+      "label": "CDMX Christmas",
+      "days": 1,
+      "hint": "25 Dec Roma / Condesa, mild. Museums shut. No travel. Nochebuena was the 24th. Dec Coyoacán plazas walk was dropped so Puebla can start 27."
+    },
+    {
+      "id": "cdmx-museums",
+      "label": "CDMX museums",
+      "days": 2,
+      "hint": "In baseline A, Anthropology is 26 Dec (Chapultepec); Centro / Templo / Bellas Artes is 6 Jan. Playground still uses two museum days after Oaxaca."
+    },
+    {
+      "id": "oaxaca",
+      "label": "Oaxaca",
+      "days": 0,
+      "hint": "Absorbs leftover days. NYE belongs here. Buses: CDMX→Puebla 27 Dec, Puebla→Oaxaca 30 Dec, Oaxaca→TAPO 5 Jan; details on the tab."
+    },
+    {
+      "id": "puebla",
+      "label": "Puebla / Cholula",
+      "days": 3,
+      "hint": "Three overnight days in Puebla (27–29). Cholula closed Mon & Tue — those become Centro days. Only clean Cholula window is Wed 30 morning before the Oaxaca bus, or skip. Tunnels still closed."
+    },
+    {
+      "id": "frida",
+      "label": "Frida + Coyoacán",
+      "days": 1,
+      "hint": "Timed tickets. Closed 25 Dec and 1 Jan. Includes Anahuacalli. Dec plazas walk dropped; this is the Coyoacán museum day."
+    }
   ],
   "scenarioA": {
     "id": "A",
     "name": "Baseline",
-    "lede": "Roma Norte 24–28 Dec (4 nights; decided), then Puebla 28–31 Dec (3 nights; was 4 so NYE stays in Oaxaca), Oaxaca 31 Dec–5 Jan for the valley and NYE, back to CDMX 5–8 Jan (3 nights). Buses, no internal flights: CDMX → Puebla 28 Dec, Puebla → Oaxaca 31 Dec morning, Oaxaca → TAPO 5 Jan. Overnight vs day still open on 5 Jan."
+    "lede": "Roma Norte 24–27 Dec (3 nights 24–26; decided), then Puebla 27–30 Dec (3 nights 27–29), Oaxaca 30 Dec–5 Jan for the valley and NYE (arrive 30; NYE 31), back to CDMX 5–8 Jan (3 nights). Buses, no internal flights: CDMX → Puebla 27 Dec, Puebla → Oaxaca 30 Dec (optional Cholula morning), Oaxaca → TAPO 5 Jan. Overnight vs day still open on 5 Jan. Dec Coyoacán walk dropped so Puebla can start 27."
   },
   "scenarioB": {
     "id": "B",

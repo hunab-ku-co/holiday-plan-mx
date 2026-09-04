@@ -1,17 +1,17 @@
-// Roma Norte stays for 24–28 Dec 2026 (4 nights), 2 adults, 1 room.
+// Roma Norte stays for 24–27 Dec 2026 (3 nights), 2 adults, 1 room.
 // Grade order: (1) reviews (2) interior Roma safety (3) closeness to the Colima cluster.
 // Inventory is Airbnb.com search + listing pages pulled 1 Sep 2026 for 24–26 Dec (2 nights).
-// Re-search for 24–28 Dec on 2 Sep 2026: Airbnb listing pages returned no dated prices (JS);
-// Booking.com timed out / WAF. Cards keep the 24–26 quotes already on file — not multiplied to 4 nights.
+// Re-search for 24–28 Dec on 2 Sep 2026 (then dates moved to 24–27): Airbnb listing pages returned no dated prices (JS);
+// Booking.com timed out / WAF. Cards keep the 24–26 quotes already on file — not multiplied to 3 nights.
 // Walk times are street estimates, not OSM measurements.
 // Price range: more than €50 and less than €120 per day.
-// Per-night figures from the Airbnb 2-night breakdown; Xe 31 Aug 2026 (1 USD = MXN 17.02 · €0.8625).
+// Per-night figures from the Airbnb 2-night breakdown; Xe 31 Aug 2026 (1 USD = MXN 17.02 · €0.8625). Search dates are 24–27 Dec (3 nights).
 
 export const AIRBNB_SEARCH =
-  'https://www.airbnb.com/s/Roma-Norte--Mexico-City--Mexico/homes?checkin=2026-12-24&checkout=2026-12-28&adults=2'
+  'https://www.airbnb.com/s/Roma-Norte--Mexico-City--Mexico/homes?checkin=2026-12-24&checkout=2026-12-27&adults=2'
 
 export const BOOKING_SEARCH =
-  'https://www.booking.com/searchresults.html?ss=Mexico+City%2C+Mexico&dest_type=city&checkin=2026-12-24&checkout=2026-12-28&group_adults=2&no_rooms=1&group_children=0&order=bayesian_review_score&nflt=di%3D2262%3Bht_id%3D201%3Breview_score%3D80'
+  'https://www.booking.com/searchresults.html?ss=Mexico+City%2C+Mexico&dest_type=city&checkin=2026-12-24&checkout=2026-12-27&group_adults=2&no_rooms=1&group_children=0&order=bayesian_review_score&nflt=di%3D2262%3Bht_id%3D201%3Breview_score%3D80'
 
 /**
  * @typedef {object} Stay
@@ -21,7 +21,7 @@ export const BOOKING_SEARCH =
  * @property {string} walkToColima
  * @property {number | null} [rating]
  * @property {number | null} [reviewCount]
- * @property {string | null} [price]  // MXN · euro per day; leftover Airbnb quotes for 24–26 Dec 2026 (2 nights), not 24–28 totals; Xe 31 Aug 2026 (1 USD = 17.02 MXN · €0.8625)
+ * @property {string | null} [price]  // MXN · euro per day; leftover Airbnb quotes for 24–26 Dec 2026 (2 nights), not 24–27 totals; Xe 31 Aug 2026 (1 USD = 17.02 MXN · €0.8625)
  * @property {boolean | null} [selfCheckIn]  // true only for lockbox; 24h desk is not self-check-in
  * @property {string} [checkInNote]
  * @property {string} [source]
@@ -39,7 +39,7 @@ export const stays = [
     walkToColima: 'about 6 min to Colima cluster',
     rating: 4.79,
     reviewCount: 349,
-    price: 'MXN 2,310 · €117 per day leftover — quoted for 24–26 Dec 2026 (2 nights MXN 4,620 · €234), not a 24–28 total. Airbnb, 2 adults. Do not multiply.',
+    price: 'MXN 2,310 · €117 per day leftover — quoted for 24–26 Dec 2026 (2 nights MXN 4,620 · €234), not a 24–27 total. Airbnb, 2 adults. Do not multiply.',
     selfCheckIn: true,
     checkInNote: 'Self check-in with lockbox · listed after 15:00, no closing time',
     source: 'Airbnb.com',
@@ -54,7 +54,7 @@ export const stays = [
     walkToColima: 'about 8 min to Colima cluster',
     rating: 5.0,
     reviewCount: 10,
-    price: 'MXN 1,877 · €95 per day leftover — quoted for 24–26 Dec 2026 (2 nights MXN 3,754 · €190), not a 24–28 total. Airbnb, 2 adults. Do not multiply.',
+    price: 'MXN 1,877 · €95 per day leftover — quoted for 24–26 Dec 2026 (2 nights MXN 3,754 · €190), not a 24–27 total. Airbnb, 2 adults. Do not multiply.',
     selfCheckIn: false,
     checkInNote: '24h reception · listed after 15:00, no cutoff shown · doorman 24 hours to let guests in',
     source: 'Airbnb.com',
