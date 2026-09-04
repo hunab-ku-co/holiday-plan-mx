@@ -683,6 +683,27 @@ h2 {
   font-size: 0.92rem;
 }
 .cluster span { color: var(--ink-soft); }
+.cluster-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  justify-content: space-between;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.cluster-book {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent, #b33a2b);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+.cluster-book-note {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  flex: 1 1 100%;
+}
 
 .stay-empty {
   background: var(--cream);

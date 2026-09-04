@@ -1,12 +1,46 @@
 import { AIRBNB_SEARCH, BOOKING_SEARCH, stays } from './data/stays.js'
 
 const CLUSTER = [
-  { name: 'Rosetta', addr: 'Colima 166', walk: '1 min' },
-  { name: 'Bar Mauro', addr: 'Tabasco 149', walk: '2 min' },
-  { name: 'La 89', addr: 'Colima 134', walk: '3 min' },
-  { name: 'Campobaja', addr: 'Colima 124-E', walk: '3 min' },
-  { name: 'Despacho Margarita', addr: 'Córdoba 115', walk: 'about 5 min' },
-  { name: 'Martínez', addr: 'Puebla 90', walk: '7 min' },
+  {
+    name: 'Rosetta',
+    addr: 'Colima 166',
+    walk: '1 min',
+    bookUrl: 'https://www.exploretock.com/rosetta',
+    bookLabel: 'Book on Tock',
+  },
+  {
+    name: 'Bar Mauro',
+    addr: 'Tabasco 149',
+    walk: '2 min',
+    bookUrl: 'https://www.instagram.com/barmauromx',
+    bookLabel: 'Request via Instagram',
+  },
+  {
+    name: 'La 89',
+    addr: 'Colima 134',
+    walk: '3 min',
+    bookNote: 'Phone +52 55 3112 6173 — no online calendar',
+  },
+  {
+    name: 'Campobaja',
+    addr: 'Colima 124-E',
+    walk: '3 min',
+    bookUrl: 'https://www.opentable.com.mx/r/campobaja-ciudad-de-mexico',
+    bookLabel: 'Book on OpenTable',
+  },
+  {
+    name: 'Despacho Margarita',
+    addr: 'Córdoba 115',
+    walk: 'about 5 min',
+    bookNote: 'Walk-in — no table booking found',
+  },
+  {
+    name: 'Martínez',
+    addr: 'Puebla 90',
+    walk: '7 min',
+    bookUrl: 'https://www.exploretock.com/new-chef-lucho-restaurant-ciudad-de-mxico',
+    bookLabel: 'Book on Tock',
+  },
 ]
 
 function StayCard({ stay }) {
@@ -65,13 +99,26 @@ export default function Stays() {
         <ul className="cluster">
           {CLUSTER.map((r) => (
             <li key={r.name}>
-              <strong>{r.name}</strong>
-              <span>
-                {r.addr} · {r.walk}
-              </span>
+              <div className="cluster-main">
+                <strong>{r.name}</strong>
+                <span>
+                  {r.addr} · {r.walk}
+                </span>
+              </div>
+              {r.bookUrl ? (
+                <a className="cluster-book" href={r.bookUrl} target="_blank" rel="noreferrer">
+                  {r.bookLabel || 'Book'}
+                </a>
+              ) : r.bookNote ? (
+                <span className="cluster-book-note">{r.bookNote}</span>
+              ) : null}
             </li>
           ))}
         </ul>
+        <p className="hint">
+          Online booking checked 4 Sep 2026. Late December slots may still be closed on Tock/OpenTable — check again closer in.
+          Christmas hours were not published; do not assume 25 Dec is open.
+        </p>
         <p>
           Prefer 2nd–4th floor, interior or quiet-side rooms. Avoid pins billed as Roma Norte that sit east toward
           Cuauhtémoc / Doctores, or south of Álvaro Obregón.
