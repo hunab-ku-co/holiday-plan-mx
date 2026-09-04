@@ -5,7 +5,7 @@
     "travelers": "S & V",
     "start": "2026-12-24",
     "end": "2027-01-08",
-    "blurb": "A winter-holiday dossier for two. S lands MEX around midnight on 24 Dec (possibly just after midnight on the 25th). V is already on the trip. Order is CDMX (Roma 24–27 Dec, 3 nights) → Puebla (27–30 Dec, 3 nights) → Oaxaca (30 Dec–5 Jan) → CDMX (5–8 Jan); home on 8 Jan."
+    "blurb": "A winter-holiday dossier for two. S lands MEX around midnight on 24 Dec (possibly just after midnight on the 25th). V is already on the trip. Order is CDMX (Roma 24–27 Dec, 3 nights) → Puebla (27–30 Dec, 3 nights) → Oaxaca (30 Dec–6 Jan) → CDMX (6–8 Jan); home on 8 Jan."
   },
   "altitudes": [
     {
@@ -206,7 +206,7 @@
       "id": "comedor-jacinta",
       "city": "CDMX",
       "name": "Comedor Jacinta",
-      "note": "Virgilio 40. Bib Gourmand, walk from Lincoln. Polanco dinner after the 5 Jan return."
+      "note": "Virgilio 40. Bib Gourmand, walk from Lincoln. Polanco dinner after the 6 Jan return."
     },
     {
       "id": "chapulin",
@@ -224,7 +224,7 @@
       "id": "el-cardenal",
       "city": "CDMX",
       "name": "El Cardenal Palma",
-      "note": "Palma 23. Lunch only 08:00–18:30. Centro lunch on 6 Jan (Templo / Bellas Artes day)."
+      "note": "Palma 23. Lunch only 08:00–18:30. Centro lunch if stolen from another day — 6 Jan is the Oaxaca→TAPO arrival, not a Templo day."
     },
     {
       "id": "azul-historico",
@@ -389,7 +389,7 @@
       "id": "anthropology",
       "city": "CDMX",
       "name": "Museo Nacional de Antropología",
-      "note": "Official hours Tue–Sun 09:00–18:00, closed Mon — mna.inah.gob.mx (fetched 4 Sep 2026). MXN 210 · €11. Baseline A is Saturday 26 Dec (regular open day). 2026–27 Christmas circular not yet published — reconfirm closer in. Tickets: ventadeboletosenlinea.inah.gob.mx. 6 Jan is Centro / Templo / Bellas Artes instead. Do not stack Castillo + Templo.",
+      "note": "Official hours Tue–Sun 09:00–18:00, closed Mon — mna.inah.gob.mx (fetched 4 Sep 2026). MXN 210 · €11. Baseline A is Saturday 26 Dec (regular open day). 2026–27 Christmas circular not yet published — reconfirm closer in. Tickets: ventadeboletosenlinea.inah.gob.mx. Return block has no separate Centro / Anthropology day — do not stack on 6 Jan bus day. Do not stack Castillo + Templo.",
       "url": "https://mna.inah.gob.mx/"
     },
     {
@@ -402,7 +402,7 @@
       "id": "templo",
       "city": "CDMX",
       "name": "Templo Mayor",
-      "note": "Tue–Sun 09:00–17:00. MXN 210 · €11 INAH. 6 Jan 2027 (Día de Reyes) expected open. 2024–25 closed 25 Dec and 1 Jan only."
+      "note": "Tue–Sun 09:00–17:00. MXN 210 · €11 INAH. Día de Reyes (6 Jan 2027) expected open as a normal Wednesday, but baseline A uses 6 Jan as the Oaxaca→TAPO arrival — not a Templo day. 2024–25 closed 25 Dec and 1 Jan only."
     },
     {
       "id": "bellas",
@@ -414,7 +414,7 @@
       "id": "soumaya",
       "city": "CDMX",
       "name": "Museo Soumaya Plaza Carso",
-      "note": "Every day 10:30–18:30, free. Light add-on 5 Jan (Tuesday)."
+      "note": "Every day 10:30–18:30, free. Light add-on 6 Jan (Wednesday) only if the bus arrives early enough."
     },
     {
       "id": "cholula",
@@ -432,15 +432,15 @@
     },
     {
       "id": "cdmx-museums",
-      "label": "CDMX museums",
-      "days": 2,
-      "hint": "In baseline A, Anthropology is 26 Dec (Chapultepec); Centro / Templo / Bellas Artes is 6 Jan. Playground still uses two museum days after Oaxaca."
+      "label": "CDMX return",
+      "days": 1,
+      "hint": "In baseline A, Anthropology is 26 Dec (Chapultepec). After Oaxaca the return is one mild arrival-back day (bus 6 Jan), then Frida 7 Jan — not two museum days."
     },
     {
       "id": "oaxaca",
       "label": "Oaxaca",
       "days": 0,
-      "hint": "Absorbs leftover days. NYE belongs here. Buses: CDMX→Puebla 27 Dec, Puebla→Oaxaca 30 Dec, Oaxaca→TAPO 5 Jan; details on the tab."
+      "hint": "Absorbs leftover days. NYE belongs here. Buses: CDMX→Puebla 27 Dec, Puebla→Oaxaca 30 Dec, Oaxaca→TAPO 6 Jan; details on the tab."
     },
     {
       "id": "puebla",
@@ -458,11 +458,11 @@
   "scenarioA": {
     "id": "A",
     "name": "Baseline",
-    "lede": "Roma Norte 24–27 Dec (3 nights 24–26; decided), then Puebla 27–30 Dec (3 nights 27–29), Oaxaca 30 Dec–5 Jan for the valley and NYE (arrive 30; NYE 31), back to CDMX 5–8 Jan (3 nights). Buses, no internal flights: CDMX → Puebla 27 Dec, Puebla → Oaxaca 30 Dec (optional Cholula morning), Oaxaca → TAPO 5 Jan. Overnight vs day still open on 5 Jan. Dec Coyoacán walk dropped so Puebla can start 27."
+    "lede": "Roma Norte 24–27 Dec (3 nights 24–26; decided), then Puebla 27–30 Dec (3 nights 27–29), Oaxaca 30 Dec–6 Jan for the valley and NYE (arrive 30; NYE 31; checkout/travel 6 Jan), back to CDMX 6–8 Jan (2 nights 6–7). Buses, no internal flights: CDMX → Puebla 27 Dec, Puebla → Oaxaca 30 Dec (optional Cholula morning), Oaxaca → TAPO 6 Jan. Overnight vs day still open on 6 Jan. One full CDMX day on return is 7 Jan (Frida). Dec Coyoacán walk dropped so Puebla can start 27."
   },
   "scenarioB": {
     "id": "B",
     "name": "Altitude reverse",
-    "lede": "Land, then either sleep the airport hotel or go straight to Roma Norte if self-check-in is ready. Go to Oaxaca as soon as that is humane. Christmas and NYE at 1,542 m. CDMX museums and Frida after the return. Locked to bus; overnight vs day still open on the CDMX–Oaxaca tab."
+    "lede": "Land, then either sleep the airport hotel or go straight to Roma Norte if self-check-in is ready. Go to Oaxaca as soon as that is humane. Christmas and NYE at 1,542 m. Bus back 6 Jan (mild arrival); Frida 7 Jan; fly 8 Jan. Locked to bus; overnight vs day still open on the CDMX–Oaxaca tab."
   }
 }

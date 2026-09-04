@@ -256,18 +256,18 @@ function polancoReturn(date, fromOaxaca) {
     altitude: 2240,
     theme: 'cdmx-return',
     summary: fromOaxaca
-      ? 'Return from Oaxaca to CDMX by bus. ADO Oaxaca → ADO TAPO first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Day or overnight still open; Christmas fare not retrieved. Park-edge Campos Elíseos cluster if Anthropology is still ahead on foot. Soumaya is the light add-on (daily 10:30–18:30, free).'
+      ? 'Return from Oaxaca to CDMX by bus. ADO Oaxaca → ADO TAPO first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Travel day — mild check-in and evening only; do not stack Anthropology or Frida. Day or overnight still open; Christmas fare not retrieved. Soumaya only if the arrival is early enough (daily 10:30–18:30, free).'
       : 'Polanco night. Park-edge stay.',
     items: fromOaxaca
       ? [
           { kind: 'move', title: 'OAX → CDMX', detail: 'ADO Oaxaca → ADO TAPO first-class, 6–7 h typical. Station is close to Centro (~10 min taxi / ~20 min walk). Then onward to Polanco. Day or overnight still open; Christmas fare not retrieved. Details on the CDMX–Oaxaca tab.' },
-          { kind: 'see', title: 'Soumaya Plaza Carso if the arrival is early enough', detail: 'Every day 10:30–18:30, free. Tuesday 5 Jan is an ordinary opening.' },
+          { kind: 'see', title: 'Soumaya Plaza Carso only if early enough', detail: 'Every day 10:30–18:30, free. Wednesday 6 Jan is an ordinary opening. Skip if the bus runs late — this is a travel day.' },
           { kind: 'eat', title: 'Polanco dinner', detail: 'Comedor Jacinta (Bib Gourmand) or Chapulín or Au Pied. Quintonil is a tasting (MXN 6090 · €309, Sun closed) — better as 7 Jan if they want a special.' },
         ]
       : [{ kind: 'stay', title: 'Polanco', detail: 'Campos Elíseos / Lincoln cluster.' }],
     research: [
-      { label: 'Dated Polanco rates 5–8 Jan', state: 'Not published as a static list.' },
-      { label: 'ADO Oaxaca → TAPO 5 Jan inventory', state: 'Book now; dated fares not retrieved.' },
+      { label: 'Dated Polanco rates 6–8 Jan', state: 'Not published as a static list.' },
+      { label: 'ADO Oaxaca → TAPO 6 Jan inventory', state: 'Book now; dated fares not retrieved.' },
     ],
     hotel: 'las-alcobas',
     restaurant: 'comedor-jacinta',
@@ -698,6 +698,7 @@ function assignOaxacaDays(dates) {
 }
 
 export function authoredA() {
+  const oax = assignOaxacaDays(rangeDays('2026-12-30', '2027-01-05'))
   return [
     arrivalDay(),
     xmasCdmx(),
@@ -705,26 +706,19 @@ export function authoredA() {
     pueblaDay('2026-12-27'),
     pueblaDay('2026-12-28'),
     pueblaDay('2026-12-29'),
-    levaduraOverlay(oaxacaArrival('2026-12-30', false)),
-    levaduraOverlay(nyeDay()),
-    levaduraOverlay(recoveryDay()),
-    levaduraOverlay(monteAlban('2027-01-02')),
-    levaduraOverlay(craftsDay('2027-01-03')),
-    levaduraOverlay(oaxacaFinale('2027-01-04')),
-    polancoReturn('2027-01-05', true),
-    centroDay('2027-01-06'),
+    ...oax,
+    polancoReturn('2027-01-06', true),
     fridaDay('2027-01-07'),
     departDay(),
   ]
 }
 
 export function authoredB() {
-  const oax = assignOaxacaDays(rangeDays('2026-12-25', '2027-01-04'))
+  const oax = assignOaxacaDays(rangeDays('2026-12-25', '2027-01-05'))
   return [
     arrivalDay(),
     ...oax,
-    polancoReturn('2027-01-05', true),
-    anthroDay('2027-01-06'),
+    polancoReturn('2027-01-06', true),
     fridaDay('2027-01-07'),
     departDay(),
   ]
@@ -732,7 +726,7 @@ export function authoredB() {
 
 const BLOCK_DAYS = {
   'cdmx-xmas': 1,
-  'cdmx-museums': 2,
+  'cdmx-museums': 1,
   oaxaca: 0,
   puebla: 3,
   frida: 1,
@@ -763,6 +757,8 @@ export function normalizeOrder(order, includePuebla) {
 function buildBlockDays(id, dates) {
   if (id === 'cdmx-xmas') return [xmasCdmx()].map((d, i) => ({ ...d, date: dates[i], dow: dow(dates[i]) }))
   if (id === 'cdmx-museums') {
+    // Baseline return: one mild arrival-back day from Oaxaca (not a museum stack).
+    if (dates.length === 1) return [polancoReturn(dates[0], true)]
     const a = anthroDay(dates[0])
     const b = dates[1] ? centroDay(dates[1]) : null
     return b ? [a, b] : [a]
@@ -848,14 +844,14 @@ export function warningsFor(days, scenario) {
   const oaxNights = days.filter((d) => d.city === 'OAX' && d.theme !== 'depart').length
   const pueblaNights = days.filter((d) => d.city === 'PUE').length
   if (scenario === 'A') {
-    out.push({ level: 'info', text: `Baseline: Roma 24–27 Dec at ~2,240 m (3 nights 24–26), then Puebla 27–30 Dec (${pueblaNights} nights at ~2,140 m — not a descent that helps), then Oaxaca from 30 Dec (${oaxNights} nights at 1,542 m; NYE 31 Dec). Dec Coyoacán walk was dropped so Puebla can start 27. Scenario B still moves Christmas to Oaxaca.` })
+    out.push({ level: 'info', text: `Baseline: Roma 24–27 Dec at ~2,240 m (3 nights 24–26), then Puebla 27–30 Dec (${pueblaNights} nights at ~2,140 m — not a descent that helps), then Oaxaca 30 Dec–6 Jan (${oaxNights} nights at 1,542 m; NYE 31 Dec), bus back 6 Jan, CDMX return 6–8 Jan (2 nights), Frida 7 Jan, fly 8 Jan. Dec Coyoacán walk was dropped so Puebla can start 27. Scenario B still moves Christmas to Oaxaca.` })
   }
   const pueblaClosed = days.filter((d) => d.city === 'PUE' && (d.flags || []).includes('cholula-closed'))
   if (pueblaClosed.length) {
     out.push({ level: 'info', text: 'Cholula INAH is closed Monday and Tuesday. With Puebla nights 27–29, Mon 28 and Tue 29 are Centro time. The only clean Cholula window is Wed 30 morning before the Puebla→Oaxaca bus — or skip. Tunnels still closed. Palafoxiana closed Mon; Tue–Thu 10–17.' })
   }
   if (scenario === 'B') {
-    out.push({ level: 'info', text: 'Altitude reverse: Christmas and NYE in Oaxaca. 6 Jan is Anthropology (the day that moved); Centro / Templo Mayor is the piece that no longer has its own date — steal an hour from 6 Jan only if energy is high, do not stack a full Castillo.' })
+    out.push({ level: 'info', text: 'Altitude reverse: Christmas and NYE in Oaxaca. Bus Oaxaca→TAPO on 6 Jan is a mild arrival-back day — do not stack Anthropology or Frida. One full CDMX day on return is 7 Jan (Frida · Coyoacán · Anahuacalli). Anthropology is not on the return block in this sketch.' })
   }
   const overloaded = days.filter((d) => (d.items || []).length >= 4 && d.flags?.includes('travel-day'))
   if (overloaded.length) {

@@ -1,7 +1,7 @@
 const FACTS = [
   {
     label: 'Three legs',
-    body: 'This order is CDMX → Puebla 27 Dec, Puebla → Oaxaca 30 Dec, Oaxaca → TAPO 5 Jan. Buses, not internal flights. Times only, not tickets.',
+    body: 'This order is CDMX → Puebla 27 Dec, Puebla → Oaxaca 30 Dec, Oaxaca → TAPO 6 Jan. Buses, not internal flights. Times only, not tickets.',
   },
   {
     label: 'CDMX → Puebla · 27 Dec',
@@ -12,12 +12,12 @@ const FACTS = [
     body: 'Not TAPO–Oaxaca. CAPU → Oaxaca is real (~4.5–5.5 h). Optional Cholula morning (Wed open; tunnels still closed), then the bus. Travel day belongs to Oaxaca. NYE dinner is 31 Dec, not tonight. Do not invent clocks. Fare not retrieved.',
   },
   {
-    label: 'Oaxaca → TAPO · 5 Jan',
-    body: 'ADO Oaxaca → ADO TAPO first-class, 6–7 h typical. Fastest current-week sample 5 h; other samples 6 h–7 h 35 m (Busbud / Wanderu, off-peak). Station is close to Centro (~10 min taxi / ~20 min walk). Overnight vs day still open.',
+    label: 'Oaxaca → TAPO · 6 Jan',
+    body: 'ADO Oaxaca → ADO TAPO first-class, 6–7 h typical. Fastest current-week sample 5 h; other samples 6 h–7 h 35 m (Busbud / Wanderu, off-peak). Station is close to Centro (~10 min taxi / ~20 min walk). Overnight vs day still open. Travel day belongs to CDMX (mild check-in + evening).',
   },
   {
     label: 'Money (two adults, tickets only)',
-    body: 'Christmas 2026 ADO / Clickbus / Estrella Roja fares were not retrieved — will not guess. Off-peak Platino ~MXN 1,530 · €78 (Wanderu current-week average, 31 Aug 2026) is a TAPO sample only, not a 27 Dec, 30 Dec, or 5 Jan quote.',
+    body: 'Christmas 2026 ADO / Clickbus / Estrella Roja fares were not retrieved — will not guess. Off-peak Platino ~MXN 1,530 · €78 (Wanderu current-week average, 31 Aug 2026) is a TAPO sample only, not a 27 Dec, 30 Dec, or 6 Jan quote.',
   },
   {
     label: 'Stations',
@@ -29,7 +29,7 @@ const FACTS = [
   },
   {
     label: 'Overnight vs day',
-    body: '30 Dec outbound is a travel day (optional Cholula morning, then CAPU → Oaxaca). NYE is the next evening in Oaxaca — overnight on this leg is not the plan. Overnight vs day still open on 5 Jan. The 27 Dec Puebla hop is a short daylight ride.',
+    body: '30 Dec outbound is a travel day (optional Cholula morning, then CAPU → Oaxaca). NYE is the next evening in Oaxaca — overnight on this leg is not the plan. Overnight vs day still open on 6 Jan. The 27 Dec Puebla hop is a short daylight ride.',
   },
   {
     label: 'Christmas-week sold-out risk',
@@ -49,9 +49,9 @@ const SKETCHES = [
     body: 'Optional Cholula morning (Wed open; tunnels still closed), then CAPU → Oaxaca (~4.5–5.5 h). Travel day belongs to Oaxaca. NYE rooftop is tomorrow — not tonight. Do not invent clocks or fares. Confirm times on ado.com.mx. Times only, not tickets.',
   },
   {
-    when: 'Return · Tue 5 Jan · typical coach times',
+    when: 'Return · Wed 6 Jan · typical coach times',
     title: 'Day or overnight ADO Oaxaca → TAPO',
-    body: 'ADO Oaxaca first-class station is close to Centro (~10 min taxi / ~20 min walk), then 6–7 h to TAPO, then onward in CDMX. Overnight vs day still open. Confirm times on ado.com.mx. Christmas fare not retrieved. Times only, not tickets.',
+    body: 'ADO Oaxaca first-class station is close to Centro (~10 min taxi / ~20 min walk), then 6–7 h to TAPO, then onward to Polanco. Mild arrival-back day — not museums. Overnight vs day still open. Confirm times on ado.com.mx. Christmas fare not retrieved. Times only, not tickets.',
   },
 ]
 
@@ -59,12 +59,12 @@ const SPLIT = [
   {
     n: '1',
     title: 'Three buses as locked',
-    body: 'CDMX → Puebla 27 Dec (Estrella Roja TAPO / Cholula ~2–2.5 h), Puebla → Oaxaca 30 Dec (CAPU ~4.5–5.5 h; optional Cholula morning), Oaxaca → TAPO 5 Jan (6–7 h). Overnight vs day still open on 5 Jan. Book now; fare not retrieved.',
+    body: 'CDMX → Puebla 27 Dec (Estrella Roja TAPO / Cholula ~2–2.5 h), Puebla → Oaxaca 30 Dec (CAPU ~4.5–5.5 h; optional Cholula morning), Oaxaca → TAPO 6 Jan (6–7 h). Overnight vs day still open on 6 Jan. Book now; fare not retrieved.',
   },
   {
     n: '2',
     title: 'Overnight vs day on the long legs',
-    body: '30 Dec Puebla → Oaxaca is a travel day so there is a full NYE evening on 31 Dec — overnight on the 30th leg is not the plan. Overnight vs day still open for 5 Jan Oaxaca → TAPO. A day coach sits through lunch and does not save a hotel night. Confirm times on ado.com.mx. Fare not retrieved.',
+    body: '30 Dec Puebla → Oaxaca is a travel day so there is a full NYE evening on 31 Dec — overnight on the 30th leg is not the plan. Overnight vs day still open for 6 Jan Oaxaca → TAPO. A day coach sits through lunch and does not save a hotel night. Confirm times on ado.com.mx. Fare not retrieved.',
   },
   {
     n: '3',
@@ -79,7 +79,7 @@ export default function OaxacaTravel() {
       <h2>Buses · CDMX → Puebla → Oaxaca → CDMX</h2>
       <p className="hint">
         Locked 31 Aug 2026, reframed for this order. Two adults. Outbound is CDMX → Puebla 27 Dec then Puebla → Oaxaca
-        30 Dec; return Oaxaca → TAPO 5 Jan. Overnight vs day still open on 5 Jan. Times only, not
+        30 Dec; return Oaxaca → TAPO 6 Jan. Overnight vs day still open on 6 Jan. Times only, not
         tickets. Book on{' '}
         <a href="https://www.ado.com.mx/" target="_blank" rel="noreferrer">
           ado.com.mx

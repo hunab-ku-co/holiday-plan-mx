@@ -341,7 +341,7 @@ export default function App() {
           {(showPlay || state.scenario === 'C') && (
             <>
               <p className="hint">
-                Arrival 24 Dec and the 8 Jan homebound day stay locked. Baseline A keeps Christmas mild in Roma/Condesa (25) and Anthropology (26); Puebla starts 27 (Dec Coyoacán plazas walk dropped — Frida stays 7 Jan). Oaxaca stretches to fill leftover days. Puebla is three overnight days, not a day trip. Default order: CDMX Christmas → Puebla → Oaxaca → museums → Frida.
+                Arrival 24 Dec and the 8 Jan homebound day stay locked. Baseline A keeps Christmas mild in Roma/Condesa (25) and Anthropology (26); Puebla starts 27 (Dec Coyoacán plazas walk dropped — Frida stays 7 Jan). Oaxaca runs through 5 Jan night (bus back 6 Jan). Return CDMX is 6–8 Jan (2 nights); one full day on the 7th. Puebla is three overnight days, not a day trip. Default order: CDMX Christmas → Puebla → Oaxaca → return → Frida.
               </p>
               <ul className="blocks">
                 {normalizeOrder(state.order, state.includePuebla).map((id, i, arr) => {

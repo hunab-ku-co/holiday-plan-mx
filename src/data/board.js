@@ -52,12 +52,12 @@ export const BOARD_CARDS = [
   },
   {
     id: 'jan-cdmx-shrink',
-    title: 'January CDMX could shrink to 2 nights',
+    title: 'January CDMX return is 2 nights (6–7 Jan)',
     detail:
-      'Current plan is CDMX 5–8 Jan (3 nights 5, 6, 7). Maybe: bus in on 6 Jan, nights 6–7, fly 8, if Centro / Ciudadela can share the bus day. Not decided.',
+      'Decided: bus Oaxaca→TAPO on 6 Jan; nights 6–7; fly 8 Jan. One full day on return is 7 Jan (Frida). 6 Jan is mild arrival only — no museum stack.',
     city: 'CDMX',
     kind: 'policy',
-    defaultColumn: 'maybe',
+    defaultColumn: 'decided',
   },
 
   // Must-do visits — wording from trip.json mustDos. Skip NYE (covered by nye-dinner).
@@ -177,7 +177,7 @@ export const BOARD_CARDS = [
     id: 'ciudadela',
     title: 'La Ciudadela artisan market (Balderas)',
     detail:
-      'Mercado de Artesanías de la Ciudadela, Balderas esq. Emilio Donde, Colonia Centro, Cuauhtémoc 06040. Official CDMX page (1 Sep 2026): open every day until 18:00; 350 vendors. Opening time not stated there (other sources disagree 9 vs 10 — not used). 6–7 Jan 2027 holiday hours not published. Last couple of CDMX days after the 5 Jan Oaxaca→TAPO bus; 8 Jan is a fly day, not a market day. Prefer Wed 6 Jan (Día de Reyes, ordinary Wednesday) over stacking with Frida on Thu 7 Jan. Metro Balderas.',
+      'Mercado de Artesanías de la Ciudadela, Balderas esq. Emilio Donde, Colonia Centro, Cuauhtémoc 06040. Official CDMX page (1 Sep 2026): open every day until 18:00; 350 vendors. Opening time not stated there (other sources disagree 9 vs 10 — not used). 6–7 Jan 2027 holiday hours not published. Bus Oaxaca→TAPO is 6 Jan (mild arrival — not a market day). One full CDMX day on return is Thu 7 Jan — Balderas fits that afternoon after Frida / Coyoacán / Anahuacalli, or skip if energy is gone. 8 Jan is a fly day. Metro Balderas.',
     city: 'CDMX',
     kind: 'visit',
     defaultColumn: 'maybe',
@@ -203,16 +203,16 @@ export const BOARD_CARDS = [
   },
   {
     id: 'oax-stay',
-    title: 'Book Oaxaca Centro/Jalatlaco 30 Dec–5 Jan',
-    detail: 'Arrive 30 Dec; through NYE 31 Dec. Peak week. Centro/Jalatlaco inventory this far out actually sells out.',
+    title: 'Book Oaxaca Centro/Jalatlaco 30 Dec–6 Jan',
+    detail: 'Arrive 30 Dec; through NYE 31 Dec; checkout/travel 6 Jan. Peak week. Centro/Jalatlaco inventory this far out actually sells out.',
     city: 'Oaxaca',
     kind: 'stay',
     defaultColumn: 'maybe',
   },
   {
     id: 'ado-seats',
-    title: 'Book three buses: CDMX→Puebla 27 Dec, Puebla→Oaxaca 30 Dec, Oaxaca→TAPO 5 Jan',
-    detail: 'Locked: bus, not flights. Fares were not retrieved. Book on ado.com.mx; Estrella Roja for the Puebla leg. 30 Dec is travel day (optional Cholula morning, then CAPU → Oaxaca); NYE dinner is 31 Dec. Overnight vs day still open on 5 Jan. Details on the CDMX–Oaxaca tab.',
+    title: 'Book three buses: CDMX→Puebla 27 Dec, Puebla→Oaxaca 30 Dec, Oaxaca→TAPO 6 Jan',
+    detail: 'Locked: bus, not flights. Fares were not retrieved. Book on ado.com.mx; Estrella Roja for the Puebla leg. 30 Dec is travel day (optional Cholula morning, then CAPU → Oaxaca); NYE dinner is 31 Dec. Overnight vs day still open on 6 Jan. Details on the CDMX–Oaxaca tab.',
     city: '',
     kind: 'move',
     defaultColumn: 'maybe',
